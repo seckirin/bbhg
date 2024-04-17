@@ -64,6 +64,39 @@ cat resolved.txt | dnsx -resp -retry 3 -json -o scan/dnsx/resolved-dnsx.json
 cat scan/dnsx/resolved-dnsx.json | jq '.' -r
 ```
 
+## 反编译程序收集子域名
+
+### 反编译 APK
+
+```bash
+# https://github.com/iBotPeaches/Apktool
+apktool d application.apk
+```
+
+### 反编译小程序
+
+```bash
+# Windows 小程序存放路径
+C:\Users\Administrator\Documents\WeChat Files\Applet\
+
+# MacOS 小程序存放路径
+~/Library/Containers/com.tencent.xinWeChat/Data/.wxapplet/packages
+```
+
+### 匹配域名和 IP 的正则表达式
+
+```bash
+# 域名正则表达式
+(http|https)?://[a-zA-Z0-9\.\/_&=@$%?~#-]*target
+(http|https)?://[a-zA-Z0-9\.\/_&=@$%?~#-]*target.com
+
+# IP 地址正则表达式
+^((2((5[0-5])|([0-4]\d)))|([0-1]?\d{1,2}))(\.((2((5[0-5])|([0-4]\d)))|([0-1]?\d{1,2}))){3}$
+
+# 匹配语法
+grep -E "{正则表达式}" -r "{反编译后的文件目录}" --color=auto
+```
+
 ## 爬取站点收集子域名
 
 *
@@ -71,16 +104,6 @@ cat scan/dnsx/resolved-dnsx.json | jq '.' -r
 ## Burp 流量收集子域名
 
 *
-
-## 反编译 APK 收集子域名
-
-*
-
-## 反编译小程序收集子域名
-
-*
-
-
 
 **目录及文件说明**
 
