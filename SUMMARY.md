@@ -11,3 +11,4 @@
 
 * [Host 碰撞测试](vulnerability-testing/host-collision/README.md)
   * [Host 碰撞测试建议](vulnerability-testing/host-collision/suggestions.md)
+* [端口服务测试](vulnerability-testing/duan-kou-fu-wu-ce-shi.md)
