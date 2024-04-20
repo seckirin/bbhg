@@ -9,6 +9,6 @@
 
 ## 漏洞测试 <a href="#vulnerability-testing" id="vulnerability-testing"></a>
 
-* [Host 碰撞测试](vulnerability-testing/host-collision/README.md)
-  * [Host 碰撞测试建议](vulnerability-testing/host-collision/suggestions.md)
-* [端口服务测试](vulnerability-testing/duan-kou-fu-wu-ce-shi.md)
+* [Host 碰撞测试](vulnerability-testing/host-collision-testing/README.md)
+  * [Host 碰撞测试建议](vulnerability-testing/host-collision-testing/suggestions.md)
+* [端口测试](vulnerability-testing/port-testing.md)
