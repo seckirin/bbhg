@@ -1,12 +1,19 @@
 # Table of contents
 
-* [HackNote](README.md)
+* [Hack Note](README.md)
 
 ## 信息收集 <a href="#information-gathering" id="information-gathering"></a>
 
-* [子域名枚举](information-gathering/subdomain-enumeration.md)
+* [子域名枚举](information-gathering/subdomain-enumeration/README.md)
+  * [子域名接管](information-gathering/subdomain-enumeration/subdomain-takeover.md)
+  * [Host 碰撞](information-gathering/subdomain-enumeration/host-collision.md)
+* [网站侦查](information-gathering/website-reconnaissance.md)
+* [网络扫描](information-gathering/network-scanning.md)
 
-## 漏洞测试 <a href="#vulnerability-testing" id="vulnerability-testing"></a>
+## 渗透测试 <a href="#penetration-testing" id="penetration-testing"></a>
 
-* [Host 碰撞测试](vulnerability-testing/host-collision-testing.md)
-* [端口测试](vulnerability-testing/port-testing.md)
+* [端口测试](penetration-testing/port-testing.md)
+
+## 其他 <a href="#others" id="others"></a>
+
+* [ON THE WAY](others/on-the-way.md)
