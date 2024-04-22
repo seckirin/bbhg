@@ -12,6 +12,7 @@ COMPANY=;TARGET=;DATETIME=$(date +%Y%m%d%H%M%S)
 mkdir -p $COMPANY/$TARGET \
     $COMPANY/$TARGET/dict \
     $COMPANY/$TARGET/scan \
+    $COMPANY/$TARGET/utils \
 cd $COMPANY/$TARGET
 
 # DNS resolver - https://github.com/trickest/resolvers
@@ -19,6 +20,10 @@ wget https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt -O 
 
 # Subdomain dict - https://github.com/yuukisec/hackdict
 wget https://raw.githubusercontent.com/Yuukisec/hack-dict/main/subdomains/subdomains.txt -O dict/subdomains.txt
+
+# Some gadgets
+# 生产 C 段地址 - https://gist.github.com/yuukisec/619482d169bd54bf61acfc1647e2588a
+git clone https://gist.github.com/619482d169bd54bf61acfc1647e2588a.git utils/
 ```
 
 ## 被动收集子域名
@@ -32,15 +37,15 @@ wget https://raw.githubusercontent.com/Yuukisec/hack-dict/main/subdomains/subdom
 # github,censys,commoncrawl,bufferover,hackertarget,waybackarchive,facebook,anubis,digitorus
 subfinder -dL roots.txt -s github,censys,commoncrawl,bufferover,\
 hackertarget,waybackarchive,facebook,anubis,digitorus \
--proxy socks5://ip:port -v -oJ -cs -o subfinder-proxy.json
+-proxy socks5://$HOST:$PORT -v -oJ -cs -o subfinder-proxy.json
 
 # Single domain
-subfinder -d target.com -all -v -oJ -cs -o scan/subfinder.json
+subfinder -d target.com -all -v -oJ -cs -o scan/subfinder.json <-proxy socks5://$HOST:$PORT>
 # Multiple domain
-subfinder -dL roots.txt -all -v -oJ -cs -o scan/subfinder.json
+subfinder -dL roots.txt -all -v -oJ -cs -o scan/subfinder.json <-proxy socks5://$HOST:$PORT>
 
 # Cleanup
-cat scan/subfinder.json | jq -r '.host' | anew subs.txt
+cat scan/subfinder.json | jq -r '.host' | anew subs.txt | wc -l
 ```
 
 ## 主动爆破子域名
@@ -50,7 +55,7 @@ cat scan/subfinder.json | jq -r '.host' | anew subs.txt
 # https://github.com/blechschmidt/massdns
 # https://github.com/projectdiscovery/shuffledns
 cat roots.txt | shuffledns -w dict/subdomains.txt -r dict/resolvers.txt -j -o scan/shuffledns.json
-cat scan/shuffledns.json | jq -r '.hostname' | anew subs.txt
+cat scan/shuffledns.json | jq -r '.hostname' | anew subs.txt | wc -l
 # or
 # https://github.com/robertdavidgraham/masscan
 # https://github.com/d3mondev/puredns
@@ -58,7 +63,7 @@ cat scan/shuffledns.json | jq -r '.hostname' | anew subs.txt
 puredns bruteforce dict/subdomains.txt target.com -r dict/resolvers.txt -w scan/puredns-bruteforce.txt
 # Multiple domain
 puredns bruteforce dict/subdomains.txt -d roots.txt -r dict/resolvers.txt -w scan/puredns-bruteforce.txt
-cat scan/puredns-bruteforce.txt | anew subs.txt
+cat scan/puredns-bruteforce.txt | anew subs.txt | wc -l
 ```
 
 ## 获取解析域名
@@ -72,22 +77,34 @@ puredns resolve subs.txt -r dict/resolvers.txt -w resolved.txt
 
 ```bash
 # 获取解析子域名 DNS 记录
-cat resolved.txt | dnsx -resp -retry 3 -json -o scan/dnsx-resolved.json
+cat resolved.txt | dnsx -resp -retry 3 -recon -json -silent -o scan/dnsx-resolved-recon.json
+# 筛选解析子域名 A 记录
+cat scan/dnsx-resolved-recon.json | jq -r 'select(.a != null) | .a[]' | sort -u \
+| anew scan/dnsx-resolved-a.txt | wc -l
+# 筛选解析子域名 AAAA 记录
+cat scan/dnsx-resolved-recon.json | jq -r 'select(.aaaa != null) | .aaaa[]' | sort -u \
+| anew scan/dnsx-resolved-aaaa.txt | wc -l
 
-# 获取所有子域名 DNS 记录 (用于 Host 碰撞测试)
-cat subs.txt | dnsx -resp -retry 3 -json -o scan/dns-subs.json
-# 筛选所有子域名 A 记录的 IP
-cat scan/dns-subs.json | jq -r 'select(.a != null) | .a[]' > subs-dns-a.txt
-# 获取所有子域名中解析结果为 NXDOMAIN 的域名
-cat subs.txt | dnsx -json -retry 3 -rc NXDOMAIN -silent | jq -r '.host' > subs-dns-nxdomain.txt
+# 获取所有子域名 DNS 记录
+cat subs.txt | dnsx -resp -retry 3 -recon -json -o scan/dnsx-subs-recon.json
+# 筛选所有子域名 A 记录
+cat scan/dnsx-subs-recon.json | jq -r 'select(.a != null) | .a[]' | sort -u \
+| anew scan/dnsx-subs-a.txt | wc -l
+# 筛选所有子域名 AAAA 记录
+cat scan/dnsx-subs-recon.json | jq -r 'select(.aaaa != null) | .aaaa[]' | sort -u \
+| anew scan/dnsx-subs-aaaa.txt | wc -l
+# 获取所有子域名 NXDOMAIN 记录 (用于 Host 碰撞测试)
+cat subs.txt | dnsx -json -retry 3 -rc NXDOMAIN -silent | jq -r '.host' \
+> scan/dnsx-subs-nxdomain.txt
+```
 
-cp subs-dns-* ../penetration-testing/host-collision/
+## 生成 C 段地址
 
-
-# 筛选 CDN 获取 IP 地址 (不稳定)
-# https://github.com/projectdiscovery/cdncheck
-grep -v -f <(cat scan/dnsx-resolved.json | jq -r '.a[]' | cdncheck -silent) \
-    <(cat scan/dnsx-resolved.json | jq -r '.a[]') | sort -u > ips.txt
+```bash
+# https://gist.github.com/619482d169bd54bf61acfc1647e2588a.git
+# git clone https://gist.github.com/619482d169bd54bf61acfc1647e2588a.git utils/
+sh utils/count_ips.sh scan/dnsx-resolved-a.txt  | jq '.' > cird.json
+cat cird.json | jq 'sort_by(-.count) | map("\(.count) - \(.cidr)") | .[]' -r > cird.txt
 ```
 
 ## 反编译程序收集子域名
@@ -137,15 +154,9 @@ grep -E "{正则表达式}" -r "{反编译后的文件目录}" --color=auto
 ➜ tree --dirsfirst
 .
 ├── dict # 扫描字典
-│   ├── resolvers.txt
-│   └── subdomains.txt
-├── scan # 输出结果
-│   ├── dnsx-resolved.json
-│   ├── dnsx-subs.json
-│   ├── puredns-bruteforce.json
-│   ├── shuffledns.json
-│   ├── subfinder-proxy.json
-│   └── subfinder.json
+│   └── ...
+├── scan # 扫描结果
+│   └── ...
 ├── resolved.txt # 存在解析记录的域名
 ├── roots.txt # 目标根域名
 └── subs.txt # 所有主动和被动方式发现的子域名
