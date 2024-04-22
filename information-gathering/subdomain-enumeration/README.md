@@ -20,10 +20,6 @@ wget https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt -O 
 
 # Subdomain dict - https://github.com/yuukisec/hackdict
 wget https://raw.githubusercontent.com/Yuukisec/hack-dict/main/subdomains/subdomains.txt -O dict/subdomains.txt
-
-# Some gadgets
-# 生产 C 段地址 - https://gist.github.com/yuukisec/619482d169bd54bf61acfc1647e2588a
-git clone https://gist.github.com/619482d169bd54bf61acfc1647e2588a.git utils/
 ```
 
 ## 被动收集子域名
@@ -101,10 +97,8 @@ cat subs.txt | dnsx -json -retry 3 -rc NXDOMAIN -silent | jq -r '.host' \
 ## 生成 C 段地址
 
 ```bash
-# https://gist.github.com/619482d169bd54bf61acfc1647e2588a.git
-# git clone https://gist.github.com/619482d169bd54bf61acfc1647e2588a.git utils/
-sh utils/count_ips.sh scan/dnsx-resolved-a.txt  | jq '.' > cird.json
-cat cird.json | jq 'sort_by(-.count) | map("\(.count) - \(.cidr)") | .[]' -r > cird.txt
+# https://github.com/yuukisec/gcidr
+cat scan/dnsx-resolved-a.txt | gcidr -sa -j -o ccidr.json
 ```
 
 ## 反编译程序收集子域名

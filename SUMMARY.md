@@ -4,6 +4,7 @@
 
 ## 信息收集 <a href="#information-gathering" id="information-gathering"></a>
 
+* [域名枚举](information-gathering/yu-ming-mei-ju.md)
 * [子域名枚举](information-gathering/subdomain-enumeration/README.md)
   * [子域名接管](information-gathering/subdomain-enumeration/subdomain-takeover.md)
   * [Host 碰撞](information-gathering/subdomain-enumeration/host-collision.md)
@@ -14,6 +15,7 @@
 
 * [端口测试](penetration-testing/port-testing.md)
 * [网站测试](penetration-testing/wang-zhan-ce-shi.md)
+* [云服务测试](penetration-testing/cloud-server-testing.md)
 
 ## 其他 <a href="#others" id="others"></a>
 
