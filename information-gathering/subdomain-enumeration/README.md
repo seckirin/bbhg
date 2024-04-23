@@ -1,24 +1,20 @@
 # 子域名枚举
 
-如果对操作中的目录或文件存在疑问，请查询页面底部的 "目录及文件说明"。
-
 收集子域名的两种主要方式包括主动爆破子域名和被动收集子域名。被动收集为主要的收集方式，其他方式作为可选项，辅助子域名收集的全面性。
 
-在此之前你可以适当的进行一些准备工作，以帮助你更好的进行子域名枚举。
+在此之前你可以适当的进行一些准备工作，以帮助你更好的进行子域名枚举
 
 ```bash
-# Initialize environment
 COMPANY=;TARGET=;DATETIME=$(date +%Y%m%d%H%M%S)
 mkdir -p $COMPANY/$TARGET \
     $COMPANY/$TARGET/dict \
     $COMPANY/$TARGET/scan \
-    $COMPANY/$TARGET/utils \
 cd $COMPANY/$TARGET
 
 # DNS resolver - https://github.com/trickest/resolvers
 wget https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt -O dict/resolvers.txt
 
-# Subdomain dict - https://github.com/yuukisec/hackdict
+# Subdomain dict - https://github.com/yuukisec/hack-dict
 wget https://raw.githubusercontent.com/Yuukisec/hack-dict/main/subdomains/subdomains.txt -O dict/subdomains.txt
 ```
 
@@ -62,7 +58,7 @@ puredns bruteforce dict/subdomains.txt -d roots.txt -r dict/resolvers.txt -w sca
 cat scan/puredns-bruteforce.txt | anew subs.txt | wc -l
 ```
 
-## 获取解析域名
+## 获取正常解析的域名
 
 ```bash
 # https://github.com/d3mondev/puredns
@@ -136,22 +132,8 @@ grep -E "{正则表达式}" -r "{反编译后的文件目录}" --color=auto
 
 ## 爬取站点收集子域名
 
-*
+ON THE WAY
 
 ## Burp 流量收集子域名
 
-*
-
-**目录及文件说明**
-
-```bash
-➜ tree --dirsfirst
-.
-├── dict # 扫描字典
-│   └── ...
-├── scan # 扫描结果
-│   └── ...
-├── resolved.txt # 存在解析记录的域名
-├── roots.txt # 目标根域名
-└── subs.txt # 所有主动和被动方式发现的子域名
-```
+ON THE WAY
