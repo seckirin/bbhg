@@ -21,48 +21,60 @@ wget https://raw.githubusercontent.com/Yuukisec/hack-dict/main/subdomains/subdom
 ## 被动收集子域名
 
 ```bash
-# https://github.com/projectdiscovery/subfinder
-# https://docs.projectdiscovery.io/tools/subfinder/install#post-install-configuration
-# https://github.com/jqlang/jq
-# https://github.com/tomnomnom/anew
-# 下面是需要代理的信息源, 可以跳过这一条, 下面的条命令中直接加上 -proxy 参数
-# github,censys,commoncrawl,bufferover,hackertarget,waybackarchive,facebook,anubis,digitorus
-subfinder -dL roots.txt -s github,censys,commoncrawl,bufferover,\
-hackertarget,waybackarchive,facebook,anubis,digitorus \
--proxy socks5://$HOST:$PORT -v -oJ -cs -o subfinder-proxy.json
+# The sources that requires the proxy: github,censys,commoncrawl
+# bufferover, hackertarget, waybackarchive,facebook, anubis,digitorus
 
-# Single domain
-subfinder -d target.com -all -v -oJ -cs -o scan/subfinder.json <-proxy socks5://$HOST:$PORT>
-# Multiple domain
-subfinder -dL roots.txt -all -v -oJ -cs -o scan/subfinder.json <-proxy socks5://$HOST:$PORT>
+# SINGLE TARGET
+subfinder -d target.com -all -v -oJ -cs -o scan/subfinder.json {-proxy socks5://$HOST:$PORT}
+# MULTIPLE TARGET
+subfinder -dL roots.txt -all -v -oJ -cs -o scan/subfinder.json {-proxy socks5://$HOST:$PORT}
 
-# Cleanup
+# CLEANUP
 cat scan/subfinder.json | jq -r '.host' | anew subs.txt | wc -l
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/projectdiscovery/subfinder
+https://docs.projectdiscovery.io/tools/subfinder/install#post-install-configuration
+https://jqlang.github.io/jq/manual
+https://github.com/tomnomnom/anew
 ```
 
 ## 主动爆破子域名
 
 ```bash
 # 爆破子域名
-# https://github.com/blechschmidt/massdns
-# https://github.com/projectdiscovery/shuffledns
+# MULTIPLE TARGET
 cat roots.txt | shuffledns -w dict/subdomains.txt -r dict/resolvers.txt -j -o scan/shuffledns.json
+# CLEANUP
 cat scan/shuffledns.json | jq -r '.hostname' | anew subs.txt | wc -l
-# or
-# https://github.com/robertdavidgraham/masscan
-# https://github.com/d3mondev/puredns
-# Single domain
+# OR
+# SINGLE TARGET
 puredns bruteforce dict/subdomains.txt target.com -r dict/resolvers.txt -w scan/puredns-bruteforce.txt
-# Multiple domain
+# MULTIPLE TARGET
 puredns bruteforce dict/subdomains.txt -d roots.txt -r dict/resolvers.txt -w scan/puredns-bruteforce.txt
+# CLEANUP
 cat scan/puredns-bruteforce.txt | anew subs.txt | wc -l
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/blechschmidt/massdns
+https://github.com/projectdiscovery/shuffledns
+https://github.com/robertdavidgraham/masscan
+https://github.com/d3mondev/puredns
 ```
 
 ## 获取正常解析的域名
 
 ```bash
-# https://github.com/d3mondev/puredns
 puredns resolve subs.txt -r dict/resolvers.txt -w resolved.txt
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/d3mondev/puredns
 ```
 
 ## 获取 DNS 记录
@@ -90,11 +102,21 @@ cat subs.txt | dnsx -json -retry 3 -rc NXDOMAIN -silent | jq -r '.host' \
 > scan/dnsx-subs-nxdomain.txt
 ```
 
+```bash
+# REFERENCE DOCS
+https://github.com/projectdiscovery/dnsx
+https://jqlang.github.io/jq/manual
+```
+
 ## 生成 C 段地址
 
 ```bash
-# https://github.com/yuukisec/gcidr
-cat scan/dnsx-resolved-a.txt | gcidr -sa -j -o ccidr.json
+cat scan/dnsx-resolved-a.txt | gcidr -sa-count -j -> ccidr.json
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/yuukisec/gcidr
 ```
 
 ## 反编译程序收集子域名
@@ -102,8 +124,12 @@ cat scan/dnsx-resolved-a.txt | gcidr -sa -j -o ccidr.json
 ### 反编译 APK
 
 ```bash
-# https://github.com/iBotPeaches/Apktool
 apktool d application.apk
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/iBotPeaches/Apktool
 ```
 
 ### 反编译小程序

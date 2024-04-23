@@ -7,6 +7,10 @@
 {% embed url="https://github.com/EdOverflow/can-i-take-over-xyz" %}
 
 ```bash
-# https://github.com/r3curs1v3-pr0xy/sub404
 python3 sub404.py -f ~/bytedance/fanqienovel/information-gathering/subs.txt
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/r3curs1v3-pr0xy/sub404
 ```

@@ -27,8 +27,8 @@
   * [27017 MongoDB](penetration-testing/port-testing/27017-mongodb.md)
 * [Web 站点测试](penetration-testing/web-site-testing.md)
 * [Web 服务测试](penetration-testing/web-service-testing/README.md)
-  * [WebLogic](penetration-testing/web-service-testing/weblogic.md)
   * [Shiro](penetration-testing/web-service-testing/shiro.md)
+  * [WebLogic](penetration-testing/web-service-testing/weblogic.md)
 * [云服务测试](penetration-testing/cloud-server-testing.md)
 
 ## 其他 <a href="#others" id="others"></a>

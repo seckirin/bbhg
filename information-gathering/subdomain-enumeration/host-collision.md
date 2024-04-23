@@ -10,9 +10,14 @@ Host 碰撞是一种常见的网络安全技术，它通过尝试多个 IP 或�
 ## 获取存在但没有解析记录的域名
 
 ```bash
-# https://github.com/projectdiscovery/dnsx
 cat subs.txt | dnsx -json -retry 3 -rc NXDOMAIN -o hack/host-collision/noxdomain.txt
 cat hack/host-collision/noxdomain.txt | jq '.host' -r | anew hack/host-collision/hostList.txt
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/projectdiscovery/dnsx
+https://jqlang.github.io/jq/manual
 ```
 
 ## 获取指向内网 IP 地址的域名
@@ -32,9 +37,13 @@ cat scan/dnsx/subs-dnsx.json | jq '. | {host: .host, a: .a}' > hack/host-collisi
 之后可以使用简单的 Python 脚本，筛选出 a 对象包含内网地址对应的域名。
 
 ```bash
-# https://gist.github.com/Yuukisec/cfef05a435f6bfbc97fd2fab34995e34
 python3 ExtractPrivateHosts.py hack/host-collision/subs-dnsx.json hack/host-collision/privateHosts.txt
 cat hack/host-collision/privateHosts.txt | anew hack/host-collision/hostList.txt
+```
+
+```bash
+# REFERENCE DOCS
+https://gist.github.com/Yuukisec/cfef05a435f6bfbc97fd2fab34995e34
 ```
 
 ## 获取域名 A 记录解析到的 IP 地址
@@ -43,12 +52,21 @@ cat hack/host-collision/privateHosts.txt | anew hack/host-collision/hostList.txt
 cat scan/dnsx/subs-dnsx.json | jq '.a[]' -r > hack/host-collision/ipList.txt
 ```
 
+```bash
+# REFERENCE DOCS
+https://jqlang.github.io/jq/manual
+```
+
 ## 使用工具进行 Host 碰撞测试
 
 ```bash
-# https://github.com/pmiaowu/HostCollision
 # 将上面步骤中获取到的 hostList 和 ipList 复制到程序的 dataSource 目录
 java -jar HostCollision.jar
+```
+
+```bash
+# REFERENCE DOCS
+https://github.com/pmiaowu/HostCollision
 ```
 
 **已知问题**

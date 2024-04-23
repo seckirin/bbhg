@@ -1,6 +1,6 @@
-# 网站侦查
+# Web 站点侦查
 
-## 网站发现
+## Web 站点发现
 
 ```bash
 cat resolved.txt | httpx -follow-redirects -random-agent -status-code \
