@@ -33,4 +33,5 @@
 
 ## 其他 <a href="#others" id="others"></a>
 
+* [Draft notes](others/draft-notes.md)
 * [ON THE WAY](others/on-the-way.md)
