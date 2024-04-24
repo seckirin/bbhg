@@ -1,6 +1,6 @@
 # Table of contents
 
-* [\~](README.md)
+* [\~/hack-note](README.md)
 
 ## 信息收集 <a href="#information-gathering" id="information-gathering"></a>
 
