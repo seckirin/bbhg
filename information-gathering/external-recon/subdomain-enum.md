@@ -189,18 +189,22 @@ dnsrecon -t axfr -d target.com
 ### ENVIRONMENT
 
 ```bash
+# Target Info
 SRC_NAME=src_name
 TARGET_NAME=target_name
 DOMAIN=target.com
 
+# Tokens
 GITHUB_TOKENS=token1,token2,token3
 GITLAB_TOKEN=token1
 
+# Proxy
 PROXY=true
 PROXY_ADDRESS=socks5://127.0.0.1:20170
 [[ $PROXY == true ]] && export ALL_PROXY=${PROXY_ADDRESS} || unset ALL_PROXY
 echo "[INF] Global proxy is $PROXY $ALL_PROXY"
 
+# Deep mode
 DEEP=false
 echo "[INF] Deep mode is $DEEP"
 
@@ -208,11 +212,13 @@ TIMEPURE=$(date +"%T")
 TIMEFULL=$(date +"%F %T")
 TIMELOG=$(date +"%Y%m%d_%H%M%S")
 
+# Resolver
 RESOLVER_FILE=.dicts/resolvers.txt
 RESOLVER_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt
 RESOLVER_TRUSTED_FILE=.dicts/resolvers-trusted.txt
 RESOLVER_TRUSTED_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt
 
+# Dictionary
 SUBDOMAIN_DICT_FILE=.dicts/subdomain_dict.txt
 SUBDOMAIN_DICT_URL=https://raw.githubusercontent.com/yuukisec/hack-dict/main/subdomains/subdomains.txt
 SUBDOMAIN_DICT_BIG_FILE=.dicts/subdomain_dict_big.txt

@@ -4,31 +4,31 @@
 
 ## Information Gathering
 
-* [External Reconnaissance](information-gathering/external-reconnaissance/README.md)
-  * [Assets Discovery](information-gathering/external-reconnaissance/assets-discovery.md)
-  * [Domain Gathering](information-gathering/external-reconnaissance/domain-gathering.md)
-  * [Subdomain Enum](information-gathering/external-reconnaissance/subdomain-enum.md)
-  * [Public Info Gathering](information-gathering/external-reconnaissance/public-info-gathering.md)
+* [External Recon](information-gathering/external-recon/README.md)
+  * [Assets Discovery](information-gathering/external-recon/assets-discovery.md)
+  * [Domain Gathering](information-gathering/external-recon/domain-gathering.md)
+  * [Subdomain Enum](information-gathering/external-recon/subdomain-enum.md)
+  * [Public Info Gathering](information-gathering/external-recon/public-info-gathering.md)
 
 ## Pentesting
 
-* [Pentest Infrastructure](pentesting/pentest-infrastructure/README.md)
-  * [Database](pentesting/pentest-infrastructure/database/README.md)
-    * [etcd](pentesting/pentest-infrastructure/database/etcd.md)
-    * [InfluxDB](pentesting/pentest-infrastructure/database/influxdb.md)
-    * [MongoDB](pentesting/pentest-infrastructure/database/mongodb.md)
-    * [MSSQL](pentesting/pentest-infrastructure/database/mssql.md)
-    * [MySQL](pentesting/pentest-infrastructure/database/mysql.md)
-    * [Redis](pentesting/pentest-infrastructure/database/redis.md)
-  * [Framework](pentesting/pentest-infrastructure/framework.md)
-  * [Protocol](pentesting/pentest-infrastructure/protocol/README.md)
-    * [LDAP](pentesting/pentest-infrastructure/protocol/ldap.md)
-    * [MQTT](pentesting/pentest-infrastructure/protocol/mqtt.md)
-    * [SSH](pentesting/pentest-infrastructure/protocol/ssh.md)
-  * [Utility](pentesting/pentest-infrastructure/utility/README.md)
-    * [Rsync](pentesting/pentest-infrastructure/utility/rsync.md)
-  * [Virtualization](pentesting/pentest-infrastructure/virtualization/README.md)
-    * [Docker](pentesting/pentest-infrastructure/virtualization/docker.md)
+* [Pentesting Host](pentesting/pentesting-host/README.md)
+  * [Database](pentesting/pentesting-host/database/README.md)
+    * [etcd](pentesting/pentesting-host/database/etcd.md)
+    * [InfluxDB](pentesting/pentesting-host/database/influxdb.md)
+    * [MongoDB](pentesting/pentesting-host/database/mongodb.md)
+    * [MSSQL](pentesting/pentesting-host/database/mssql.md)
+    * [MySQL](pentesting/pentesting-host/database/mysql.md)
+    * [Redis](pentesting/pentesting-host/database/redis.md)
+  * [Framework](pentesting/pentesting-host/framework.md)
+  * [Protocol](pentesting/pentesting-host/protocol/README.md)
+    * [LDAP](pentesting/pentesting-host/protocol/ldap.md)
+    * [MQTT](pentesting/pentesting-host/protocol/mqtt.md)
+    * [SSH](pentesting/pentesting-host/protocol/ssh.md)
+  * [Utility](pentesting/pentesting-host/utility/README.md)
+    * [Rsync](pentesting/pentesting-host/utility/rsync.md)
+  * [Virtualization](pentesting/pentesting-host/virtualization/README.md)
+    * [Docker](pentesting/pentesting-host/virtualization/docker.md)
 
 ## Inbox
 
