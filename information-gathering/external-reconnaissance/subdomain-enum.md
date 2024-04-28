@@ -92,11 +92,6 @@ Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/p
 
 {% code title="Use puredns active" %}
 ```bash
-PUREDNS_PUBLIC_LIMIT=0
-PUREDNS_TRUSTED_LIMIT=400
-PUREDNS_WILDCARDTEST_LIMIT=30
-PUREDNS_WILDCARDBATCH_LIMIT=1500000
-
 resolvers_update # recommendations
 resolvers_trusted_update
 
@@ -191,7 +186,8 @@ dnsrecon -t axfr -d target.com
 
 ## Preparations
 
-{% code title="ENVIRONMENT" %}
+### ENVIRONMENT
+
 ```bash
 SRC_NAME=src_name
 TARGET_NAME=target_name
@@ -200,20 +196,17 @@ DOMAIN=target.com
 GITHUB_TOKENS=token1,token2,token3
 GITLAB_TOKEN=token1
 
+PROXY=true
+PROXY_ADDRESS=socks5://127.0.0.1:20170
+[[ $PROXY == true ]] && export ALL_PROXY=${PROXY_ADDRESS} || unset ALL_PROXY
+echo "[INF] Global proxy is $PROXY $ALL_PROXY"
+
+DEEP=false
+echo "[INF] Deep mode is $DEEP"
+
 TIMEPURE=$(date +"%T")
 TIMEFULL=$(date +"%F %T")
 TIMELOG=$(date +"%Y%m%d_%H%M%S")
-
-PROXY=true
-PROXY_ADDRESS=socks5://127.0.0.1:6153
-[[ $PROXY == true ]] \
-    && alias PON="export ALL_PROXY=${PROXY_ADDRESS}" \
-    && alias POFF="unset ALL_PROXY" \
-    && PON \
-    || unset ALL_PROXY
-echo $PROXY $ALL_PROXY
-
-DEEP=false
 
 RESOLVER_FILE=.dicts/resolvers.txt
 RESOLVER_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt
@@ -224,13 +217,19 @@ SUBDOMAIN_DICT_FILE=.dicts/subdomain_dict.txt
 SUBDOMAIN_DICT_URL=https://raw.githubusercontent.com/yuukisec/hack-dict/main/subdomains/subdomains.txt
 SUBDOMAIN_DICT_BIG_FILE=.dicts/subdomain_dict_big.txt
 SUBDOMAIN_DICT_BIG_URL=https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt
-```
-{% endcode %}
 
-{% code title="DIRECTORY" %}
+# puredns configure
+PUREDNS_PUBLIC_LIMIT=0
+PUREDNS_TRUSTED_LIMIT=400
+PUREDNS_WILDCARDTEST_LIMIT=30
+PUREDNS_WILDCARDBATCH_LIMIT=1500000
+```
+
+### DIRECTORY
+
 ```bash
-mkdir -p ~/hack/srcs/${SRC_NAME}/${TARGET_NAME}
-cd ~/hack/srcs/${SRC_NAME}/${TARGET_NAME}
+mkdir -p ~/srcs/${SRC_NAME}/${TARGET_NAME}
+cd ~/srcs/${SRC_NAME}/${TARGET_NAME}
 mkdir -p domains subdomains websites \
     .scans .dicts .logs \
         .scans/subs \
@@ -240,9 +239,9 @@ mkdir -p domains subdomains websites \
             .scans/outs/puredns-resolve
 echo $DOMAIN >> domains/domains.txt
 ```
-{% endcode %}
 
-{% code title="RESOLVER" %}
+### RESOLVER
+
 ```bash
 iresolver -threads 200 -retry 1 -count 10000 \
     -target $RESOLVER_URL -output $RESOLVER_FILE
@@ -252,16 +251,16 @@ iresolver -threads 200 -retry 3 \
 cat ${RESOLVER_FILE} | wc -l
 cat ${RESOLVER_TRUSED_FILE} | wc -l
 ```
-{% endcode %}
 
-{% code title="DICTIONARY" %}
+### DICTIONARY
+
 ```bash
 wget -q -O - $SUBDOMAIN_DICT_URL > $SUBDOMAIN_DICT_FILE
 wget -q -O - $SUBDOMAIN_DICT_BIG_URL > $SUBDOMAIN_DICT_BIG_FILE
 ```
-{% endcode %}
 
-{% code title="FUNCTION" %}
+### FUNCTION
+
 ```bash
 function resolvers_update() {
   rm $RESOLVER_FILE
@@ -277,4 +276,3 @@ function resolvers_trusted_update() {
   cat $RESOLVER_TRUSTED_FILE | wc -l
 }
 ```
-{% endcode %}
