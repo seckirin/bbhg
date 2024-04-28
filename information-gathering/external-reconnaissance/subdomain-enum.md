@@ -129,6 +129,10 @@ cat .scans/subs/resolved.txt | anew subdomains/subdomains.txt | wc -l
 
 ## NOERROR Enum
 
+{% hint style="success" %}
+If the domain name does not have a wildcard
+{% endhint %}
+
 Use [dnsx](https://github.com/projectdiscovery/dnsx).
 
 {% code title="Use dnsx noerror" %}
@@ -154,6 +158,26 @@ Use [puredns](https://github.com/d3mondev/puredns).
 ```bash
 ```
 {% endcode %}
+
+## Permutations
+
+{% hint style="success" %}
+If the number of subdomains is less than 500
+{% endhint %}
+
+## Regex Permutations
+
+## Recursive
+
+### Recursive Passive
+
+### Recursive Brute
+
+## DNS Record
+
+## Scarping
+
+## Google Analytics ID
 
 ## Other Technology
 
