@@ -96,7 +96,7 @@ resolvers_update # recommendations
 resolvers_trusted_update
 
 puredns resolve .scans/subs/no_resolved.txt \
-    -r $RESOLVER_PATH --resolvers-trusted $RESOLVER_TRUSED_PATH \
+    -r $RESOLVER_FILE --resolvers-trusted $RESOLVER_TRUSTED_FILE \
     -l $PUREDNS_PUBLIC_LIMIT \
     --rate-limit-trusted $PUREDNS_TRUSTED_LIMIT \
     --wildcard-tests $PUREDNS_WILDCARDTEST_LIMIT \
@@ -135,10 +135,9 @@ Use [dnsx](https://github.com/projectdiscovery/dnsx).
 if [[ $(echo "${RANDOM}.${RANDOM}.${RANDOM}.$DOMAIN" | dnsx -r $RESOLVER_FILE -rcode noerror,nxdomain -retry 3 -silent | cut -d ' ' -f2) == "[NXDOMAIN]" ]];
 then
   echo "NXDOMAIN"
-  $([[ $DEEP == true ]] && echo "-w $SUBDOMAIN_DICT_BIG_FILE" || echo "-w $SUBDOMAIN_DICT_FILE")
   dnsx -d $DOMAIN -rcode noerror -silent \
     -r $RESOLVER_FILE \
-    $([[ $DEEP == true ]] && echo "-w $SUBDOMAIN_DICT_BIG_FILE" || echo "-w $SUBDOMAIN_DICT_FILE") \
+    -w $( [[ $DEEP == true ]] && echo "$SUBDOMAIN_DICT_BIG_FILE" || echo "$SUBDOMAIN_DICT_FILE" ) \
     | cut -d' ' -f1 | anew .scans/subs/resolved_noerror.txt
   cat .scans/subs/resolved_noerror.txt | wc -l
 fi
@@ -151,6 +150,39 @@ Use [puredns](https://github.com/d3mondev/puredns).
 
 {% code title="Use puredns brute" %}
 ```bash
+resolvers_update # recommendations
+resolvers_trusted_update
+
+puredns bruteforce \
+    $([[ $DEEP == true ]] && echo "$SUBDOMAIN_DICT_BIG_FILE" || echo "$SUBDOMAIN_DICT_FILE") \
+    $DOMAIN \
+    -r $RESOLVER_FILE --resolvers-trusted $RESOLVER_TRUSTED_FILE \
+    -l $PUREDNS_PUBLIC_LIMIT \
+    --rate-limit-trusted $PUREDNS_TRUSTED_LIMIT \
+    --wildcard-tests $PUREDNS_WILDCARDTEST_LIMIT \
+    --wildcard-batch $PUREDNS_WILDCARDBATCH_LIMIT \
+    --write .scans/outs/puredns-bruteforce/valid_domains.txt \
+    --write-wildcards .scans/outs/puredns-bruteforce/wildcards.txt \
+    --write-massdns .scans/outs/puredns-bruteforce/massdns.txt
+cat .scans/outs/puredns-bruteforce/valid_domains.txt | anew .scans/subs/bruteforce.txt | wc -l
+cat .scans/subs/bruteforce.txt | anew .scans/subs/resolved.txt | wc -l
+
+# If your machine works well
+DEEP=true
+puredns bruteforce \
+    $([[ $DEEP == true ]] && echo "$SUBDOMAIN_DICT_BIG_FILE" || echo "$SUBDOMAIN_DICT_FILE") \
+    $DOMAIN \
+    -r $RESOLVER_FILE --resolvers-trusted $RESOLVER_TRUSTED_FILE \
+    -l $PUREDNS_PUBLIC_LIMIT \
+    --rate-limit-trusted $PUREDNS_TRUSTED_LIMIT \
+    --wildcard-tests $PUREDNS_WILDCARDTEST_LIMIT \
+    --wildcard-batch $PUREDNS_WILDCARDBATCH_LIMIT \
+    --write .scans/outs/puredns-bruteforce/deep-valid_domains.txt \
+    --write-wildcards .scans/outs/puredns-bruteforce/deep-wildcards.txt \
+    --write-massdns .scans/outs/puredns-bruteforce/deep-massdns.txt
+DEEP=false
+cat .scans/outs/puredns-bruteforce/deep-valid_domains.txt | anew .scans/subs/deep-bruteforce.txt | wc -l
+cat .scans/subs/deep-bruteforce.txt | anew .scans/subs/resolved.txt | wc -l
 ```
 {% endcode %}
 
@@ -198,19 +230,20 @@ DOMAIN=target.com
 GITHUB_TOKENS=token1,token2,token3
 GITLAB_TOKEN=token1
 
+# Beautify
+TIMEPURE=$(date +"%T")
+TIMEFULL=$(date +"%F %T")
+TIMELOG=$(date +"%Y%m%d_%H%M%S")
+
 # Proxy
 PROXY=true
 PROXY_ADDRESS=socks5://127.0.0.1:20170
 [[ $PROXY == true ]] && export ALL_PROXY=${PROXY_ADDRESS} || unset ALL_PROXY
-echo "[INF] Global proxy is $PROXY $ALL_PROXY"
+echo "[INF] [${TIMEFULL}] Global proxy is $PROXY $ALL_PROXY"
 
 # Deep mode
 DEEP=false
-echo "[INF] Deep mode is $DEEP"
-
-TIMEPURE=$(date +"%T")
-TIMEFULL=$(date +"%F %T")
-TIMELOG=$(date +"%Y%m%d_%H%M%S")
+echo "[INF] [${TIMEFULL}] Deep mode is $DEEP"
 
 # Resolver
 RESOLVER_FILE=.dicts/resolvers.txt
@@ -229,6 +262,21 @@ PUREDNS_PUBLIC_LIMIT=0
 PUREDNS_TRUSTED_LIMIT=400
 PUREDNS_WILDCARDTEST_LIMIT=30
 PUREDNS_WILDCARDBATCH_LIMIT=1500000
+
+# Function
+function resolvers_update() {
+  rm $RESOLVER_FILE
+  iresolver -threads 200 -retry 1 -count 7777 \
+    -target $RESOLVER_URL -output $RESOLVER_FILE
+  cat $RESOLVER_FILE | wc -l
+}
+
+function resolvers_trusted_update() {
+  rm $RESOLVER_TRUSTED_FILE
+  iresolver -threads 200 -retry 3 \
+    -target $RESOLVER_TRUSTED_URL -output $RESOLVER_TRUSTED_FILE
+  cat $RESOLVER_TRUSTED_FILE | wc -l
+}
 ```
 
 ### DIRECTORY
@@ -242,8 +290,27 @@ mkdir -p domains subdomains websites \
         .scans/outs \
             .scans/outs/bbot \
             .scans/outs/subfinder \
-            .scans/outs/puredns-resolve
+            .scans/outs/puredns-resolve \
+            .scans/outs/puredns-bruteforce
 echo $DOMAIN >> domains/domains.txt
+```
+
+### FUNCTION
+
+```bash
+function resolvers_update() {
+  rm $RESOLVER_FILE
+  iresolver -threads 200 -retry 1 -count 7777 \
+    -target $RESOLVER_URL -output $RESOLVER_FILE
+  cat $RESOLVER_FILE | wc -l
+}
+
+function resolvers_trusted_update() {
+  rm $RESOLVER_TRUSTED_FILE
+  iresolver -threads 200 -retry 3 \
+    -target $RESOLVER_TRUSTED_URL -output $RESOLVER_TRUSTED_FILE
+  cat $RESOLVER_TRUSTED_FILE | wc -l
+}
 ```
 
 ### RESOLVER
@@ -263,22 +330,4 @@ cat ${RESOLVER_TRUSED_FILE} | wc -l
 ```bash
 wget -q -O - $SUBDOMAIN_DICT_URL > $SUBDOMAIN_DICT_FILE
 wget -q -O - $SUBDOMAIN_DICT_BIG_URL > $SUBDOMAIN_DICT_BIG_FILE
-```
-
-### FUNCTION
-
-```bash
-function resolvers_update() {
-  rm $RESOLVER_FILE
-  iresolver -threads 200 -retry 1 -count 7777 \
-    -target $RESOLVER_URL -output $RESOLVER_FILE
-  cat $RESOLVER_FILE | wc -l
-}
-
-function resolvers_trusted_update() {
-  rm $RESOLVER_TRUSTED_FILE
-  iresolver -threads 200 -retry 3 \
-    -target $RESOLVER_TRUSTED_URL -output $RESOLVER_TRUSTED_FILE
-  cat $RESOLVER_TRUSTED_FILE | wc -l
-}
 ```
