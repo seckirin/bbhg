@@ -2,29 +2,33 @@
 
 ## Passive
 
-Use [bbot](https://github.com/blacklanternsecurity/bbot), [subfinder](https://github.com/projectdiscovery/subfinder), [github-subdomain](https://github.com/gwen001/github-subdomains), [gitlab-subdomain](https://github.com/gwen001/gitlab-subdomains) & [crt](https://github.com/cemulus/crt).
+Use [amass (v3)](https://github.com/owasp-amass/amass/tree/v3), [bbot](https://github.com/blacklanternsecurity/bbot), [crt](https://github.com/cemulus/crt), [github-subdomain](https://github.com/gwen001/github-subdomains), [gitlab-subdomain](https://github.com/gwen001/gitlab-subdomains) and [subfinder](https://github.com/projectdiscovery/subfinder).
 
-{% code title="bbot" %}
+{% code title="Use amass (v3)" %}
+```bash
+```
+{% endcode %}
+
+{% code title="Use bbot" %}
 ```bash
 # Single Target
 bbot -t $DOMAIN -f subdomain-enum -rf passive -em massdns \
     -y $( [[ $PROXY == true ]] && echo "-c http_proxy=$PROXY_ADDRESS" || echo "") \
-    -om json -n bbot -o $BBOT_OUT
+    -n bbot -o ./ -n bbot
 
 # View Data
-cat ${BBOT_OUT}/bbot/output.ndjson \
-    | jq -r 'select(.scope_distance==0) | select(.type=="DNS_NAME") | .data' \
-    | sort -u
+cat ./bbot/output.ndjson jq -r 'select(.scope_distance==0) \
+    | select(.type=="DNS_NAME") | .data' | sort -u
 ```
 {% endcode %}
 
-{% code title="crt" %}
+{% code title="Use crt" %}
 ```bash
 # Single Target
-crt -s -l 999999 -json $DOMAIN | tee $CRT_OUT
+crt -s -l 999999 -json $DOMAIN | tee ./crt.txt
 
 # View Data
-cat $CRT_OUT | jq -r '.[].subdomain' | sed -e 's/^\*\.//' | sort -u
+cat crt.txt | jq -r '.[].subdomain' | sed -e 's/^\*\.//' | sort -u
 ```
 {% endcode %}
 
@@ -33,37 +37,39 @@ cat $CRT_OUT | jq -r '.[].subdomain' | sed -e 's/^\*\.//' | sort -u
 # Single Target
 github-subdomains -d $DOMAIN -t $GITHUB_TOKENS \
     $( [[ $DEEP == true ]] && echo "" || echo "-k -q") \
-    -o $GITHUB_SUBDOMAINS_OUT
-
-# View Data
-cat $GITHUB_SUBDOMAINS_OUT
+    -o ./github-subdomains.txt
 ```
 {% endcode %}
 
 {% code title="gitlab-subdomains" %}
 ```bash
 # Single Target
-gitlab-subdomains -d $DOMAIN -t $GITLAB_TOKEN | tee $GITLAB_SUBDOMAINS_OUT
+gitlab-subdomains -d $DOMAIN -t $GITLAB_TOKEN | tee ./gitlab-subdomains.txt
 
 # View Data
-cat $GITLAB_SUBDOMAINS_OUT
+cat ${DOMAIN}.txt
+# or
+cat ./gitlab-subdomains.txt
 ```
 {% endcode %}
 
 {% code title="subfinder" %}
 ```bash
+PROXY=true
+PRORXY_ADDRESS=socks5://127.0.0.1:7890
+SUBFINDER_CONFIG=~/.config/subfinder/provider-config.yaml
+
 # Single Target
-subfinder -d ${DOMAIN} -all -v -es github \
-    $( [[ $PROXY == true ]] && echo "-proxy $PROXY_ADDRESS" || echo "") \
-    -o ${SUBFINDER_OUT}
+subfinder -d $DOMAIN -all -v -es github \
+    $([[ $PROXY == true ]] && echo "-proxy $PROXY_ADDRESS" || echo "") \
+    $([[ -n $SUBFINDER_CONFIG ]] && echo "-provider-config $SUBFINDER_CONFIG" || echo "") \
+    -o subfinder.txt
 
 # Multiple Targets
-subfinder -l ${DOMAINS} -all -v -es github $( [[ $PROXY == true ]] && echo \
-    "-proxy $PROXY_ADDRESS" || echo "") \
-    -o ${SUBFINDER_OUT}
-
-# View Data
-cat ${SUBFINDER_OUT} | jq -r '.host'
+subfinder -l ${DOMAINS} -all -v -es github \
+    $([[ $PROXY == true ]] && echo "-proxy $PROXY_ADDRESS" || echo "") \
+    $([[ -n $SUBFINDER_CONFIG ]] && echo "-provider-config $SUBFINDER_CONFIG" || echo "") \
+    -o subfinder.txt
 ```
 {% endcode %}
 
@@ -95,16 +101,13 @@ Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/p
 {% code title="puredns resolve" %}
 ```bash
 # Puredns resolve
-puredns resolve ${CLEANER_ROOT}/no_resolved.txt \
-    -r $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED \
-    -l 1000 \
-    --rate-limit-trusted 100 \
+puredns resolve subs_passive.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w ${PUREDNS_RESOLVE_OUT}
-
-# View Data
-cat ${PUREDNS_RESOLVE_OUT}
+    -w puredns.txt
 ```
 {% endcode %}
 
@@ -112,10 +115,10 @@ cat ${PUREDNS_RESOLVE_OUT}
 ```bash
 cat ./scans/subs/resolved.txt \
     | tlsx -san -cn -ro -c 1000 -silent \
-    | grep \.${DOMAIN}$ > ${TLSX_RESOLVE_OUT}
+    | grep \.${DOMAIN}$ > tlsx.txt
 
 # View Data
-cat ${TLSX_RESOLVE_OUT}
+cat tlsx.txt
 ```
 {% endcode %}
 
@@ -130,10 +133,17 @@ Use [dnsx](https://github.com/projectdiscovery/dnsx).
 {% code title="Use dnsx noerror" %}
 ```bash
 # Identify Wildcard
-echo error.abc.xyz.target.com | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
+echo error.abc.xyz.target.com \
+    | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
 
 # NOERROR Enumeration
-dnsx -d target.com -rcode noerror -silent -r resolves.txt -w subdomains.txt | cur -d ' ' -f 1
+dnsx -d $DOMAIN -r resolvers.txt -silent -rcode noerror \
+    $([[ $DEEP == true ]] && echo "-w $SUBS_WORDLISTS_HUGE" || echo "-w $SUBS_WORDLISTS") \
+    | cut -d ' ' -f 1 \
+    | anew -q ./dnsx.txt
+
+# View Data
+cat ./dnsx.txt
 ```
 {% endcode %}
 
@@ -148,69 +158,123 @@ DEEP=true # If your machine works well
 puredns bruteforce \
     $([[ $DEEP == true ]] && echo "$SUBS_WORDLISTS_HUGE" || echo "$SUBS_WORDLISTS") \
     $DOMAIN \
-    -r $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED \
-    -l 1000 \
-    --rate-limit-trusted 100 \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w $PUREDNS_BRUTE_OUT
+    -w puredns.txt
 
 DEEP=false
-
-# View Data
-cat $PUREDNS_BRUTE_OUT
 ```
 {% endcode %}
 
 ## Permutation
 
 {% hint style="success" %}
-If the number of subdomains is less than 500
+If the number of subdomains is less than 1000
 {% endhint %}
 
+Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
+
 ```bash
-resolvers_update # recommendations
-resolvers_trusted_update
+# First
+gotator -sub resolved.txt -perm permutations.txt \
+    -depth 1 -numbers 3 -mindup -adv -md -silent > gotator-1.txt
 
-cat .scans/subs/resolved.txt | wc -l
-gotator -sub .scans/subs/resolved.txt -perm $PERMUTATION_DICT_FILE \
-    -depth 1 -numbers 3 -mindup -adv -md -silent > .dicts/gotator-outptu.txt
-cat .dicts/gotator-outptu.txt | wc -l
-puredns resolve .dicts/gotator-outptu.txt \
-    -r $RESOLVER_FILE --resolvers-trusted $RESOLVER_TRUSTED_FILE \
-    -l $PUREDNS_PUBLIC_LIMIT \
-    --rate-limit-trusted $PUREDNS_TRUSTED_LIMIT \
-    --wildcard-tests $PUREDNS_WILDCARDTEST_LIMIT \
-    --wildcard-batch $PUREDNS_WILDCARDBATCH_LIMIT \
-    --write .scans/outs/puredns-permutation/valid_domains.txt \
-    --write-wildcards .scans/outs/puredns-permutation/wildcards.txt \
-    --write-massdns .scans/outs/puredns-permutation/massdns.txt
-cat .scans/outs/puredns-permutation/valid_domains.txt
-cat .scans/outs/puredns-permutation/valid_domains.txt | anew .scans/subs/resolved.txt | wc -l
+puredns resolve gotator-1.txt \
+    -r $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w puredns-1.txt
 
-# Recursion once
-cat .scans/outs/puredns-permutation/valid_domains.txt | wc -l
-gotator -sub .scans/outs/puredns-permutation/valid_domains.txt -perm $PERMUTATION_DICT_FILE \
-    -depth 1 -numbers 3 -mindup -adv -md -silent > .dicts/gotator-outptu-2.txt
-cat .dicts/gotator-outptu-2.txt | wc -l
-puredns resolve .dicts/gotator-outptu-2.txt \
-    -r $RESOLVER_FILE --resolvers-trusted $RESOLVER_TRUSTED_FILE \
-    -l $PUREDNS_PUBLIC_LIMIT \
-    --rate-limit-trusted $PUREDNS_TRUSTED_LIMIT \
-    --wildcard-tests $PUREDNS_WILDCARDTEST_LIMIT \
-    --wildcard-batch $PUREDNS_WILDCARDBATCH_LIMIT \
-    --write .scans/outs/puredns-permutation/valid_domains-2.txt \
-    --write-wildcards .scans/outs/puredns-permutation/wildcards-2.txt \
-    --write-massdns .scans/outs/puredns-permutation/massdns-2.txt
+# Again
+gotator -sub resolved.txt -perm puredns-1.txt \
+    -depth 1 -numbers 3 -mindup -adv -md -silent > gotator-2.txt
+
+puredns resolve gotator-2.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w puredns-2.txt
+
+# View Data
+cat puredns-1.txt puredns-2.txt | sort -u
 ```
 
 ## Regex Permutations
+
+use [regulator](https://github.com/cramppet/regulator) and [puredns](https://github.com/d3mondev/puredns).
+
+```bash
+python3 main.py -t $DOMAIN -f subdomains.txt -o regulator.txt
+
+puredns resolve regulator.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w puredns.txt
+```
 
 ## Recursive
 
 ### Recursive Passive
 
+Use [dsieve](https://github.com/trickest/dsieve), [amass (v3)](https://github.com/owasp-amass/amass/tree/v3.23.3) and [puredns](https://github.com/d3mondev/puredns)
+
+```bash
+dsieve -if subdomains.txt -f 3 -top 10 > dsieve.txt
+
+amass enum -passive -df dsieve.txt -nf subdomains.txt -timeout 30 -o amass.txt
+
+puredns resolve amass.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w puredns.txt
+```
+
 ### Recursive Brute
+
+Use [dsieve](https://github.com/trickest/dsieve),  [ripgen](https://github.com/resyncgg/ripgen), [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
+
+```bash
+# First
+dsieve -if subdomains.txt -f 3 -top 10 >./dsieve.txt
+
+ripgen -d ./dsieve.txt -w subs_wordlists.txt >./ripgen.txt
+
+puredns resolve ripgen.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w puredns-1.txt
+
+# Again
+gotator -sub resolved.txt -perm puredns-1.txt \
+    -depth 1 -numbers 3 -mindup -adv -md -silent > gotator.txt
+
+puredns resolve gotator.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w puredns-2.txt
+
+# View Data
+cat puredns-1.txt puredns-2.txt | sort -u
+```
 
 ## DNS Record
 
