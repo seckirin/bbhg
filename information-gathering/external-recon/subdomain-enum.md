@@ -295,7 +295,7 @@ iresolver -threads 200 -retry 3 \
     -target $RESOLVERS_TRUSTED_URL -output $RESOLVERS_TRUSTED
 
 cat $RESOLVERS | wc -l
-cat $RESOLVERS_TRUSED | wc -l
+cat $RESOLVERS_TRUSTED | wc -l
 ```
 
 ### DICTIONARY
