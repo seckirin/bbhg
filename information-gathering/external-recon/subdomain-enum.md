@@ -284,13 +284,18 @@ dnsrecon -t axfr -d target.com
 ### RESOLVER
 
 ```bash
-iresolver -threads 200 -retry 1 -count 10000 \
-    -target $RESOLVER_URL -output $RESOLVER_FILE
-iresolver -threads 200 -retry 3 \
-    -target $RESOLVER_TRUSTED_URL -output $RESOLVER_TRUSTED_FILE
+RESOLVERS_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt
+RESOLVERS_TRUSTED_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt
+RESOLVERS=./resolvers.txt
+RESOLVERS_TRUSTED=./resolvers_trusted.txt
 
-cat ${RESOLVER_FILE} | wc -l
-cat ${RESOLVER_TRUSED_FILE} | wc -l
+iresolver -threads 200 -retry 1 -count 10000 \
+    -target $RESOLVERS_URL -output $RESOLVERS
+iresolver -threads 200 -retry 3 \
+    -target $RESOLVERS_TRUSTED_URL -output $RESOLVERS_TRUSTED
+
+cat $RESOLVERS | wc -l
+cat $RESOLVERS_TRUSED | wc -l
 ```
 
 ### DICTIONARY
