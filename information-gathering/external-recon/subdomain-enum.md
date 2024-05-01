@@ -73,27 +73,6 @@ subfinder -l ${DOMAINS} -all -v -es github \
 ```
 {% endcode %}
 
-<details>
-
-<summary>Abandoned</summary>
-
-{% code title="https://github.com/owasp-amass/amass" overflow="wrap" %}
-```bash
-DOMAIN=target.com
-NOW=$(date +"%F")
-NOWT=$(date +"%T")
-
-LOGFILE=".logs/amass-${NOW}_${NOWT}.txt"
-
-AMASS_ENUM_TIMEOUT=180
-AMASS_CONFIG=~/.config/amass/config.ini
-
-amass enum -passive -d $DOMAIN -config $AMASS_CONFIG -timeout $AMASS_ENUM_TIMEOUT -silent -json .scan/amass_json.json 2>>"$LOGFILE" >>/dev/null
-```
-{% endcode %}
-
-</details>
-
 ## Active
 
 Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/projectdiscovery/tlsx)
@@ -124,7 +103,7 @@ cat tlsx.txt
 
 ## NOERROR
 
-{% hint style="success" %}
+{% hint style="info" %}
 If the domain name does not have a wildcard
 {% endhint %}
 
@@ -138,7 +117,7 @@ echo error.abc.xyz.target.com \
 
 # NOERROR Enumeration
 dnsx -d $DOMAIN -r resolvers.txt -silent -rcode noerror \
-    $([[ $DEEP == true ]] && echo "-w $SUBS_WORDLISTS_HUGE" || echo "-w $SUBS_WORDLISTS") \
+    $([[ $DEEP != true ]] && echo "-w $SUBS_WORDLISTS" || echo "-w $SUBS_WORDLISTS_HUGE") \
     | cut -d ' ' -f 1 \
     | anew -q ./dnsx.txt
 
@@ -171,8 +150,8 @@ DEEP=false
 
 ## Permutation
 
-{% hint style="success" %}
-If the number of subdomains is less than 1000
+{% hint style="info" %}
+If the number of subdomains is less than 500
 {% endhint %}
 
 Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
@@ -243,6 +222,14 @@ puredns resolve amass.txt \
 ```
 
 ### Recursive Brute
+
+{% hint style="info" %}
+If the number of subdomains is less than 500
+{% endhint %}
+
+{% hint style="info" %}
+It may take more than 50 minutes
+{% endhint %}
 
 Use [dsieve](https://github.com/trickest/dsieve),  [ripgen](https://github.com/resyncgg/ripgen), [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
 
