@@ -6,6 +6,8 @@ Use [amass (v3)](https://github.com/owasp-amass/amass/tree/v3), [bbot](https://g
 
 {% code title="Use amass (v3)" %}
 ```bash
+amass enum -passive -d $DOMAIN -config ~/.config/amass/config.ini \
+    -timeout 30 -o amass.txt -log amass.log &>/dev/null
 ```
 {% endcode %}
 
@@ -32,44 +34,37 @@ cat crt.txt | jq -r '.[].subdomain' | sed -e 's/^\*\.//' | sort -u
 ```
 {% endcode %}
 
-{% code title="github-subdomains" %}
+{% code title="Use github-subdomains" %}
 ```sh
-# Single Target
 github-subdomains -d $DOMAIN -t $GITHUB_TOKENS \
     $( [[ $DEEP == true ]] && echo "" || echo "-k -q") \
     -o ./github-subdomains.txt
 ```
 {% endcode %}
 
-{% code title="gitlab-subdomains" %}
+{% code title="Use gitlab-subdomains" %}
 ```bash
-# Single Target
 gitlab-subdomains -d $DOMAIN -t $GITLAB_TOKEN | tee ./gitlab-subdomains.txt
 
 # View Data
-cat ${DOMAIN}.txt
-# or
+# cat ${DOMAIN}.txt
 cat ./gitlab-subdomains.txt
 ```
 {% endcode %}
 
 {% code title="subfinder" %}
 ```bash
-PROXY=true
-PRORXY_ADDRESS=socks5://127.0.0.1:7890
-SUBFINDER_CONFIG=~/.config/subfinder/provider-config.yaml
-
 # Single Target
 subfinder -d $DOMAIN -all -v -es github \
-    $([[ $PROXY == true ]] && echo "-proxy $PROXY_ADDRESS" || echo "") \
-    $([[ -n $SUBFINDER_CONFIG ]] && echo "-provider-config $SUBFINDER_CONFIG" || echo "") \
-    -o subfinder.txt
+    -o subfinder.txt \
+    -proxy socks5://127.0.0.1:7890 \
+    -provider-config ~/.config/subfinder/provider-config.yaml
 
 # Multiple Targets
-subfinder -l ${DOMAINS} -all -v -es github \
-    $([[ $PROXY == true ]] && echo "-proxy $PROXY_ADDRESS" || echo "") \
-    $([[ -n $SUBFINDER_CONFIG ]] && echo "-provider-config $SUBFINDER_CONFIG" || echo "") \
-    -o subfinder.txt
+subfinder -l $DOMAINS -all -v -es github \
+    -o subfinder.txt \
+    -proxy socks5://127.0.0.1:7890 \
+    -provider-config ~/.config/subfinder/provider-config.yaml
 ```
 {% endcode %}
 
@@ -77,9 +72,8 @@ subfinder -l ${DOMAINS} -all -v -es github \
 
 Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/projectdiscovery/tlsx)
 
-{% code title="puredns resolve" %}
+{% code title="Use puredns active" %}
 ```bash
-# Puredns resolve
 puredns resolve subs_passive.txt \
     -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
     -l 0 \
@@ -90,7 +84,7 @@ puredns resolve subs_passive.txt \
 ```
 {% endcode %}
 
-{% code title="tlsx" %}
+{% code title="Use tlsx active" %}
 ```bash
 cat ./scans/subs/resolved.txt \
     | tlsx -san -cn -ro -c 1000 -silent \
@@ -117,9 +111,8 @@ echo error.abc.xyz.target.com \
 
 # NOERROR Enumeration
 dnsx -d $DOMAIN -r resolvers.txt -silent -rcode noerror \
-    $([[ $DEEP != true ]] && echo "-w $SUBS_WORDLISTS" || echo "-w $SUBS_WORDLISTS_HUGE") \
-    | cut -d ' ' -f 1 \
-    | anew -q ./dnsx.txt
+    -w subs_wordlists.txt
+    | cut -d ' ' -f 1 | tee ./dnsx.txt
 
 # View Data
 cat ./dnsx.txt
@@ -134,9 +127,7 @@ Use [puredns](https://github.com/d3mondev/puredns).
 ```bash
 DEEP=true # If your machine works well
 
-puredns bruteforce \
-    $([[ $DEEP == true ]] && echo "$SUBS_WORDLISTS_HUGE" || echo "$SUBS_WORDLISTS") \
-    $DOMAIN \
+puredns bruteforce subs_wordlists.txt $DOMAIN \
     -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
     -l 0 \
     --rate-limit-trusted 200 \
@@ -157,7 +148,6 @@ If the number of subdomains is less than 500
 Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
 
 ```bash
-# First
 gotator -sub resolved.txt -perm permutations.txt \
     -depth 1 -numbers 3 -mindup -adv -md -silent > gotator-1.txt
 
@@ -169,7 +159,7 @@ puredns resolve gotator-1.txt \
     --wildcard-batch 1500000 \
     -w puredns-1.txt
 
-# Again
+# Do it again
 gotator -sub resolved.txt -perm puredns-1.txt \
     -depth 1 -numbers 3 -mindup -adv -md -silent > gotator-2.txt
 
@@ -247,7 +237,7 @@ puredns resolve ripgen.txt \
     --wildcard-batch 1500000 \
     -w puredns-1.txt
 
-# Again
+# Do it again
 gotator -sub resolved.txt -perm puredns-1.txt \
     -depth 1 -numbers 3 -mindup -adv -md -silent > gotator.txt
 
@@ -293,6 +283,9 @@ iresolver -threads 200 -retry 1 -count 10000 \
     -target $RESOLVERS_URL -output $RESOLVERS
 iresolver -threads 200 -retry 3 \
     -target $RESOLVERS_TRUSTED_URL -output $RESOLVERS_TRUSTED
+# Can also be used directly, but it may not be accurate
+wget -q -O - $RESOLVERS_URL >$RESOLVERS
+wget -q -O - $RESOLVERS_TRUSTED_URL >$RESOLVERS_TRUSTED
 
 cat $RESOLVERS | wc -l
 cat $RESOLVERS_TRUSTED | wc -l
