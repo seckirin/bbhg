@@ -21,3 +21,15 @@ The content of the document will be continuously updated and improved. We will k
 All content provided by Hack Note is for learning and research purposes only and is prohibited for illegal purposes. Any consequences resulting from the use of any content from Hack Note are not our responsibility.
 
 Hack Note 提供的所有内容仅供学习和研究使用，禁止用于非法目的。使用 HackNote 的任何内容造成的任何后果，概不负责。
+
+## References
+
+The following are some important resources we referred to when writing this document. These resources contain a wealth of knowledge and practice in network security, which is very useful for readers who want to delve into network security.
+
+以下是一些我们在编写此文档时参考的重要资源。这些资源包含了大量的网络安全知识和实践，对于想要深入了解网络安全的读者来说非常有用。
+
+* [https://book.hacktricks.xyz/](https://book.hacktricks.xyz/)
+* [https://kathan19.gitbook.io/howtohunt](https://kathan19.gitbook.io/howtohunt)
+* [https://owasp.org/www-project-web-security-testing-guide/](https://owasp.org/www-project-web-security-testing-guide/)
+* [https://pentestbook.six2dez.com/](https://pentestbook.six2dez.com/)
+* [https://portswigger.net/web-security](https://portswigger.net/web-security)
