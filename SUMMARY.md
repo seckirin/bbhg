@@ -1,14 +1,14 @@
 # Table of contents
 
-* [\~/hack-note](README.md)
+* [echo hack-note &> /dev/null](README.md)
 
 ## Information Gathering
 
 * [External Recon](information-gathering/external-recon/README.md)
+  * [Public Info Gathering](information-gathering/external-recon/public-info-gathering.md)
   * [Assets Discovery](information-gathering/external-recon/assets-discovery.md)
   * [Domain Gathering](information-gathering/external-recon/domain-gathering.md)
   * [Subdomain Enum](information-gathering/external-recon/subdomain-enum.md)
-  * [Public Info Gathering](information-gathering/external-recon/public-info-gathering.md)
 
 ## Pentesting
 
