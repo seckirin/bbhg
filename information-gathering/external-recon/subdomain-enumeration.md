@@ -1,72 +1,150 @@
-# Subdomain Enum
+# Subdomain Enumeration
+
+{% hint style="info" %}
+There are certain tasks that can enhance the efficiency of your subdomain enumeration. Please refer to the section titled [#preparations](subdomain-enumeration.md#preparations "mention") for more details. For variables used in the commands, please refer to the section titled [#environment-variables](subdomain-enumeration.md#environment-variables "mention").
+{% endhint %}
 
 ## Passive
 
-Use [amass (v3)](https://github.com/owasp-amass/amass/tree/v3), [bbot](https://github.com/blacklanternsecurity/bbot), [crt](https://github.com/cemulus/crt), [github-subdomain](https://github.com/gwen001/github-subdomains), [gitlab-subdomain](https://github.com/gwen001/gitlab-subdomains) and [subfinder](https://github.com/projectdiscovery/subfinder).
+Use [amass (v3)](https://github.com/owasp-amass/amass/tree/v3.23.3), [bbot](https://github.com/blacklanternsecurity/bbot), [crt](https://github.com/cemulus/crt), [github-subdomain](https://github.com/gwen001/github-subdomains), [gitlab-subdomain](https://github.com/gwen001/gitlab-subdomains) and [subfinder](https://github.com/projectdiscovery/subfinder).
 
-{% code title="Use amass (v3)" %}
 ```bash
-amass enum -passive -d $DOMAIN -config ~/.config/amass/config.ini \
-    -timeout 30 -o amass.txt -log amass.log &>/dev/null
-```
-{% endcode %}
+# Use amass to scan vulnweb.com (limit time)
+timeout -k 30s 30m \
+    amass enum \
+    -passive \
+    -d vulnweb.com \
+    -config "$HOME/.config/amass/config.ini" \
+    -timeout 30 \
+    -json amass.json \
+    &>/dev/null
 
-{% code title="Use bbot" %}
+# Use amass to scan vulnweb.com (unlimited time)
+amass enum \
+    -passive \
+    -d vulnweb.com \
+    -config "$HOME/.config/amass/config.ini" \
+    -json amass.json \
+    &>/dev/null
+
+# Extract subdomains from the amass scan results
+jq -r '.name' amass.json |
+    grep -E "^vulnweb.com$|\.vulnweb.com$" |
+    anew -q amass.txt
+```
+
 ```bash
-# Single Target
-bbot -t $DOMAIN -f subdomain-enum -rf passive -em massdns \
-    -y $( [[ $PROXY == true ]] && echo "-c http_proxy=$PROXY_ADDRESS" || echo "") \
-    -n bbot -o ./ -n bbot
+# Use bbot to scan vulnweb.com
+bbot \
+    -t vulnweb.com \
+    --flags subdomain-enum \
+    --require-flags passive \
+    --exclude-modules massdns \
+    --yes \
+    --silent \
+    -om json \
+    >bbot.json
 
-# View Data
-cat ./bbot/output.ndjson jq -r 'select(.scope_distance==0) \
-    | select(.type=="DNS_NAME") | .data' | sort -u
+# Extract subdomains from the bbot scan results
+jq -r 'select(.type=="DNS_NAME") | select(.scope_distance==0) | .data' bbot.json |
+    grep -E "^vulnweb.com$|\.vulnweb.com$" |
+    anew -q bbot.txt
 ```
-{% endcode %}
 
-{% code title="Use crt" %}
 ```bash
-# Single Target
-crt -s -l 999999 -json $DOMAIN | tee ./crt.txt
+# Use crt to scan vulnweb.com
+crt \
+    -s \
+    -l 999999 \
+    -json \
+    -o crt.json \
+    vulnweb.com \
+    &>/dev/null
 
-# View Data
-cat crt.txt | jq -r '.[].subdomain' | sed -e 's/^\*\.//' | sort -u
+# Extract subdomains from the crt scan results
+jq -r '.[].subdomain' crt.json |
+    sed -e 's/^\*\.//' |
+    grep -E "^vulnweb.com$|\.vulnweb.com$" |
+    anew -q crt.txt
 ```
-{% endcode %}
 
-{% code title="Use github-subdomains" %}
-```sh
-github-subdomains -d $DOMAIN -t $GITHUB_TOKENS \
-    $( [[ $DEEP == true ]] && echo "" || echo "-k -q") \
-    -o ./github-subdomains.txt
-```
-{% endcode %}
-
-{% code title="Use gitlab-subdomains" %}
 ```bash
-gitlab-subdomains -d $DOMAIN -t $GITLAB_TOKEN | tee ./gitlab-subdomains.txt
+# Use github-subdomains to scan vulnweb.com (quick)
+github-subdomains \
+    -d vulnweb.com \
+    -t "$TOOLS/github_tokens.txt" \
+    -k \
+    -q \
+    &>github-subdomains.log
 
-# View Data
-# cat ${DOMAIN}.txt
-cat ./gitlab-subdomains.txt
+# Use github-subdomains to scan vulnweb.com (slow)
+github-subdomains \
+    -d vulnweb.com \
+    -t "$TOOLS/github_tokens.txt" \
+    &>github-subdomains.log
+
+# Extract subdomains from the github-subdomains scan results
+sort -u vulnweb.com.txt -o github-subdomains.txt && rm vulnweb.com.txt
 ```
-{% endcode %}
 
-{% code title="subfinder" %}
 ```bash
-# Single Target
-subfinder -d $DOMAIN -all -v -es github \
-    -o subfinder.txt \
-    -proxy socks5://127.0.0.1:7890 \
-    -provider-config ~/.config/subfinder/provider-config.yaml
+# Use gitlab-subdomains to scan vulnweb.com (quick)
+cp $TOOLS/gitlab_tokens.txt .tokens
 
-# Multiple Targets
-subfinder -l $DOMAINS -all -v -es github \
-    -o subfinder.txt \
-    -proxy socks5://127.0.0.1:7890 \
-    -provider-config ~/.config/subfinder/provider-config.yaml
+gitlab-subdomains \
+    -d vulnweb.com \
+    &>gitlab-subdomains.log
+
+# Organize gitlab-subdomains scan results
+sort -u vulnweb.com.txt -o gitlab-subdomains.txt && rm vulnweb.com.txt && rm .tokens
 ```
-{% endcode %}
+
+```bash
+# Use gitlab-subdomains to scan vulnweb.com (all sources)
+subfinder \
+    -domain vulnweb.com \
+    -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
+    -s chaos \
+    -v \
+    $([[ -n "${HTTP_PROXY}" ]] && echo " -proxy ${HTTP_PROXY}") \
+    -json \
+    -o subfinder.json \
+    &>subfinder.log
+
+# Use gitlab-subdomains to scan vulnweb.com (single sources)
+subfinder \
+    -domain vulnweb.com \
+    -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
+    -all \
+    -v \
+    $([[ -n "${HTTP_PROXY}" ]] && echo " -proxy ${HTTP_PROXY}") \
+    -json \
+    -o subfinder.json \
+    &>subfinder.log
+
+# Organize subfinder scan results
+jq -r '.host' subfinder.json |
+     grep -E "^vulnweb.com$|\.vulnweb.com" |
+     anew -q subfinder.txt
+```
+
+```bash
+# Summarize all results
+local results=(
+    "amass.txt"
+    "bbot.txt"
+    "crt.txt"
+    "github-subdomains.txt"
+    "gitlab-subdomains.txt"
+    "subfinder.txt"
+)
+
+for result in "${results[@]}"; do
+    if [[ -s "$result" ]]; then
+         anew -q passive.txt <"$result"
+    fi
+done
+```
 
 ## Active
 
@@ -74,24 +152,15 @@ Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/p
 
 {% code title="Use puredns active" %}
 ```bash
-puredns resolve subs_passive.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
+puredns resolve passive.txt \
+    --resolvers resolvers.txt \
+    --resolvers-trusted resolvers_trusted.txt \
+    --rate-limit 0 \
     --rate-limit-trusted 200 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns.txt
-```
-{% endcode %}
-
-{% code title="Use tlsx active" %}
-```bash
-cat ./scans/subs/resolved.txt \
-    | tlsx -san -cn -ro -c 1000 -silent \
-    | grep \.${DOMAIN}$ > tlsx.txt
-
-# View Data
-cat tlsx.txt
+    --write puredns-resolve-valid.txt \
+    --write-wildcards puredns-resolve-wildcards.txt
 ```
 {% endcode %}
 
@@ -412,30 +481,126 @@ dnsrecon -t axfr -d target.com
 
 ## Preparations
 
-### RESOLVER
+### Environment variables
+
+You can copy and modify these details, then paste them into your terminal to execute all the above commands normally.
 
 ```bash
-RESOLVERS_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt
-RESOLVERS_TRUSTED_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt
-RESOLVERS=./resolvers.txt
-RESOLVERS_TRUSTED=./resolvers_trusted.txt
+# GENERAL
+DOMAIN="x.com"
+TOOLS="${HOME}/hack/tools"
+ALL_PROXY="socks5://127.0.0.1:20170"
+HTTP_PROXY="http://127.0.0.1:20171"
 
-iresolver -threads 200 -retry 1 -count 10000 \
-    -target $RESOLVERS_URL -output $RESOLVERS
-iresolver -threads 200 -retry 3 \
-    -target $RESOLVERS_TRUSTED_URL -output $RESOLVERS_TRUSTED
-# Can also be used directly, but it may not be accurate
-wget -q -O - $RESOLVERS_URL >$RESOLVERS
-wget -q -O - $RESOLVERS_TRUSTED_URL >$RESOLVERS_TRUSTED
+# TIMEOUT
+AMASS_TIMEOUT=30 # Minutes
 
-cat $RESOLVERS | wc -l
-cat $RESOLVERS_TRUSTED | wc -l
+# THREADS
+IRESOLVER_THREAD=2000
+PUREDNS_RESOLVE_LIMIT=3000
+PUREDNS_RESOLVE_TRUSTED_LIMIT=150
+PUREDNS_WILDCARD_TEST_LIMIT=30
+PUREDNS_WILDCARD_BATCH_LIMIT=1500000
+
+# WORDLISTS
+SUBDOMAINS="${TOOLS}/wordlists/subdomains.txt"
+SUBDOMAINS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains.txt"
+SUBDOMAINS_HUGE="${TOOLS}/wordlists/subdomains_huge.txt"
+SUBDOMAINS_HUGE_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains_huge.txt"
+PERMUTATIONS="${TOOLS}/wordlists/permutations.txt"
+PERMUTATIONS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/permutations.txt"
+
+# RESOLVERS
+RESOLVERS="${TOOLS}/resolvers/resolvers.txt"
+RESOLVERS_URL="https://public-dns.info/nameservers.txt"
+RESOLVERS_TRUSTED="${TOOLS}/resolvers/resolvers_trusted.txt"
+RESOLVERS_TRUSTED_URL="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
+
+# CONFIGURATION_FILE
+AMASS_CONFIG="${HOME}/.config/amass/config.ini"
+BBOT_CONFIG="${HOME}/.config/bbot/secrets.yml"
+GITHUB_TOKENS="${TOOLS}/github_tokens.txt"
+GITLAB_TOKENS="${TOOLS}/gitlab_tokens.txt"
+SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
 ```
 
-### DICTIONARY
+### Check folders
 
 ```bash
-wget -q -O - $SUBDOMAIN_DICT_URL > $SUBDOMAIN_DICT_FILE
-wget -q -O - $SUBDOMAIN_DICT_BIG_URL > $SUBDOMAIN_DICT_BIG_FILE
-wget -q -O - $PERMUTATION_DICT_URL > $PERMUTATION_DICT_FILE
+# Check all the directories needed for script
+check_folder() {
+    local dirs=(
+        "${TOOLS}"
+        "${TOOLS}/wordlists"
+        "${TOOLS}/resolvers"
+        "${HOME}/.config/amass/"
+        "${HOME}/.config/subfinder/"
+        "${OUTPUT}/subdomains"
+        "${OUTPUT}/subdomains/passive"
+        "${OUTPUT}/subdomains/active"
+    )
+
+    for dir in "${dirs[@]}"; do
+        mkdir -p "$dir"
+    done
+    echo "Required Folder: OK"
+}
+```
+
+### Check wordlists
+
+```bash
+wget -q -O - "${RESOLVERS_URL}" >"${RESOLVERS}"
+wget -q -O - "${RESOLVERS_URL}" >"${RESOLVERS}"
+```
+
+### Check resolvers
+
+```bash
+update_resolver() {
+    local resolvers=$1
+    local resolvers_url=$2
+
+    iresolver -threads "${IRESOLVER_THREAD}" \
+        -target "${resolvers_url}" \
+        -output "${resolvers}" \
+        2>>"${LOG_FILE}" \
+        >/dev/null
+
+    if [[ -s "${resolvers}" ]]; then
+        sort -u "${resolvers}" -o "${resolvers}"
+        local line_count && line_count="$(wc -l <"${resolvers}" | tr -d ' ')"
+        notification "dntc" "${resolvers} ($(pluralize "${line_count}" "line" "lines")): OK"
+    else
+        notification "derr" "There were some problems updating the resolver..."
+    fi
+}
+
+# Check all the resolvers needed for script
+check_resolver() {
+    local resolvers=(
+        "RESOLVERS"
+        "RESOLVERS_TRUSTED"
+    )
+
+    for resolver in "${resolvers[@]}"; do
+        if [[ -s "${!resolver}" ]]; then
+            if [[ $(find "${!resolver}" -mtime +3 -print) ]]; then
+                notification "dwrn" "${resolver}: The file is older than 3 days, updating..."
+                local resolver_url="${resolver}_URL"
+                update_resolver "${!resolver}" "${!resolver_url}"
+            else
+                sort -u "${!resolver}" -o "${!resolver}"
+                local line_count && line_count="$(wc -l <"${!resolver}" | tr -d ' ')"
+                notification "dntc" "${resolver} ($(pluralize "${line_count}" "line" "lines")): OK"
+            fi
+        else
+            notification "dwrn" "${resolver}: Does not exist or is empty, downloading..."
+            local resolver_url="${resolver}_URL"
+            update_resolver "${!resolver}" "${!resolver_url}"
+        fi
+    done
+}
+
+
 ```
