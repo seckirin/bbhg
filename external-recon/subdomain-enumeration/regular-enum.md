@@ -14,16 +14,19 @@ bbot -t $DOMAIN -f subdomain-enum -rf passive -em massdns -y -s -om json |
 crt -s -l 999999 -json $DOMAIN |
     jq -r '.[].subdomain' | sed -e 's/^\*\.//' > crt.txt
 
+crt -s -l 999999 -json -o crt.json $DOMAIN >/dev/null
+[[ -s crt.json ]] && jq -r '.[].subdomain' crt.json | sed -e 's/^\*\.//' >crt.txt && rm crt.json
+
 # https://github.com/gwen001/github-subdomains
 github-subdomains -d $DOMAIN -t $GITHUB_TOKENS \
     -k -q -o github-subdomains.txt &>/dev/null
 
 # https://github.com/gwen001/gitlab-subdomains
-gitlab-subdomains -d $DOMAIN -t $(cat $GITLAB_TOKENS) &>/dev/null && mv $DOMAIN.txt gitlab-subdomains.txt
+gitlab-subdomains -d $DOMAIN -t "$(cat $GITLAB_TOKENS)" &>/dev/null && mv $DOMAIN.txt gitlab-subdomains.txt
 
 # https://github.com/projectdiscovery/subfinder
 subfinder -d $DOMAIN -all -o subfinder.txt -es github \
-    $([[ -n "$HTTP_PROXY" ]] && echo " -proxy $HTTP_PROXY") &>/dev/null
+    "$([[ -n "$HTTP_PROXY" ]] && echo " -proxy $HTTP_PROXY")" &>/dev/null
 ```
 
 ```bash
