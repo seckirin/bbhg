@@ -4,7 +4,7 @@
 There are certain tasks that can enhance the efficiency of your subdomain enumeration. Please refer to the section titled [#preparations](subdomain-enumeration.md#preparations "mention") for more details. For variables used in the commands, please refer to the section titled [#environment-variables](subdomain-enumeration.md#environment-variables "mention").
 {% endhint %}
 
-## Passive
+## Passive Scan
 
 Use [amass (v3)](https://github.com/owasp-amass/amass/tree/v3.23.3), [bbot](https://github.com/blacklanternsecurity/bbot), [crt](https://github.com/cemulus/crt), [github-subdomain](https://github.com/gwen001/github-subdomains), [gitlab-subdomain](https://github.com/gwen001/gitlab-subdomains) and [subfinder](https://github.com/projectdiscovery/subfinder).
 
@@ -88,19 +88,19 @@ sort -u vulnweb.com.txt -o github-subdomains.txt && rm vulnweb.com.txt
 ```
 
 ```bash
-# Use gitlab-subdomains to scan vulnweb.com (quick)
+# Use gitlab-subdomains to scan vulnweb.com
 cp $TOOLS/gitlab_tokens.txt .tokens
 
 gitlab-subdomains \
     -d vulnweb.com \
     &>gitlab-subdomains.log
 
-# Organize gitlab-subdomains scan results
+# Extract subdomains from the gitlab-subdomains scan results
 sort -u vulnweb.com.txt -o gitlab-subdomains.txt && rm vulnweb.com.txt && rm .tokens
 ```
 
 ```bash
-# Use gitlab-subdomains to scan vulnweb.com (all sources)
+# Use subfinder to scan vulnweb.com (all sources)
 subfinder \
     -domain vulnweb.com \
     -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
@@ -111,7 +111,7 @@ subfinder \
     -o subfinder.json \
     &>subfinder.log
 
-# Use gitlab-subdomains to scan vulnweb.com (single sources)
+# Use subfinder to scan vulnweb.com (single sources)
 subfinder \
     -domain vulnweb.com \
     -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
@@ -122,7 +122,7 @@ subfinder \
     -o subfinder.json \
     &>subfinder.log
 
-# Organize subfinder scan results
+# Extract subdomains from the subfinder scan results
 jq -r '.host' subfinder.json |
      grep -E "^vulnweb.com$|\.vulnweb.com" |
      anew -q subfinder.txt
@@ -146,21 +146,27 @@ for result in "${results[@]}"; do
 done
 ```
 
-## Active
+## Active Resolve
 
 Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/projectdiscovery/tlsx)
 
 {% code title="Use puredns active" %}
 ```bash
+# Use puredns to resolve passive.txt
 puredns resolve passive.txt \
-    --resolvers resolvers.txt \
-    --resolvers-trusted resolvers_trusted.txt \
-    --rate-limit 0 \
-    --rate-limit-trusted 200 \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
     --write puredns-resolve-valid.txt \
-    --write-wildcards puredns-resolve-wildcards.txt
+    --write-wildcards puredns-resolve-wildcards.txt \
+    &>/puredns-resolve.log
+
+# Summarize the puredns resolve results
+anew -q active.txt <puredns-resolve-valid.txt
+anew -q active.txt <puredns-resolve-wildcards.txt
 ```
 {% endcode %}
 
