@@ -162,7 +162,7 @@ puredns resolve passive.txt \
     --wildcard-batch 1500000 \
     --write puredns-resolve-valid.txt \
     --write-wildcards puredns-resolve-wildcards.txt \
-    &>/puredns-resolve.log
+    &>puredns-resolve.log
 
 # Extract subdomains from the puredns resolve results
 anew -q active.txt <puredns-resolve-valid.txt
@@ -170,25 +170,39 @@ anew -q active.txt <puredns-resolve-wildcards.txt
 ```
 {% endcode %}
 
-## Brute
+## Brute Force
 
 Use [puredns](https://github.com/d3mondev/puredns).
 
-{% code title="Use puredns brute" %}
 ```bash
-DEEP=true # If your machine works well
-
-puredns bruteforce subs_wordlists.txt $DOMAIN \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
+# Use puredns to brute force vulnweb.com (quick)
+puredns bruteforce "$TOOLS/wordlists/subdomains.txt" vulnweb.com \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns.txt
+    --write puredns-bruteforce-valid.txt \
+    --write-wildcards puredns-bruteforce-wildcards.txt \
+    &>puredns-bruteforce.log
 
-DEEP=false
+# Use puredns to brute force vulnweb.com (slow)
+puredns bruteforce "$TOOLS/wordlists/subdomains_huge.txt" vulnweb.com \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write puredns-bruteforce-valid.txt \
+    --write-wildcards puredns-bruteforce-wildcards.txt \
+    &>puredns-bruteforce.log
+
+# Extract subdomains from the puredns brute results
+anew -q brute.txt <puredns-bruteforce-valid.txt
+anew -q brute.txt <puredns-bruteforce-wildcards.txt
 ```
-{% endcode %}
 
 ## Permutation
 
