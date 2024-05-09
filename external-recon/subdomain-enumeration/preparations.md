@@ -8,9 +8,9 @@ DOMAIN="vulnweb.com"
 TOOLS="$HOME/hack/tools"
 
 # Resolvers
-RESOLVERS="$TOOLS/resolvers/resolvers.txt"
+RESOLVERS="$HOME/.config/puredns/resolvers.txt"
 RESOLVERS_URL="https://public-dns.info/nameservers.txt"
-RESOLVERS_TRUSTED="$TOOLS/resolvers/resolvers_trusted.txt"
+RESOLVERS_TRUSTED="$HOME/.config/puredns/resolvers-trusted.txt"
 RESOLVERS_TRUSTED_URL="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
 
 # Wordlists
@@ -42,6 +42,7 @@ local folders=(
     "${TOOLS}/resolvers"
     "${HOME}/.config/amass/"
     "${HOME}/.config/subfinder/"
+    "${HOME}/.config/puredns/"
 )
 
 for folder in "${folders[@]}"; do

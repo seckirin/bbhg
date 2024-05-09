@@ -1,29 +1,5 @@
 # Subdomain Enumeration
 
-## Active Resolve
-
-Use [puredns](https://github.com/d3mondev/puredns) & [tlsx](https://github.com/projectdiscovery/tlsx)
-
-{% code title="Use puredns active" %}
-```bash
-# Use puredns to resolve passive.txt
-puredns resolve passive.txt \
-    --resolvers "$TOOLS/resolvers/resolvers.txt" \
-    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
-    --rate-limit 3000 \
-    --rate-limit-trusted 150 \
-    --wildcard-tests 30 \
-    --wildcard-batch 1500000 \
-    --write puredns-resolve-passive-valid.txt \
-    --write-wildcards puredns-resolve-passive-wildcards.txt \
-    &>/dev/null
-
-# Extract and summarize subdomains from the puredns resolve results
-anew -q active.txt <puredns-resolve-passive-valid.txt && rm puredns-resolve-passive-valid.txt
-anew -q active.txt <puredns-resolve-passive-wildcards.txt && rm puredns-resolve-passive-wildcards.txt
-```
-{% endcode %}
-
 ## Brute Force
 
 Use [puredns](https://github.com/d3mondev/puredns).
