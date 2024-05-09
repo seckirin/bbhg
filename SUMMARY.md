@@ -5,10 +5,14 @@
 ## Information Gathering
 
 * [External Recon](information-gathering/external-recon/README.md)
-  * [Asset Discovery](information-gathering/external-recon/asset-discovery.md)
-  * [Domain Gathering](information-gathering/external-recon/domain-gathering.md)
-  * [Subdomain Enumeration](information-gathering/external-recon/subdomain-enumeration.md)
-  * [Public Info Gathering](information-gathering/external-recon/public-info-gathering.md)
+  * [Public Info Gathering](information-gathering/external-recon/public-info-gathering/README.md)
+    * [Asset Discovery](information-gathering/external-recon/public-info-gathering/asset-discovery.md)
+    * [Domain Gathering](information-gathering/external-recon/public-info-gathering/domain-gathering.md)
+  * [Subdomain Enumeration](information-gathering/external-recon/subdomain-enumeration/README.md)
+    * [Preparations](information-gathering/external-recon/subdomain-enumeration/preparations.md)
+    * [Regular](information-gathering/external-recon/subdomain-enumeration/regular.md)
+    * [In-depth](information-gathering/external-recon/subdomain-enumeration/in-depth.md)
+    * [Summarize](information-gathering/external-recon/subdomain-enumeration/summarize.md)
 
 ## Pentesting
 
