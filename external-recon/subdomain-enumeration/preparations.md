@@ -1,22 +1,5 @@
 # Preparations
 
-## Folders
-
-```bash
-# Check all the folders needed
-local folders=(
-    "${TOOLS}"
-    "${TOOLS}/wordlists"
-    "${TOOLS}/resolvers"
-    "${HOME}/.config/amass/"
-    "${HOME}/.config/subfinder/"
-)
-
-for folder in "${folders[@]}"; do
-    mkdir -p "$folder"
-done
-```
-
 ## Variables
 
 ```bash
@@ -47,6 +30,23 @@ SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
 
 # Tools Variables
 AMASS_TIMEOUT=30 # Minutes
+```
+
+## Folders
+
+```bash
+# Check all the folders needed
+local folders=(
+    "${TOOLS}"
+    "${TOOLS}/wordlists"
+    "${TOOLS}/resolvers"
+    "${HOME}/.config/amass/"
+    "${HOME}/.config/subfinder/"
+)
+
+for folder in "${folders[@]}"; do
+    mkdir -p "$folder"
+done
 ```
 
 ## Wordlists
