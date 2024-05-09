@@ -30,7 +30,8 @@ amass enum \
 # Extract subdomains from the amass scan results
 jq -r '.name' amass.json |
     grep -E "^vulnweb.com$|\.vulnweb.com$" |
-    anew -q amass.txt
+    anew -q amass.txt &&
+    rm amass.json
 ```
 
 ```bash
@@ -48,7 +49,8 @@ bbot \
 # Extract subdomains from the bbot scan results
 jq -r 'select(.type=="DNS_NAME") | select(.scope_distance==0) | .data' bbot.json |
     grep -E "^vulnweb.com$|\.vulnweb.com$" |
-    anew -q bbot.txt
+    anew -q bbot.txt &&
+    rm bbot.json
 ```
 
 ```bash
@@ -62,10 +64,11 @@ crt \
     &>/dev/null
 
 # Extract subdomains from the crt scan results
-jq -r '.[].subdomain' crt.json |
+[[ -s crt.json ]] && jq -r '.[].subdomain' crt.json |
     sed -e 's/^\*\.//' |
     grep -E "^vulnweb.com$|\.vulnweb.com$" |
-    anew -q crt.txt
+    anew -q crt.txt &&
+    rm crt.json
 ```
 
 ```bash
@@ -75,16 +78,17 @@ github-subdomains \
     -t "$TOOLS/github_tokens.txt" \
     -k \
     -q \
-    &>github-subdomains.log
+    &>/dev/null
 
 # Use github-subdomains to enum vulnweb.com (slow)
 github-subdomains \
     -d vulnweb.com \
     -t "$TOOLS/github_tokens.txt" \
-    &>github-subdomains.log
+    &>/dev/null
 
 # Extract subdomains from the github-subdomains scan results
-sort -u vulnweb.com.txt -o github-subdomains.txt && rm vulnweb.com.txt
+sort -u vulnweb.com.txt -o github-subdomains.txt &&
+    rm vulnweb.com.txt &&
 ```
 
 ```bash
@@ -93,25 +97,16 @@ cp $TOOLS/gitlab_tokens.txt .tokens
 
 gitlab-subdomains \
     -d vulnweb.com \
-    &>gitlab-subdomains.log
+    &>/dev/null
 
 # Extract subdomains from the gitlab-subdomains scan results
-sort -u vulnweb.com.txt -o gitlab-subdomains.txt && rm vulnweb.com.txt && rm .tokens
+sort -u vulnweb.com.txt -o gitlab-subdomains.txt &&
+    rm vulnweb.com.txt &&
+    rm .tokens &&
 ```
 
 ```bash
 # Use subfinder to enum vulnweb.com (all sources)
-subfinder \
-    -domain vulnweb.com \
-    -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
-    -s chaos \
-    -v \
-    $([[ -n "${HTTP_PROXY}" ]] && echo " -proxy ${HTTP_PROXY}") \
-    -json \
-    -o subfinder.json \
-    &>subfinder.log
-
-# Use subfinder to enum vulnweb.com (single sources)
 subfinder \
     -domain vulnweb.com \
     -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
@@ -120,12 +115,24 @@ subfinder \
     $([[ -n "${HTTP_PROXY}" ]] && echo " -proxy ${HTTP_PROXY}") \
     -json \
     -o subfinder.json \
-    &>subfinder.log
+    &>/dev/null
+
+# Use subfinder to enum vulnweb.com (single sources)
+subfinder \
+    -domain vulnweb.com \
+    -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
+    -s chaos \
+    -v \
+    $([[ -n "${HTTP_PROXY}" ]] && echo " -proxy ${HTTP_PROXY}") \
+    -json \
+    -o subfinder.json \
+    &>/dev/null
 
 # Extract subdomains from the subfinder scan results
 jq -r '.host' subfinder.json |
      grep -E "^vulnweb.com$|\.vulnweb.com" |
-     anew -q subfinder.txt
+     anew -q subfinder.txt &&
+     rm subfinder.json
 ```
 
 ```bash
@@ -160,13 +167,13 @@ puredns resolve passive.txt \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write puredns-resolve-valid.txt \
-    --write-wildcards puredns-resolve-wildcards.txt \
-    &>puredns-resolve.log
+    --write puredns-resolve-passive-valid.txt \
+    --write-wildcards puredns-resolve-passive-wildcards.txt \
+    &>/dev/null
 
-# Extract subdomains from the puredns resolve results
-anew -q active.txt <puredns-resolve-valid.txt
-anew -q active.txt <puredns-resolve-wildcards.txt
+# Extract and summarize subdomains from the puredns resolve results
+anew -q active.txt <puredns-resolve-passive-valid.txt && rm puredns-resolve-passive-valid.txt
+anew -q active.txt <puredns-resolve-passive-wildcards.txt && rm puredns-resolve-passive-wildcards.txt
 ```
 {% endcode %}
 
@@ -185,7 +192,7 @@ puredns bruteforce "$TOOLS/wordlists/subdomains.txt" vulnweb.com \
     --wildcard-batch 1500000 \
     --write puredns-bruteforce-valid.txt \
     --write-wildcards puredns-bruteforce-wildcards.txt \
-    &>puredns-bruteforce.log
+    &>/dev/null
 
 # Use puredns to brute force vulnweb.com (slow)
 puredns bruteforce "$TOOLS/wordlists/subdomains_huge.txt" vulnweb.com \
@@ -197,67 +204,119 @@ puredns bruteforce "$TOOLS/wordlists/subdomains_huge.txt" vulnweb.com \
     --wildcard-batch 1500000 \
     --write puredns-bruteforce-valid.txt \
     --write-wildcards puredns-bruteforce-wildcards.txt \
-    &>puredns-bruteforce.log
+    &>/dev/null
 
-# Extract subdomains from the puredns brute results
-anew -q brute.txt <puredns-bruteforce-valid.txt
-anew -q brute.txt <puredns-bruteforce-wildcards.txt
+# Extract and summarize subdomains from the puredns brute results
+anew -q brute.txt <puredns-bruteforce-valid.txt && rm puredns-bruteforce-valid.txt
+anew -q brute.txt <puredns-bruteforce-wildcards.txt && rm puredns-bruteforce-wildcards.txt
 ```
 
 ## Summarizing all results (Round 1)
 
 ```bash
-# active_added_count=$(anew -d subdomains.txt <active.txt | wc -l | tr -d ' ')
-# brute_added_count=$(anew -d subdomains.txt <brute.txt | wc -l | tr -d ' ')
-anew -q subdomains.txt <active.txt
-anew -q subdomains.txt <brute.txt
+# active_added_count=$(anew -d subdomains_temp.txt <active.txt | wc -l | tr -d ' ')
+# brute_added_count=$(anew -d subdomains_temp.txt <brute.txt | wc -l | tr -d ' ')
+anew -q subdomains_temp.txt <active.txt
+anew -q subdomains_temp.txt <brute.txt
 
-# Use puredns to resolve subdomains.txt
-puredns resolve subdomains.txt \
+# Use puredns to resolve subdomains_temp.txt
+puredns resolve subdomains_temp.txt \
     --resolvers "$TOOLS/resolvers/resolvers.txt" \
     --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write subdomains.txt \
-    &>/dev/null
+    --write puredns-resolve-subdomains_temp-valid.txt \
+    --write-wildcards puredns-resolve-subdomains_temp-wildcards.txt \
+    &>/dev/null && rm subdomains_temp.txt
+
+# Extract and summarize first round results
+anew -q subdomains.txt <puredns-resolve-subdomains_temp-valid.txt && rm puredns-resolve-subdomains_temp-valid.txt
+anew -q subdomains.txt <puredns-resolve-subdomains_temp-wildcards.txt && rm puredns-resolve-subdomains_temp-wildcards.txt
 ```
 
 ## Permutation
 
-{% hint style="info" %}
-If the number of subdomains is less than 500
-{% endhint %}
-
-Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
+Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns). Best when the number of subdomains is 500 to 1000
 
 ```bash
-gotator -sub resolved.txt -perm permutations.txt \
-    -depth 1 -numbers 3 -mindup -adv -md -silent > gotator-1.txt
+# Use gotator to generate subdomains
+gotator \
+    -sub subdomains.txt \
+    -perm "$TOOLS/wordlists/permutations.txt" \
+    -depth 1 \
+    -numbers 3 \
+    -mindup \
+    -adv \
+    -md \
+    -silent \
+    >gotator_subdomains_1.txt
 
-puredns resolve gotator-1.txt \
-    -r $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED \
-    -l 0 \
-    --rate-limit-trusted 200 \
+# Use puredns to resolve subdomains generated by gotator
+puredns resolve gotator_subdomains_1.txt \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns-1.txt
+    --write puredns-resolve-gotator_subdomains_1-valid.txt \
+    --write-wildcards puredns-resolve-gotator_subdomains_1-wildcards.txt \
+    &>/dev/null \
+    && rm gotator_subdomains_1.txt
 
-# Do it again
-gotator -sub resolved.txt -perm puredns-1.txt \
-    -depth 1 -numbers 3 -mindup -adv -md -silent > gotator-2.txt
+# Extract and summarize subdomains from the puredns resolve results
+anew -q permutation_temp.txt <puredns-resolve-gotator_subdomains_1-valid.txt && rm puredns-resolve-gotator_subdomains_1-valid.txt
+anew -q permutation_temp.txt <puredns-resolve-gotator_subdomains_1-wildcards.txt && rm puredns-resolve-gotator_subdomains_1-wildcards.txt
 
-puredns resolve gotator-2.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
+# Use gotator to generate second round of subdomains
+gotator -sub subdomains.txt -perm permutation_temp.txt \
+    -depth 1 \
+    -numbers 3 \
+    -mindup \
+    -adv \
+    -md \
+    -silent \
+    >gotator_subdomains_2.txt
+
+# Use puredns to resolve the second round of subdomains generated by gotator
+puredns resolve gotator_subdomains_2.txt \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns-2.txt
+    --write puredns-resolve-gotator_subdomains_2-valid.txt \
+    --write-wildcards puredns-resolve-gotator_subdomains_2-wildcards.txt \
+    &>/dev/null \
+    && rm gotator_subdomains_2.txt
 
-# View Data
-cat puredns-1.txt puredns-2.txt | sort -u
+# Extract and summarize subdomains from the second round of puredns resolve results
+anew -q permutation_temp.txt <puredns-resolve-gotator_subdomains_2-valid.txt && rm puredns-resolve-gotator_subdomains_2-valid.txt
+anew -q permutation_temp.txt <puredns-resolve-gotator_subdomains_2-wildcards.txt && rm puredns-resolve-gotator_subdomains_2-wildcards.txt
+
+# Use puredns to resolve permutation_temp.txt
+puredns resolve permutation_temp.txt \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write puredns-resolve-permutation-valid.txt \
+    --write-wildcards puredns-resolve-permutation-wildcards.txt \
+    &>/dev/null \
+    && rm permutation_temp.txt
+
+# Extract subdomains from the permutation_temp.txt
+anew -q permutation.txt <puredns-resolve-permutation-valid.txt && rm puredns-resolve-permutation-valid.txt
+anew -q permutation.txt <puredns-resolve-permutation-wildcards.txt && rm puredns-resolve-permutation-wildcards.txt
+
+# Summarizing all results to subdomains.txt
+permutation_added_count=$(anew -d subdomains.txt <permutation.txt | wc -l | tr -d ' ')
+anew -q subdomains.txt <permutation.txt
 ```
 
 ## Machine Learning
