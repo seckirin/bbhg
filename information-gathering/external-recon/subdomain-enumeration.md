@@ -204,6 +204,26 @@ anew -q brute.txt <puredns-bruteforce-valid.txt
 anew -q brute.txt <puredns-bruteforce-wildcards.txt
 ```
 
+## Summarizing all results (Round 1)
+
+```bash
+# active_added_count=$(anew -d subdomains.txt <active.txt | wc -l | tr -d ' ')
+# brute_added_count=$(anew -d subdomains.txt <brute.txt | wc -l | tr -d ' ')
+anew -q subdomains.txt <active.txt
+anew -q subdomains.txt <brute.txt
+
+# Use puredns to resolve subdomains.txt
+puredns resolve subdomains.txt \
+    --resolvers "$TOOLS/resolvers/resolvers.txt" \
+    --resolvers-trusted "$TOOLS/resolvers/resolvers_trusted.txt" \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write subdomains.txt \
+    &>/dev/null
+```
+
 ## Permutation
 
 {% hint style="info" %}
