@@ -2,17 +2,16 @@
 
 * [echo hack-note &> /dev/null](README.md)
 
-## Information Gathering
+## External Recon
 
-* [External Recon](information-gathering/external-recon/README.md)
-  * [Public Info Gathering](information-gathering/external-recon/public-info-gathering/README.md)
-    * [Asset Discovery](information-gathering/external-recon/public-info-gathering/asset-discovery.md)
-    * [Domain Gathering](information-gathering/external-recon/public-info-gathering/domain-gathering.md)
-  * [Subdomain Enumeration](information-gathering/external-recon/subdomain-enumeration/README.md)
-    * [Preparations](information-gathering/external-recon/subdomain-enumeration/preparations.md)
-    * [Regular](information-gathering/external-recon/subdomain-enumeration/regular.md)
-    * [In-depth](information-gathering/external-recon/subdomain-enumeration/in-depth.md)
-    * [Summarize](information-gathering/external-recon/subdomain-enumeration/summarize.md)
+* [Public Info Gathering](external-recon/public-info-gathering/README.md)
+  * [Asset Discovery](external-recon/public-info-gathering/asset-discovery.md)
+  * [Domain Gathering](external-recon/public-info-gathering/domain-gathering.md)
+* [Subdomain Enumeration](external-recon/subdomain-enumeration/README.md)
+  * [Preparations](external-recon/subdomain-enumeration/preparations.md)
+  * [Regular](external-recon/subdomain-enumeration/regular.md)
+  * [In-depth](external-recon/subdomain-enumeration/in-depth.md)
+  * [Summarize](external-recon/subdomain-enumeration/summarize.md)
 
 ## Pentesting
 
