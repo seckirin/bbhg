@@ -170,30 +170,6 @@ anew -q active.txt <puredns-resolve-wildcards.txt
 ```
 {% endcode %}
 
-## NOERROR
-
-{% hint style="info" %}
-If the domain name does not have a wildcard
-{% endhint %}
-
-Use [dnsx](https://github.com/projectdiscovery/dnsx).
-
-{% code title="Use dnsx noerror" %}
-```bash
-# Identify Wildcard
-echo error.abc.xyz.target.com \
-    | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
-
-# NOERROR Enumeration
-dnsx -d $DOMAIN -r resolvers.txt -silent -rcode noerror \
-    -w subs_wordlists.txt
-    | cut -d ' ' -f 1 | tee ./dnsx.txt
-
-# View Data
-cat ./dnsx.txt
-```
-{% endcode %}
-
 ## Brute
 
 Use [puredns](https://github.com/d3mondev/puredns).
@@ -482,6 +458,30 @@ cat puredns.txt
 {% code title="https://github.com/darkoperator/dnsrecon" %}
 ```bash
 dnsrecon -t axfr -d target.com
+```
+{% endcode %}
+
+### NOERROR
+
+{% hint style="info" %}
+If the domain name does not have a wildcard
+{% endhint %}
+
+Use [dnsx](https://github.com/projectdiscovery/dnsx).
+
+{% code title="Use dnsx noerror" %}
+```bash
+# Identify Wildcard
+echo error.abc.xyz.target.com \
+    | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
+
+# NOERROR Enumeration
+dnsx -d $DOMAIN -r resolvers.txt -silent -rcode noerror \
+    -w subs_wordlists.txt
+    | cut -d ' ' -f 1 | tee ./dnsx.txt
+
+# View Data
+cat ./dnsx.txt
 ```
 {% endcode %}
 
