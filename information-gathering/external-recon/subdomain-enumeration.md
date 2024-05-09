@@ -4,12 +4,12 @@
 There are certain tasks that can enhance the efficiency of your subdomain enumeration. Please refer to the section titled [#preparations](subdomain-enumeration.md#preparations "mention") for more details. For variables used in the commands, please refer to the section titled [#environment-variables](subdomain-enumeration.md#environment-variables "mention").
 {% endhint %}
 
-## Passive Scan
+## Passive Enum
 
 Use [amass (v3)](https://github.com/owasp-amass/amass/tree/v3.23.3), [bbot](https://github.com/blacklanternsecurity/bbot), [crt](https://github.com/cemulus/crt), [github-subdomain](https://github.com/gwen001/github-subdomains), [gitlab-subdomain](https://github.com/gwen001/gitlab-subdomains) and [subfinder](https://github.com/projectdiscovery/subfinder).
 
 ```bash
-# Use amass to scan vulnweb.com (limit time)
+# Use amass to enum vulnweb.com (limit time)
 timeout -k 30s 30m \
     amass enum \
     -passive \
@@ -19,7 +19,7 @@ timeout -k 30s 30m \
     -json amass.json \
     &>/dev/null
 
-# Use amass to scan vulnweb.com (unlimited time)
+# Use amass to enum vulnweb.com (unlimited time)
 amass enum \
     -passive \
     -d vulnweb.com \
@@ -34,7 +34,7 @@ jq -r '.name' amass.json |
 ```
 
 ```bash
-# Use bbot to scan vulnweb.com
+# Use bbot to enum vulnweb.com
 bbot \
     -t vulnweb.com \
     --flags subdomain-enum \
@@ -52,7 +52,7 @@ jq -r 'select(.type=="DNS_NAME") | select(.scope_distance==0) | .data' bbot.json
 ```
 
 ```bash
-# Use crt to scan vulnweb.com
+# Use crt to enum vulnweb.com
 crt \
     -s \
     -l 999999 \
@@ -69,7 +69,7 @@ jq -r '.[].subdomain' crt.json |
 ```
 
 ```bash
-# Use github-subdomains to scan vulnweb.com (quick)
+# Use github-subdomains to enum vulnweb.com (quick)
 github-subdomains \
     -d vulnweb.com \
     -t "$TOOLS/github_tokens.txt" \
@@ -77,7 +77,7 @@ github-subdomains \
     -q \
     &>github-subdomains.log
 
-# Use github-subdomains to scan vulnweb.com (slow)
+# Use github-subdomains to enum vulnweb.com (slow)
 github-subdomains \
     -d vulnweb.com \
     -t "$TOOLS/github_tokens.txt" \
@@ -88,7 +88,7 @@ sort -u vulnweb.com.txt -o github-subdomains.txt && rm vulnweb.com.txt
 ```
 
 ```bash
-# Use gitlab-subdomains to scan vulnweb.com
+# Use gitlab-subdomains to enum vulnweb.com
 cp $TOOLS/gitlab_tokens.txt .tokens
 
 gitlab-subdomains \
@@ -100,7 +100,7 @@ sort -u vulnweb.com.txt -o gitlab-subdomains.txt && rm vulnweb.com.txt && rm .to
 ```
 
 ```bash
-# Use subfinder to scan vulnweb.com (all sources)
+# Use subfinder to enum vulnweb.com (all sources)
 subfinder \
     -domain vulnweb.com \
     -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
@@ -111,7 +111,7 @@ subfinder \
     -o subfinder.json \
     &>subfinder.log
 
-# Use subfinder to scan vulnweb.com (single sources)
+# Use subfinder to enum vulnweb.com (single sources)
 subfinder \
     -domain vulnweb.com \
     -provider-config "$HOME/.config/subfinder/provider-config.yaml" \
@@ -129,7 +129,7 @@ jq -r '.host' subfinder.json |
 ```
 
 ```bash
-# Summarize all results
+# Summarize all passive enum results
 local results=(
     "amass.txt"
     "bbot.txt"
@@ -164,7 +164,7 @@ puredns resolve passive.txt \
     --write-wildcards puredns-resolve-wildcards.txt \
     &>/puredns-resolve.log
 
-# Summarize the puredns resolve results
+# Extract subdomains from the puredns resolve results
 anew -q active.txt <puredns-resolve-valid.txt
 anew -q active.txt <puredns-resolve-wildcards.txt
 ```
