@@ -7,6 +7,7 @@
 * [Public Info Gathering](external-recon/public-info-gathering/README.md)
   * [Asset Discovery](external-recon/public-info-gathering/asset-discovery.md)
   * [Domain Gathering](external-recon/public-info-gathering/domain-gathering.md)
+  * [Information Leak](external-recon/public-info-gathering/information-leak.md)
 * [Subdomain Enumeration](external-recon/subdomain-enumeration/README.md)
   * [Preparations](external-recon/subdomain-enumeration/preparations.md)
   * [Regular Enum](external-recon/subdomain-enumeration/regular-enum.md)
