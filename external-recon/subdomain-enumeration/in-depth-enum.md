@@ -1,4 +1,4 @@
-# In-depth
+# In-depth Enum
 
 ## Permutation
 
@@ -306,7 +306,7 @@ sort -u puredns.txt -o puredns.txt
 cat puredns.txt
 ```
 
-### DNS zone transfer
+## DNS zone transfer
 
 {% code title="https://github.com/darkoperator/dnsrecon" %}
 ```bash
@@ -314,7 +314,7 @@ dnsrecon -t axfr -d target.com
 ```
 {% endcode %}
 
-### NoError
+## NoError
 
 {% hint style="info" %}
 If the domain name does not have a wildcard

@@ -9,8 +9,8 @@
   * [Domain Gathering](external-recon/public-info-gathering/domain-gathering.md)
 * [Subdomain Enumeration](external-recon/subdomain-enumeration/README.md)
   * [Preparations](external-recon/subdomain-enumeration/preparations.md)
-  * [Regular](external-recon/subdomain-enumeration/regular.md)
-  * [In-depth](external-recon/subdomain-enumeration/in-depth.md)
+  * [Regular Enum](external-recon/subdomain-enumeration/regular-enum.md)
+  * [In-depth Enum](external-recon/subdomain-enumeration/in-depth-enum.md)
   * [Summarize](external-recon/subdomain-enumeration/summarize.md)
 
 ## Pentesting
