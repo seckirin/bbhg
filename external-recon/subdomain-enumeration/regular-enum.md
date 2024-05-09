@@ -77,7 +77,7 @@ puredns bruteforce $SUBDOMAINS $DOMAIN \
 sort -u brute.txt -o brute.txt
 ```
 
-## Summarizing
+## Final Resolve
 
 ```bash
 cat active.txt brute.txt | sort -u | puredns resolve \
@@ -87,7 +87,11 @@ cat active.txt brute.txt | sort -u | puredns resolve \
     --wildcard-batch 1500000 \
     --write regular.txt \
     &>/dev/null
+```
 
+## Summarizing
+
+```bash
 typies=(
   "passive"
   "active"
