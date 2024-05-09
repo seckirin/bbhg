@@ -226,7 +226,7 @@ puredns resolve gotator-2.txt \
 cat puredns-1.txt puredns-2.txt | sort -u
 ```
 
-## Regex Permutations
+## Machine Learning
 
 use [regulator](https://github.com/cramppet/regulator) and [puredns](https://github.com/d3mondev/puredns).
 
@@ -304,7 +304,7 @@ puredns resolve gotator.txt \
 cat puredns-1.txt puredns-2.txt | sort -u
 ```
 
-## DNS
+## DNS Record
 
 ```bash
 dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
@@ -339,7 +339,7 @@ sort -u puredns.txt -o puredns.txt
 cat puredns.txt
 ```
 
-## Scarping
+## Web Scarping
 
 {% hint style="info" %}
 If the number of subdomains is less than 500
@@ -461,7 +461,7 @@ dnsrecon -t axfr -d target.com
 ```
 {% endcode %}
 
-### NOERROR
+### NoError
 
 {% hint style="info" %}
 If the domain name does not have a wildcard
@@ -485,30 +485,56 @@ cat ./dnsx.txt
 ```
 {% endcode %}
 
-## Preparations
-
-### Environment variables
-
-You can copy and modify these details, then paste them into your terminal to execute all the above commands normally.
+## Variables
 
 ```bash
 # GENERAL
-DOMAIN="x.com"
-TOOLS="${HOME}/hack/tools"
-ALL_PROXY="socks5://127.0.0.1:20170"
-HTTP_PROXY="http://127.0.0.1:20171"
+export "$TOOLS"="$HOME/tools"
+export "$OUTPUT"="$DOMAIN"
+```
 
-# TIMEOUT
-AMASS_TIMEOUT=30 # Minutes
+## Folders
 
-# THREADS
-IRESOLVER_THREAD=2000
-PUREDNS_RESOLVE_LIMIT=3000
-PUREDNS_RESOLVE_TRUSTED_LIMIT=150
-PUREDNS_WILDCARD_TEST_LIMIT=30
-PUREDNS_WILDCARD_BATCH_LIMIT=1500000
+```bash
+# Check all the directories needed for script
+local dirs=(
+    "${TOOLS}"
+    "${TOOLS}/wordlists"
+    "${TOOLS}/resolvers"
+    "${HOME}/.config/amass/"
+    "${HOME}/.config/subfinder/"
+    "${OUTPUT}/subdomains"
+    "${OUTPUT}/subdomains/passive"
+    "${OUTPUT}/subdomains/active"
+)
 
-# WORDLISTS
+for dir in "${dirs[@]}"; do
+    mkdir -p "$dir"
+done
+```
+
+## Resolvers
+
+```bash
+RESOLVERS="$TOOLS/resolvers/resolvers.txt"
+RESOLVERS_URL="https://public-dns.info/nameservers.txt"
+RESOLVERS_TRUSTED="$TOOLS/resolvers/resolvers_trusted.txt"
+RESOLVERS_TRUSTED_URL="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
+
+iresolver -threads 2000 \
+    -target "$RESOLVERS_URL" \
+    -outptu "$RESOLVERS" \
+    &>/dev/null
+
+iresolver -threads 2000 \
+    -target "$RESOLVERS_TRUSTED_URL" \
+    -outptu "$RESOLVERS_TRUSTED" \
+    &>/dev/null
+```
+
+## Wordlists
+
+```bash
 SUBDOMAINS="${TOOLS}/wordlists/subdomains.txt"
 SUBDOMAINS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains.txt"
 SUBDOMAINS_HUGE="${TOOLS}/wordlists/subdomains_huge.txt"
@@ -516,97 +542,7 @@ SUBDOMAINS_HUGE_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/
 PERMUTATIONS="${TOOLS}/wordlists/permutations.txt"
 PERMUTATIONS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/permutations.txt"
 
-# RESOLVERS
-RESOLVERS="${TOOLS}/resolvers/resolvers.txt"
-RESOLVERS_URL="https://public-dns.info/nameservers.txt"
-RESOLVERS_TRUSTED="${TOOLS}/resolvers/resolvers_trusted.txt"
-RESOLVERS_TRUSTED_URL="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
-
-# CONFIGURATION_FILE
-AMASS_CONFIG="${HOME}/.config/amass/config.ini"
-BBOT_CONFIG="${HOME}/.config/bbot/secrets.yml"
-GITHUB_TOKENS="${TOOLS}/github_tokens.txt"
-GITLAB_TOKENS="${TOOLS}/gitlab_tokens.txt"
-SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
-```
-
-### Check folders
-
-```bash
-# Check all the directories needed for script
-check_folder() {
-    local dirs=(
-        "${TOOLS}"
-        "${TOOLS}/wordlists"
-        "${TOOLS}/resolvers"
-        "${HOME}/.config/amass/"
-        "${HOME}/.config/subfinder/"
-        "${OUTPUT}/subdomains"
-        "${OUTPUT}/subdomains/passive"
-        "${OUTPUT}/subdomains/active"
-    )
-
-    for dir in "${dirs[@]}"; do
-        mkdir -p "$dir"
-    done
-    echo "Required Folder: OK"
-}
-```
-
-### Check wordlists
-
-```bash
-wget -q -O - "${RESOLVERS_URL}" >"${RESOLVERS}"
-wget -q -O - "${RESOLVERS_URL}" >"${RESOLVERS}"
-```
-
-### Check resolvers
-
-```bash
-update_resolver() {
-    local resolvers=$1
-    local resolvers_url=$2
-
-    iresolver -threads "${IRESOLVER_THREAD}" \
-        -target "${resolvers_url}" \
-        -output "${resolvers}" \
-        2>>"${LOG_FILE}" \
-        >/dev/null
-
-    if [[ -s "${resolvers}" ]]; then
-        sort -u "${resolvers}" -o "${resolvers}"
-        local line_count && line_count="$(wc -l <"${resolvers}" | tr -d ' ')"
-        notification "dntc" "${resolvers} ($(pluralize "${line_count}" "line" "lines")): OK"
-    else
-        notification "derr" "There were some problems updating the resolver..."
-    fi
-}
-
-# Check all the resolvers needed for script
-check_resolver() {
-    local resolvers=(
-        "RESOLVERS"
-        "RESOLVERS_TRUSTED"
-    )
-
-    for resolver in "${resolvers[@]}"; do
-        if [[ -s "${!resolver}" ]]; then
-            if [[ $(find "${!resolver}" -mtime +3 -print) ]]; then
-                notification "dwrn" "${resolver}: The file is older than 3 days, updating..."
-                local resolver_url="${resolver}_URL"
-                update_resolver "${!resolver}" "${!resolver_url}"
-            else
-                sort -u "${!resolver}" -o "${!resolver}"
-                local line_count && line_count="$(wc -l <"${!resolver}" | tr -d ' ')"
-                notification "dntc" "${resolver} ($(pluralize "${line_count}" "line" "lines")): OK"
-            fi
-        else
-            notification "dwrn" "${resolver}: Does not exist or is empty, downloading..."
-            local resolver_url="${resolver}_URL"
-            update_resolver "${!resolver}" "${!resolver_url}"
-        fi
-    done
-}
-
-
+wget -q -O - "$SUBDOMAINS_URL" >"$SUBDOMAINS"
+wget -q -O - "$SUBDOMAINS_HUGE_URL" >"$SUBDOMAINS_HUGE"
+wget -q -O - "$PERMUTATIONS_URL" >"$PERMUTATIONS"
 ```
