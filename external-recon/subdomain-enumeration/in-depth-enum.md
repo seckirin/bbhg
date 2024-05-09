@@ -2,6 +2,33 @@
 
 ## Permutation
 
+Best when the number of subdomains is 500 to 1000
+
+```bash
+altdns -i regular.txt -w $PERMUTATIONS -o altdns.txt
+
+puredns resolve altdns.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write permutation.txt
+    --quiet >> permutation.txt &&
+    rm altdns.txt
+
+altdns -i permutation.txt -w $PERMUTATIONS -o altdns.txt
+
+puredns resolve altdns.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --quiet >> permutation.txt &&
+    rm altdns.txt
+
+sort -u permutation.txt -o permutation.txt
+```
+
 Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns). Best when the number of subdomains is 500 to 1000
 
 ```bash
