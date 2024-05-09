@@ -1,4 +1,4 @@
-# Regular
+# Regular Enum
 
 ## Passive Enum
 
@@ -28,7 +28,7 @@ subfinder -d $DOMAIN -all -o subfinder.txt -es github \
 
 ```bash
 # Summarize passive enum results
-local results=(
+results=(
     "amass.txt"
     "bbot.txt"
     "crt.txt"
@@ -41,7 +41,7 @@ for result in "${results[@]}"; do
     # If the file exists
     if [[ -e "$result" ]]; then
         # Extract results in scope | Unique line to passive.txt
-        grep -E "^$DOMAIN$|\.$DOMAIN$" $result | anew -q passive.txt
+        grep -E "^$DOMAIN$|\.$DOMAIN$" "$result" | anew -q passive.txt
         # Delete the source file
         # rm $result
     fi
@@ -82,6 +82,19 @@ cat active.txt brute.txt | sort -u | puredns resolve \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write subdomains-regular.txt \
+    --write regular.txt \
     &>/dev/null
+
+typies=(
+  "passive"
+  "active"
+  "brute"
+  "regular"
+)
+
+for type in "${typies[@]}"; do
+  while IFS= read -r subdomain; do
+    jq -n --arg subdomain "$subdomain" --arg type "$type" '{subdomain: $subdomain, type: $type}' >>subdomains.json
+  done <"${type}.txt"
+done
 ```
