@@ -6,6 +6,8 @@
 # General
 DOMAIN="vulnweb.com"
 TOOLS="$HOME/hack/tools"
+HTTP_PROXY="http://127.0.0.1:6152"
+ALL_PROXY="socks5://127.0.0.1:6153"
 
 # Resolvers
 RESOLVERS="$HOME/.config/puredns/resolvers.txt"
