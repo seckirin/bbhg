@@ -77,7 +77,7 @@ puredns bruteforce $SUBDOMAINS $DOMAIN \
 sort -u brute.txt -o brute.txt
 ```
 
-## Final Resolve
+## Regular Resolve
 
 ```bash
 cat active.txt brute.txt | sort -u | puredns resolve \

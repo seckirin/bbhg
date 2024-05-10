@@ -109,7 +109,7 @@ permutation_added_count=$(anew -d subdomains.txt <permutation.txt | wc -l | tr -
 anew -q subdomains.txt <permutation.txt
 ```
 
-## Machine Learning
+## AI Generate
 
 use [regulator](https://github.com/cramppet/regulator) and [puredns](https://github.com/d3mondev/puredns).
 
@@ -301,7 +301,7 @@ sort -u puredns.txt -o puredns.txt
 cat puredns.txt
 ```
 
-## Google Analytics ID
+## Google Analytics
 
 ```bash
 # Request for website data

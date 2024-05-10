@@ -12,7 +12,7 @@
   * [Preparations](external-recon/subdomain-enumeration/preparations.md)
   * [Regular Enum](external-recon/subdomain-enumeration/regular-enum.md)
   * [In-depth Enum](external-recon/subdomain-enumeration/in-depth-enum.md)
-  * [Summarize](external-recon/subdomain-enumeration/summarize.md)
+  * [Summarizing](external-recon/subdomain-enumeration/summarizing.md)
 
 ## Pentesting
 
