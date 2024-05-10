@@ -348,7 +348,87 @@ python3 summarizer.py --sources ai --resolved 1
 ```bash
 cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > resolved.txt
 
-cat resolved | httpx -follow-host-redirects -random-agent -status-code -silent -retries 2 -title -web-server -tech-detect -location -o webs_info.txt
+# Scrap of URLs
+httpx -l resolved.txt -status-code -title -web-server -tech-detect -location -follow-host-redirects \
+    -threads 50 -rate-limit 150 -timeout 10 -retries 2 \
+    -silent -no-color -json -o web_full_info1.json \
+    &>/dev/null
+
+jq -r 'try .url' web_full_info1.json 2>/dev/null |
+    grep $DOMAIN |
+    grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' |
+    sed "s/*.//" |
+    anew scrap_urls.txt | unfurl -u domains 2>/dev/null | anew -q scrap.txt &&
+    rm web_full_info1.json
+
+# Scrap of TLS and CSP
+httpx -l scrap_urls.txt \
+    -tls-grab -tls-probe -csp-probe -status-code \
+    -threads 50 --rate-limit 150 -timeout 10 -retries 2 \
+    -silent -no-color -json -o web_full_info2.json \
+    &>/dev/null
+
+jq -r 'try ."tls-grab"."dns_names"[],try .csp.domains[],try .url' web_full_info2.json 2>/dev/null |
+    grep $DOMAIN |
+    grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' |
+    sed "s/*.//" |
+    sort -u |
+    httpx -silent |
+    anew scrap_urls.txt | unfurl -u domains 2>/dev/null | anew -q scrap.txt &&
+    rm web_full_info2.json
+
+# Scrap of Web Crawling
+katana -list scrap_urls.txt \
+    -js-crawl -known-files all \
+    -concurrency 20 -depth 2 -field-scope rdn \
+    -silent -o katana.txt \
+    &>/dev/null &&
+    # rm scrap_urls.txt
+
+sed -i '/^.\{2048\}./d' katana.txt
+cat katana.txt | unfurl -u domains 2>/dev/null | grep -E "\.$DOMAIN$" |
+    grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' |
+    anew -q scrap.txt &&
+    rm katana.txt
+
+# Firmly Resolve
+puredns resolve scrap.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write scrap.txt \
+    --resolvers $RESOLVERS_TRUSTED \
+    &>/dev/null
+```
+
+```bash
+python3 summarizer.py --sources scrap --resolved 1
 ```
 
 ## Google Analytics
+
+```bash
+analyticsrelationships -ch <scrap_urls.txt >>analyticsrelationships.txt
+cat analyticsrelationships.txt |
+    grep -E "^$DOMAIN$|\.$DOMAIN$" |
+    grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' |
+    sed "s/|__ //" |
+    anew -q analytics.txt &&
+    rm analyticsrelationships.txt &&
+    rm scrap_urls.txt
+
+# Firmly Resolve
+puredns resolve analytics.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write analytics.txt \
+    --resolvers $RESOLVERS_TRUSTED \
+    &>/dev/null
+```
+
+```bash
+python3 summarizer.py --sources analytics --resolved 1
+```

@@ -29,9 +29,6 @@ BBOT_CONFIG="${HOME}/.config/bbot/secrets.yml"
 GITHUB_TOKENS="${TOOLS}/github_tokens.txt"
 GITLAB_TOKENS="${TOOLS}/gitlab_tokens.txt"
 SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
-
-# Tools Variables
-AMASS_TIMEOUT=30 # Minutes
 ```
 
 ## Folders

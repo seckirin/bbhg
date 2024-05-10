@@ -1,63 +1,65 @@
 # In-depth Enum
 
-## Recursive Passive
+## Recursive
 
-Use [dsieve](https://github.com/trickest/dsieve), [amass (v3)](https://github.com/owasp-amass/amass/tree/v3.23.3) and [puredns](https://github.com/d3mondev/puredns)
+* A more in-depth and comprehensive subdomain enumeration requires a significant amount of API quotas and disk performance resources.
+* If you’ve got the resources and need deep subdomain enumeration, go ahead and turn these options on. If not, keep them as your plan B for in-depth enum.
+
+### Recursive Passive
 
 ```bash
-dsieve -if subdomains.txt -f 3 -top 10 > dsieve.txt
+# https://github.com/trickest/dsieve
+dsieve -if resolved.txt -f 3 -top 10 > dsieve.txt
 
+# https://github.com/owasp-amass/amass/tree/v3.23.3
 amass enum -passive -df dsieve.txt -nf subdomains.txt -timeout 30 -o amass.txt
 
 puredns resolve amass.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
+    --rate-limit 0 \
     --rate-limit-trusted 200 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns.txt
+    -w recursive_passive.txt &&
+    rm dsieve.txt
 ```
 
-## Recursive Brute
+### Recursive Brute
 
-{% hint style="info" %}
-If the number of subdomains is less than 500
-{% endhint %}
-
-{% hint style="info" %}
-It may take more than 50 minutes
-{% endhint %}
-
-Use [dsieve](https://github.com/trickest/dsieve),  [ripgen](https://github.com/resyncgg/ripgen), [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns)
+* If the number of subdomains is less than 500
+* It may take more than 50 minutes
 
 ```bash
-# First
-dsieve -if subdomains.txt -f 3 -top 10 >./dsieve.txt
+# https://github.com/trickest/dsieve
+dsieve -if resolved.txt -f 3 -top 10 >dsieve.txt
 
-ripgen -d ./dsieve.txt -w subs_wordlists.txt >./ripgen.txt
+# https://github.com/resyncgg/ripgen
+ripgen -d dsieve.txt -w $PERMUTATIONS >ripgen.txt
 
 puredns resolve ripgen.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
+    --rate-limit 0 \
     --rate-limit-trusted 200 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns-1.txt
+    -w recursive_brute_1.txt \
+    &> /dev/null &&
+    rm ripgen.txt
 
-# Do it again
-gotator -sub resolved.txt -perm puredns-1.txt \
-    -depth 1 -numbers 3 -mindup -adv -md -silent > gotator.txt
+# https://github.com/Josue87/gotator
+gotator -sub recursive_brute-1.txt -perm $PERMUTATIONS \
+    -depth 1 -numbers 3 -mindup -adv -md -silent |
+    anew gotator.txt
 
 puredns resolve gotator.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
+    --rate-limit 0 \
     --rate-limit-trusted 200 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns-2.txt
+    -w recursive_brute_2.txt \
+    &> /dev/null &&
+    rm gotator.txt
 
 # View Data
-cat puredns-1.txt puredns-2.txt | sort -u
+cat recursive_brute_1.txt recursive_brute_2.txt | sort-u
 ```
 
 ## DNS Record
@@ -95,118 +97,6 @@ sort -u puredns.txt -o puredns.txt
 cat puredns.txt
 ```
 
-## Web Scarping
-
-{% hint style="info" %}
-If the number of subdomains is less than 500
-{% endhint %}
-
-```bash
-# First request for website data
-cat subdomains.txt | httpx -follow-host-redirects -status-code \
-    -threads 50 -rl 150 -timeout 10 -silent \
-    -retries 2 -title -web-server -tech-detect \
-    -location -no-color -json -o httpx-1.json \
-    2>>"httpx-1.log" >/dev/null
-
-# Filter domains and urls in the data
-cat httpx-1.json | jq -r 'try .url' 2>/dev/null \
-    | grep "\.${DOMAIN}$" \
-    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
-    | sed "s/*.//" \
-    | anew httpx-urls-1.txt \
-    | unfurl -u domains \
-    2>>/dev/null \
-    | anew -q httpx-domains-1.txt
-
-# Second request for website data
-httpx -l httpx-urls-1.txt \
-    -tls-grab -tls-probe -csp-probe -status-code \
-    -threads 50 -rl 150 -timeout 10 -silent \
-    -retries 2 -no-color -json \
-    -o httpx-2.json \
-    2>>"httpx-2.log" \
-    >/dev/null
-
-# Filter the domains and urls in the data and request the site data again
-cat httpx-2.json | jq -r 'try ."tls-grab"."dns_names"[],try .csp.domains[],try .url' 2>/dev/null \
-    | grep "$DOMAIN" 
-    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
-    | sed "s/*.//" | sort -u \
-    | httpx -silent \
-    | anew httpx-urls-2.txt \
-    | unfurl -u domains \
-    2>>/dev/null \
-    | anew -q httpx-domains-2.txt
-
-# Clean httpx outptu
-cat httpx-urls-1.txt httpx-urls-2.txt >httpx-urls-all.txt
-cat httpx-domains-1.txt httpx-domains-2.txt > httpx-domains-all.txt
-
-# Run katana
-katana -silent -list httpx-urls-all.txt -jc -kf all -c 20 -d 2 -fs rdn \
-    -o katana.txt \
-    2>>katana.log \
-    >/dev/null
-
-# Clean katana outptu
-sed -i '/^.\{2048\}./d' ${WRITE_PATH}/subdomains/scrap/katana.txt
-cat katana.txt | unfurl -u domains 2>/dev/null \
-    | grep "\.${DOMAIN}$" \
-    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
-    >katana-domains.txt
-
-# Clean all domains
-cat httpx-domains-all.txt katana-domains.txt | sort -u \
-    >httpx_and_katana_domains.txt
-
-# Resolution
-puredns resolve httpx_and_katana_domains.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
-    --wildcard-tests 30 \
-    --wildcard-batch 1500000 \
-    -w puredns.txt \
-    &>puredns.log
-
-sort -u puredns.txt -o puredns.txt
-
-# View Data
-cat puredns.txt
-```
-
-## Google Analytics
-
-```bash
-# Request for website data
-analyticsrelationships -ch < httpx-urls-all.txt \
-    >analyticsrelationships.txt \
-    2>analyticsrelationships.log
-
-# Clean outptu
-cat analyticsrelationships.txt \
-    | grep "\.$DOMAIN$\|^$DOMAIN$" \
-    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
-    | sed "s/|__ //" \
-    | anew -q analyticsrelationships-domains.txt
-
-# Resolution
-puredns resolve ${WRITE_PATH}/subdomains/analytics/analyticsrelationships-domains.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
-    --wildcard-tests 30 \
-    --wildcard-batch 1500000 \
-    -w puredns.txt \
-    &>puredns.log
-
-sort -u puredns.txt -o puredns.txt
-
-# View Data
-cat puredns.txt
-```
-
 ## DNS zone transfer
 
 {% code title="https://github.com/darkoperator/dnsrecon" %}
@@ -217,24 +107,18 @@ dnsrecon -t axfr -d target.com
 
 ## NoError
 
-{% hint style="info" %}
-If the domain name does not have a wildcard
-{% endhint %}
+* If the domain name does not have a wildcard
 
-Use [dnsx](https://github.com/projectdiscovery/dnsx).
-
-{% code title="Use dnsx noerror" %}
 ```bash
+# https://github.com/projectdiscovery/dnsx
 # Identify Wildcard
 echo error.abc.xyz.target.com \
     | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
 
 # NOERROR Enumeration
-dnsx -d $DOMAIN -r resolvers.txt -silent -rcode noerror \
-    -w subs_wordlists.txt
-    | cut -d ' ' -f 1 | tee ./dnsx.txt
+dnsx -d $DOMAIN -r $RESOLVERS -w $SUBDOMAINS -silent -rcode noerror \
+    | cut -d ' ' -f 1 | tee dnsx.txt
 
 # View Data
-cat ./dnsx.txt
+cat dnsx.txt
 ```
-{% endcode %}
