@@ -1,8 +1,13 @@
 # In-depth Enum
 
-## Alter (Permutation)
+## Permutation
 
-Best when the number of subdomains is 500 to 1000
+* Best when the number of subdomains is 500 to 1000
+* **Features of different tools**
+  * [altdns](https://github.com/infosec-au/altdns): large, comprehensive
+  * [alterx](https://github.com/projectdiscovery/alterx): stdin, customizable
+  * [gotator](https://github.com/Josue87/gotator): depth, customizable
+  * [ripgen](https://github.com/resyncgg/ripgen): high-performance
 
 ```bash
 jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >resolved.txt
@@ -10,7 +15,6 @@ jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >resolved.txt
 
 ```bash
 # https://github.com/infosec-au/altdns
-# Features: large, comprehensive
 altdns -i resolved.txt -w $PERMUTATIONS -o altdns.txt
 puredns resolve altdns.txt \
     --rate-limit 3000 \
@@ -21,7 +25,7 @@ puredns resolve altdns.txt \
     rm altdns.txt
 
 # Round 2
-altdns -i permutation.txt -w $PERMUTATIONS -o altdns.txt
+altdns -i permutation_altdns.txt -w $PERMUTATIONS -o altdns.txt
 puredns resolve altdns.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
@@ -31,18 +35,18 @@ puredns resolve altdns.txt \
     rm altdns.txt
  
 # Final Resolve
+sort -u permutation_altdns.txt -o permutation_altdns.txt
 puredns resolve permutation_altdns.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write permutation_altdns.txt
-sort -u permutation_altdns.txt -o permutation_altdns.txt
+    --write permutation_altdns.txt \
+    &>/dev/null
 ```
 
 ```bash
 # https://github.com/projectdiscovery/alterx
-# Features: stdin, customizable
 alterx -l resolved.txt -enrich -silent | anew -q alterx.txt
 puredns resolve alterx.txt \
     --rate-limit 3000 \
@@ -63,28 +67,83 @@ puredns resolve alterx.txt \
     rm alterx.txt
 
 # Final Resolve
+sort -u permutation_alterx.txt -o permutation_alterx.txt
 puredns resolve permutation_alterx.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write permutation_alterx.txt
-
-sort -u permutation_alterx.txt -o permutation_alterx.txt
+    --write permutation_alterx.txt \
+    &>/dev/null
 ```
 
 ```bash
 # https://github.com/Josue87/gotator
-# Features: depth, customizable
-gotator -sub resolved.txt -perm 
+gotator -sub resolved.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mindup -adv -md -silent | head -c 1G | anew -q gotator.txt
+puredns resolve gotator.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --quiet >> permutation_gotator.txt &&
+    rm gotator.txt
+
+# Round 2
+gotator -sub permutation_gotator.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mindup -adv -md -silent | head -c 1G | anew -q gotator.txt
+puredns resolve gotator.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --quiet >> permutation_gotator.txt &&
+    rm gotator.txt
+
+# Final Resolve
+sort -u permutation_gotator.txt -o permutation_gotator.txt
+puredns resolve permutation_gotator.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write permutation_gotator.txt \
+    &>/dev/null
 ```
 
 ```bash
 # https://github.com/resyncgg/ripgen
-# Features: high-performance
+ripgen -d resolved.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
+puredns resolve ripgen.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --quiet >> permutation_ripgen.txt &&
+    rm ripgen.txt
+
+# Round 2
+ripgen -d permutation_ripgen.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
+puredns resolve ripgen.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --quiet >> permutation_ripgen.txt &&
+    rm ripgen.txt
+
+# Final Resolve
+sort -u permutation_ripgen.txt -o permutation_ripgen.txt
+puredns resolve permutation_ripgen.txt \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write permutation_ripgen.txt \
+    &>/dev/null
 ```
 
 ```bash
+# rm resolved.txt
+
 python3 summarizer.py --source permutation_altdns --resolved 1
 python3 summarizer.py --source permutation_alterx --resolved 1
 python3 summarizer.py --source permutation_gotator --resolved 1
@@ -92,6 +151,8 @@ python3 summarizer.py --source permutation_ripgen --resolved 1
 
 # cat subdomains.json | jq '.[] | select(.sources == ["permutation_altdns"])'
 # cat subdomains.json | jq '.[] | select(.sources == ["permutation_alterx"])'
+# cat subdomains.json | jq '.[] | select(.sources == ["permutation_gotator"])'
+# cat subdomains.json | jq '.[] | select(.sources == ["permutation_ripgen"])'
 ```
 
 ## AI Generate
