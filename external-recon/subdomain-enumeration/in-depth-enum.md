@@ -206,18 +206,33 @@ cat subdomains.json | jq -r '.[] | select(.sources | all(. | contains("permutati
 
 ## AI Generate
 
-use [regulator](https://github.com/cramppet/regulator) and [puredns](https://github.com/d3mondev/puredns).
-
 ```bash
-python3 main.py -t $DOMAIN -f subdomains.txt -o regulator.txt
+# https://github.com/cramppet/regulator
+cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > resolved.txt
+scan_pwd=$(pwd) && pushd $TOOLS/regulator && python3 main.py -t $DOMAIN -f $scan_pwd/resolved.txt -o $scan_pwd/regulator.txt && popd
 
 puredns resolve regulator.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    -w puredns.txt
+    --write ai.txt \
+    &>/dev/null &&
+    rm regulator.txt
+
+# Firmly Resolve
+puredns resolve ai.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write ai.txt \
+    --resolvers $RESOLVERS_TRUSTED \
+    &>/dev/null
+```
+
+```bash
+python3 summarizer.py --sources ai --resolved 1
 ```
 
 ## Recursive Passive
