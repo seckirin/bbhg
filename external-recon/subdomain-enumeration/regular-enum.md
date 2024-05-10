@@ -408,15 +408,24 @@ python3 summarizer.py --sources scrap --resolved 1
 
 ## Google Analytics
 
+* OSINT.SH (POST) [https://osint.sh/analytics](https://osint.sh/analytics/)
+* HackerTarget [https://api.hackertarget.com/analyticslookup/?q=UA-33427076](https://api.hackertarget.com/analyticslookup/?q=UA-33427076)
+* BuiltWith [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
+* Site Overview [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
+* SpyOnWeb [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
+
 ```bash
-analyticsrelationships -ch <scrap_urls.txt >>analyticsrelationships.txt
-cat analyticsrelationships.txt |
-    grep -E "^$DOMAIN$|\.$DOMAIN$" |
-    grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' |
-    sed "s/|__ //" |
-    anew -q analytics.txt &&
-    rm analyticsrelationships.txt &&
-    rm scrap_urls.txt
+# https://github.com/projectdiscovery/nuclei
+# https://gist.github.com/yuukisec/f6b4659b5d4c2d825a6d41a8ae3d73b7
+nuclei -t $TOOLS/nuclei-templates/google-analytics-id-detection.yaml -l scrap_urls.txt -silent -no-color |
+    cut -d '"' -f2 > google_analytics_id.txt
+
+# https://github.com/dhn/udon
+while read id
+do
+    udon -s $id -silent |
+        grep -E "^$DOMAIN$|\.$DOMAIN$" | anew analytics.txt
+done < google_analytics_id.txt && rm google_analytics_id.txt
 
 # Firmly Resolve
 puredns resolve analytics.txt \
