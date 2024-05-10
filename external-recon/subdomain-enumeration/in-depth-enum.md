@@ -5,6 +5,7 @@
 Best when the number of subdomains is 500 to 1000
 
 ```bash
+# https://github.com/infosec-au/altdns
 altdns -i regular.txt -w $PERMUTATIONS -o altdns.txt
 
 puredns resolve altdns.txt \
@@ -29,10 +30,8 @@ puredns resolve altdns.txt \
 sort -u permutation.txt -o permutation.txt
 ```
 
-Use [gotator](https://github.com/Josue87/gotator) and [puredns](https://github.com/d3mondev/puredns). Best when the number of subdomains is 500 to 1000
-
 ```bash
-# Use gotator to generate subdomains
+# https://github.com/Josue87/gotator
 gotator \
     -sub subdomains.txt \
     -perm "$TOOLS/wordlists/permutations.txt" \
