@@ -1,8 +1,8 @@
-# \~/hack-note
+# echo hack-note &> /dev/null
 
 Welcome to Hack Note, a comprehensive cybersecurity document designed to provide a detailed and practical guide to help understand and apply various network security technologies. The document covers a wide range of topics including information gathering, vulnerability testing, vulnerability exploitation, post-penetration testing, and mobile testing. For detailed content, please click on the left content bar.
 
-欢迎来到 Hack Note，这是一个全面的网络安全文档，旨在提供一份详尽且实用的指南，帮助理解和应用各种网络安全技术。文档涵盖了信息收集、漏洞测试、漏洞利用、后渗透测试、移动端测试等多个方面的内容，详细的内容请点击左侧内容栏查看。
+欢迎来到 [Hack Note](https://hacknote.yuukiz.com/)，这是一个全面的网络安全文档，旨在提供一份详尽且实用的指南，帮助理解和应用各种网络安全技术。文档涵盖了信息收集、漏洞测试、漏洞利用、后渗透测试、移动端测试等多个方面的内容，详细的内容请点击左侧内容栏查看。
 
 ## Content Overview
 
