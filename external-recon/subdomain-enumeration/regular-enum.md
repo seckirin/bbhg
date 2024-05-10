@@ -52,7 +52,7 @@ done
 ```
 
 ```bash
-python3 summarizer.py --source passive --resolved 0
+# python3 summarizer.py --source passive --resolved 0
 ```
 
 ## Active Resolve
@@ -64,6 +64,16 @@ puredns resolve passive.txt \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
     --write active.txt \
+    &>/dev/null
+
+# Firmly Resolve
+puredns resolve active.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write active.txt \
+    --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
@@ -81,8 +91,17 @@ puredns bruteforce $SUBDOMAINS $DOMAIN \
     --wildcard-batch 1500000 \
     --write brute.txt \
     &>/dev/null
-
 sort -u brute.txt -o brute.txt
+
+# Firmly Resolve
+puredns resolve brute.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write brute.txt \
+    --resolvers $RESOLVERS_TRUSTED \
+    &>/dev/null
 ```
 
 ```bash
