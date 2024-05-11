@@ -62,7 +62,7 @@ puredns resolve gotator.txt \
 cat recursive_brute_1.txt recursive_brute_2.txt | sort-u
 ```
 
-## DNS Record
+## DNS Enum
 
 ```bash
 dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
@@ -105,7 +105,7 @@ dnsrecon -t axfr -d target.com
 ```
 {% endcode %}
 
-## NoError
+## NoError Enum
 
 * If the domain name does not have a wildcard
 
