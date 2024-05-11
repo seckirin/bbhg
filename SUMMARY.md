@@ -13,23 +13,18 @@
 
 ## Pentesting
 
-* [Pentesting Host](pentesting/pentesting-host/README.md)
-  * [Database](pentesting/pentesting-host/database/README.md)
-    * [etcd](pentesting/pentesting-host/database/etcd.md)
-    * [InfluxDB](pentesting/pentesting-host/database/influxdb.md)
-    * [MongoDB](pentesting/pentesting-host/database/mongodb.md)
-    * [MSSQL](pentesting/pentesting-host/database/mssql.md)
-    * [MySQL](pentesting/pentesting-host/database/mysql.md)
-    * [Redis](pentesting/pentesting-host/database/redis.md)
-  * [Framework](pentesting/pentesting-host/framework.md)
-  * [Protocol](pentesting/pentesting-host/protocol/README.md)
-    * [LDAP](pentesting/pentesting-host/protocol/ldap.md)
-    * [MQTT](pentesting/pentesting-host/protocol/mqtt.md)
-    * [SSH](pentesting/pentesting-host/protocol/ssh.md)
-  * [Utility](pentesting/pentesting-host/utility/README.md)
-    * [Rsync](pentesting/pentesting-host/utility/rsync.md)
-  * [Virtualization](pentesting/pentesting-host/virtualization/README.md)
-    * [Docker](pentesting/pentesting-host/virtualization/docker.md)
+* [Attack Port](pentesting/attack-port/README.md)
+  * [SSH](pentesting/attack-port/ssh.md)
+  * [LDAP](pentesting/attack-port/ldap.md)
+  * [Rsync](pentesting/attack-port/rsync.md)
+  * [MSSQL](pentesting/attack-port/mssql.md)
+  * [MQTT](pentesting/attack-port/mqtt.md)
+  * [Docker](pentesting/attack-port/docker.md)
+  * [etcd](pentesting/attack-port/etcd.md)
+  * [MySQL](pentesting/attack-port/mysql.md)
+  * [Redis](pentesting/attack-port/redis.md)
+  * [InfluxDB](pentesting/attack-port/influxdb.md)
+  * [MongoDB](pentesting/attack-port/mongodb.md)
 
 ## Inbox
 
