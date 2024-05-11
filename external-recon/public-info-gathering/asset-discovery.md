@@ -28,20 +28,3 @@ https://www.aldzs.com/
 https://www.lingfengyun.com/
 ```
 
-## ASNs
-
-{% code title="Multipurpose Websites" %}
-```bash
-https://asnlookup.com/
-https://search.dnslytics.com/
-https://bgp.he.net/
-```
-{% endcode %}
-
-{% code title="Mainland China ASN" %}
-```
-https://bgp.he.net/country/CN
-https://search.dnslytics.com/bgp/cn
-https://www.pdflibr.com/countries/cn/1
-```
-{% endcode %}

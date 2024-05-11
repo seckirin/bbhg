@@ -9,7 +9,7 @@
 
 ```bash
 # https://github.com/trickest/dsieve
-dsieve -if resolved.txt -f 3 -top 10 > dsieve.txt
+dsieve -if subdomains.txt -f 3 -top 10 > dsieve.txt
 
 # https://github.com/owasp-amass/amass/tree/v3.23.3
 amass enum -passive -df dsieve.txt -nf subdomains.txt -timeout 30 -o amass.txt
@@ -30,7 +30,7 @@ puredns resolve amass.txt \
 
 ```bash
 # https://github.com/trickest/dsieve
-dsieve -if resolved.txt -f 3 -top 10 >dsieve.txt
+dsieve -if subdomains.txt -f 3 -top 10 >dsieve.txt
 
 # https://github.com/resyncgg/ripgen
 ripgen -d dsieve.txt -w $PERMUTATIONS >ripgen.txt

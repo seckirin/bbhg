@@ -12,6 +12,7 @@
   * [Preparations](external-recon/subdomain-enumeration/preparations.md)
   * [Regular Enum](external-recon/subdomain-enumeration/regular-enum.md)
   * [In-depth Enum](external-recon/subdomain-enumeration/in-depth-enum.md)
+* [Multipurpose Technology](external-recon/multipurpose-technology.md)
 
 ## Pentesting
 

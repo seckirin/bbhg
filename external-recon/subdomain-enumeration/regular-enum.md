@@ -108,7 +108,7 @@ puredns resolve brute.txt \
 python3 summarizer.py --source brute --resolved 1
 ```
 
-## Permutation
+## Alter Combo
 
 * Best when the number of subdomains is 500 to 1000
 * **Features of different tools**
@@ -123,40 +123,40 @@ python3 summarizer.py --source brute --resolved 1
 <summary>altdns</summary>
 
 ```bash
-jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >resolved.txt
-altdns -i resolved.txt -w $PERMUTATIONS -o altdns.txt
+jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
+altdns -i subdomains.txt -w $PERMUTATIONS -o altdns.txt
 puredns resolve altdns.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_altdns.txt &&
+    --quiet >> alter.txt &&
     rm altdns.txt
 
 # Round 2
-altdns -i permutation_altdns.txt -w $PERMUTATIONS -o altdns.txt
+altdns -i alter.txt -w $PERMUTATIONS -o altdns.txt
 puredns resolve altdns.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_altdns.txt &&
+    --quiet >> alter.txt &&
     rm altdns.txt
  
 # Firmly Resolve
-sort -u permutation_altdns.txt -o permutation_altdns.txt
-puredns resolve permutation_altdns.txt \
+sort -u alter.txt -o alter.txt
+puredns resolve alter.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write permutation_altdns.txt \
+    --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
 ```bash
-python3 summarizer.py --source permutation_altdns --resolved 1
+python3 summarizer.py --source alter --resolved 1
 ```
 
 </details>
@@ -166,41 +166,40 @@ python3 summarizer.py --source permutation_altdns --resolved 1
 <summary>alterx</summary>
 
 ```bash
-jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >resolved.txt
-
-alterx -l resolved.txt -enrich -silent | anew -q alterx.txt
+jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
+alterx -l subdomains.txt -enrich -silent | anew -q alterx.txt
 puredns resolve alterx.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_alterx.txt &&
+    --quiet >> alter.txt &&
     rm alterx.txt
 
 # Round 2
-alterx -l permutation_alterx.txt -enrich -silent | anew -q alterx.txt
+alterx -l alter.txt -enrich -silent | anew -q alterx.txt
 puredns resolve alterx.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_alterx.txt &&
+    --quiet >> alter.txt &&
     rm alterx.txt
 
 # Firmly Resolve
-sort -u permutation_alterx.txt -o permutation_alterx.txt
-puredns resolve permutation_alterx.txt \
+sort -u alter.txt -o alter.txt
+puredns resolve alter.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write permutation_alterx.txt \
+    --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
 ```bash
-python3 summarizer.py --source permutation_alterx --resolved 1
+python3 summarizer.py --source alter --resolved 1
 ```
 
 </details>
@@ -210,39 +209,40 @@ python3 summarizer.py --source permutation_alterx --resolved 1
 <summary>gotator</summary>
 
 ```bash
-gotator -sub resolved.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mindup -adv -md -silent | head -c 1G | anew -q gotator.txt
+jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
+gotator -sub subdomains.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mindup -adv -md -silent | head -c 1G | anew -q gotator.txt
 puredns resolve gotator.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_gotator.txt &&
+    --quiet >> alter.txt &&
     rm gotator.txt
 
 # Round 2
-gotator -sub permutation_gotator.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mindup -adv -md -silent | head -c 1G | anew -q gotator.txt
+gotator -sub alter.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mindup -adv -md -silent | head -c 1G | anew -q gotator.txt
 puredns resolve gotator.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_gotator.txt &&
+    --quiet >> alter.txt &&
     rm gotator.txt
 
 # Firmly Resolve
-sort -u permutation_gotator.txt -o permutation_gotator.txt
-puredns resolve permutation_gotator.txt \
+sort -u alter.txt -o alter.txt
+puredns resolve alter.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write permutation_gotator.txt \
+    --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
 ```bash
-python3 summarizer.py --source permutation_gotator --resolved 1
+python3 summarizer.py --source alter --resolved 1
 ```
 
 </details>
@@ -252,39 +252,40 @@ python3 summarizer.py --source permutation_gotator --resolved 1
 <summary>ripgen</summary>
 
 ```bash
-ripgen -d resolved.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
+jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
+ripgen -d subdomains.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
 puredns resolve ripgen.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_ripgen.txt &&
+    --quiet >> alter.txt &&
     rm ripgen.txt
 
 # Round 2
-ripgen -d permutation_ripgen.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
+ripgen -d alter.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
 puredns resolve ripgen.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --quiet >> permutation_ripgen.txt &&
+    --quiet >> alter.txt &&
     rm ripgen.txt
 
 # Firmly Resolve
-sort -u permutation_ripgen.txt -o permutation_ripgen.txt
-puredns resolve permutation_ripgen.txt \
+sort -u alter.txt -o alter.txt
+puredns resolve alter.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write permutation_ripgen.txt \
+    --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
 ```bash
-python3 summarizer.py --source permutation_ripgen --resolved 1
+python3 summarizer.py --source alter --resolved 1
 ```
 
 </details>
@@ -295,19 +296,16 @@ python3 summarizer.py --source permutation_ripgen --resolved 1
 
 ```bash
 # Only one tool
-cat subdomains.json | jq '.[] | select(.sources == ["permutation_altdns"])'
-cat subdomains.json | jq '.[] | select(.sources == ["permutation_alterx"])'
-cat subdomains.json | jq '.[] | select(.sources == ["permutation_gotator"])'
-cat subdomains.json | jq '.[] | select(.sources == ["permutation_ripgen"])'
+# cat subdomains.json | jq '.[] | select(.sources == ["alter_altdns"])'
+# cat subdomains.json | jq '.[] | select(.sources == ["alter_alterx"])'
+# cat subdomains.json | jq '.[] | select(.sources == ["alter_gotator"])'
+# cat subdomains.json | jq '.[] | select(.sources == ["alter_ripgen"])'
 
-# Count the number of a tool
-cat subdomains.json | jq '.[] | select(.sources[] == "permutation_altdns") | .subdomain' | wc -l
-cat subdomains.json | jq '.[] | select(.sources[] == "permutation_alterx") | .subdomain' | wc -l
-cat subdomains.json | jq '.[] | select(.sources[] == "permutation_gotator") | .subdomain' | wc -l
-cat subdomains.json | jq '.[] | select(.sources[] == "permutation_ripgen") | .subdomain' | wc -l
+# Count the number of a alter combo
+cat subdomains.json | jq '.[] | select(.sources[] == "alter") | .subdomain' | wc -l
 
-# Only Permutation
-cat subdomains.json | jq -r '.[] | select(.sources | all(. | contains("permutation")))'
+# Only Alter results
+cat subdomains.json | jq -r '.[] | select(.sources | all(. | contains("alter")))'
 ```
 
 </details>
@@ -316,40 +314,40 @@ cat subdomains.json | jq -r '.[] | select(.sources | all(. | contains("permutati
 
 ```bash
 # https://github.com/cramppet/regulator
-cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > resolved.txt
-scan_pwd=$(pwd) && pushd $TOOLS/regulator && python3 main.py -t $DOMAIN -f $scan_pwd/resolved.txt -o $scan_pwd/regulator.txt && popd
+cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
+scan_pwd=$(pwd) && pushd $TOOLS/regulator && python3 main.py -t $DOMAIN -f $scan_pwd/subdomains.txt -o $scan_pwd/regulator.txt && popd
 
 puredns resolve regulator.txt \
     --rate-limit 3000 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write ai.txt \
+    --write intelli.txt \
     &>/dev/null &&
     rm regulator.txt
 
 # Firmly Resolve
-puredns resolve ai.txt \
+puredns resolve intelli.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write ai.txt \
+    --write intelli.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
 ```bash
-python3 summarizer.py --sources ai --resolved 1
+python3 summarizer.py --sources intelli --resolved 1
 ```
 
 ## Web Scraping
 
 ```bash
-cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > resolved.txt
+cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
 
 # Scrap of URLs
-httpx -l resolved.txt -status-code -title -web-server -tech-detect -location -follow-host-redirects \
+httpx -l subdomains.txt -status-code -title -web-server -tech-detect -location -follow-host-redirects \
     -threads 50 -rate-limit 150 -timeout 10 -retries 2 \
     -silent -no-color -json -o web_full_info1.json \
     &>/dev/null
