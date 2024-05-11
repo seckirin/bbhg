@@ -1,6 +1,6 @@
 # Domain Gathering
 
-## ICP Filings
+## ICP Filing
 
 **Domain to ICP**
 

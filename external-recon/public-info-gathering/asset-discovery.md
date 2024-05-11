@@ -2,29 +2,14 @@
 
 ## Acquisitions
 
-{% code title="Multipurpose Websites" %}
-```
-https://aiqicha.baidu.com/s?q=tesla&t=0
-https://www.tianyancha.com/search?key=tesla
-https://www.qcc.com/web/search?key=tesla
-```
-{% endcode %}
+* [https://aiqicha.baidu.com/](https://aiqicha.baidu.com/)
+* [https://www.tianyancha.com/](https://www.tianyancha.com/)
+* [https://www.qcc.com/](https://www.qcc.com/)
 
 ## Mobile Application
 
-```bash
-https://www.qimai.cn/
-```
+* [https://www.qimai.cn/](https://www.qimai.cn/)
 
 ## WeChat Applet
 
-```bash
-https://www.aldzs.com/
-```
-
-## Cloud Drive Gathering
-
-```
-https://www.lingfengyun.com/
-```
-
+* [https://www.aldzs.com/](https://www.aldzs.com/)
