@@ -35,7 +35,7 @@ SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
 
 ```bash
 # Check all the folders needed
-local folders=(
+folders=(
     "${TOOLS}"
     "${TOOLS}/wordlists"
     "${TOOLS}/resolvers"
@@ -60,18 +60,16 @@ wget -q -O - "$PERMUTATIONS_URL" >"$PERMUTATIONS"
 ## Resolvers
 
 ```bash
-iresolver \
-    -threads 2000 \
-    -count 20000
-    -target "$RESOLVERS_URL" \
-    -outptu "$RESOLVERS" \
-    &>/dev/null
+# Update the resolver if it’s been a day since the last update
+if [[ ! -f $RESOLVERS ]] || [[ $(find "$RESOLVERS" -mtime +0) ]]; then
+    [[ -f $RESOLVERS ]] && $RESOLVERS
+    iresolver --target $RESOLVERS_URL --threads 2000 --output $RESOLVERS &>/dev/null
+fi
 
-iresolver \
-    -threads 2000 \
-    -target "$RESOLVERS_TRUSTED_URL" \
-    -outptu "$RESOLVERS_TRUSTED" \
-    &>/dev/null
+if [[ ! -f $RESOLVERS_TRUSTED ]] || [[ $(find "$RESOLVERS_TRUSTED" -mtime +0) ]]; then
+    [[ -f $RESOLVERS_TRUSTED ]] && rm $RESOLVERS_TRUSTED
+    iresolver --target $RESOLVERS_TRUSTED_URL --threads 2000 --output $RESOLVERS_TRUSTED &>/dev/null
+fi
 ```
 
 ## summarizer.py
