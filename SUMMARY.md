@@ -4,9 +4,7 @@
 
 ## External Recon
 
-* [Multipurpose Technology](external-recon/multipurpose-technology.md)
 * [Public Info Gathering](external-recon/public-info-gathering/README.md)
-  * [Asset Discovery](external-recon/public-info-gathering/asset-discovery.md)
   * [Information Leak](external-recon/public-info-gathering/information-leak.md)
 * [Subdomain Enumeration](external-recon/subdomain-enumeration/README.md)
   * [Preparations](external-recon/subdomain-enumeration/preparations.md)
@@ -46,3 +44,4 @@
   * [Pentest Cloud](inbox/2024-05-11-15-49-53/pentest-cloud.md)
   * [Host Collision](inbox/2024-05-11-15-49-53/host-collision.md)
   * [Subdomain Takeover](inbox/2024-05-11-15-49-53/subdomain-takeover.md)
+  * [Asset Discovery](inbox/2024-05-11-15-49-53/asset-discovery.md)
