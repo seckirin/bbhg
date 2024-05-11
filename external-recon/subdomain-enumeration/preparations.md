@@ -74,6 +74,8 @@ fi
 
 ## summarizer.py
 
+Or you could refer to [https://pypi.org/project/isubsum/](https://pypi.org/project/isubsum/) to installation `isubsum`
+
 ```python
 import json
 import os

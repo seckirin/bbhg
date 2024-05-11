@@ -79,6 +79,7 @@ puredns resolve active.txt \
 
 ```bash
 python3 summarizer.py --source active --resolved 1
+# isubsum --source active --resolved 1
 ```
 
 ## Brute Force
@@ -106,6 +107,7 @@ puredns resolve brute.txt \
 
 ```bash
 python3 summarizer.py --source brute --resolved 1
+# isubsum --source brute --resolved 1
 ```
 
 ## Alter Combo
@@ -157,6 +159,7 @@ puredns resolve alter.txt \
 
 ```bash
 python3 summarizer.py --source alter --resolved 1
+# isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -200,6 +203,7 @@ puredns resolve alter.txt \
 
 ```bash
 python3 summarizer.py --source alter --resolved 1
+# isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -243,6 +247,7 @@ puredns resolve alter.txt \
 
 ```bash
 python3 summarizer.py --source alter --resolved 1
+# isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -286,6 +291,7 @@ puredns resolve alter.txt \
 
 ```bash
 python3 summarizer.py --source alter --resolved 1
+# isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -339,6 +345,7 @@ puredns resolve intelli.txt \
 
 ```bash
 python3 summarizer.py --sources intelli --resolved 1
+# isubsum --source intelli --resolved 1
 ```
 
 ## Web Scraping
@@ -402,6 +409,7 @@ puredns resolve scrap.txt \
 
 ```bash
 python3 summarizer.py --sources scrap --resolved 1
+# isubsum --sources scrap --resolved 1
 ```
 
 ## Google Analytics
@@ -422,20 +430,21 @@ nuclei -t $TOOLS/nuclei-templates/google-analytics-id-detection.yaml -l scrap_ur
 while read id
 do
     udon -s $id -silent |
-        grep -E "^$DOMAIN$|\.$DOMAIN$" | anew analytics.txt
+        grep -E "^$DOMAIN$|\.$DOMAIN$" | anew analy.txt
 done < google_analytics_id.txt && rm google_analytics_id.txt
 
 # Firmly Resolve
-puredns resolve analytics.txt \
+puredns resolve analy.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write analytics.txt \
+    --write analy.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
 ```
 
 ```bash
-python3 summarizer.py --sources analytics --resolved 1
+python3 summarizer.py --sources analy --resolved 1
+# isubsum --sources analy --resolved 1
 ```
