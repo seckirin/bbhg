@@ -1,4 +1,4 @@
-# Bug Bounty Hunter Checklist
+# External Recon Checklist
 
 ## Information Gathering
 
@@ -10,14 +10,17 @@ Small scale: Based on single Website.
 
 ### Based on Company
 
-1. Basic company information
+1. [Basic company information](../external-recon/based-on-company.md#basic-information)
    * [ ] Company name
    * [ ] Company address
    * [ ] Company contact information
+   * [ ] Company email root domain
 2. Company network assets
-   * [ ] ASN or IP range
+   * [ ] ASN or CIDR
    * [ ] ICP Registered domains
    * [ ] ICP Unregistered domains
+   * [ ] Mobile Application
+   * [ ] WeChat Applet
 3. Company employee information
    * [ ] Employee names
    * [ ] Employee positions

@@ -1,40 +1,10 @@
 # Public Info Gathering
 
-## OSINT Websites
-
-```bash
-# Companies & Acquisitions
-https://aiqicha.baidu.com/
-https://www.tianyancha.com/
-https://www.qcc.com/
-
-# Finding Mobile Application
-https://www.qimai.cn/
-
-# Finding WeChat Applet
-https://www.aldzs.com/
-
-# Multipurpose
-https://hunter.qianxin.com/
-https://www.shodan.io/
-https://quake.360.net/
-https://fofa.info/
-https://search.censys.io/
-https://www.ip138.com/
-```
-
 ### ICP License
 
 Supported Inputs
 
 <table data-full-width="false"><thead><tr><th></th><th data-type="checkbox">Domain</th><th data-type="checkbox">ICP</th><th data-type="checkbox">Company</th></tr></thead><tbody><tr><td><a href="https://icp.chinaz.com/">https://icp.chinaz.com/</a></td><td>true</td><td>true</td><td>true</td></tr><tr><td><a href="https://site.ip138.com/">https://site.ip138.com/</a></td><td>true</td><td>true</td><td>false</td></tr><tr><td><a href="https://www.beianx.cn/">https://www.beianx.cn/</a></td><td>true</td><td>true</td><td>false</td></tr><tr><td><a href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></td><td>true</td><td>true</td><td>true</td></tr></tbody></table>
-
-```bash
-# ICP History
-https://icp.chinaz.com/record/黑ICP备10000001号
-# Latest ICP
-https://shangjibao.baidu.com/businessRecommand/dynamicRecommand?type=1&source=aqcicp
-```
 
 ### ASN / CIDR
 
