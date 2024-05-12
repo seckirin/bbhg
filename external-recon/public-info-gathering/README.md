@@ -27,7 +27,7 @@ https://www.ip138.com/
 
 Supported Inputs
 
-<table><thead><tr><th></th><th data-type="checkbox">Domain</th><th data-type="checkbox">ICP</th><th data-type="checkbox">Company</th></tr></thead><tbody><tr><td><a href="https://icp.chinaz.com/">https://icp.chinaz.com/</a></td><td>true</td><td>true</td><td>true</td></tr><tr><td><a href="https://site.ip138.com/">https://site.ip138.com/</a></td><td>true</td><td>true</td><td>false</td></tr><tr><td><a href="https://www.beianx.cn/">https://www.beianx.cn/</a></td><td>true</td><td>true</td><td>false</td></tr><tr><td><a href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></td><td>true</td><td>true</td><td>true</td></tr></tbody></table>
+<table data-full-width="false"><thead><tr><th></th><th data-type="checkbox">Domain</th><th data-type="checkbox">ICP</th><th data-type="checkbox">Company</th></tr></thead><tbody><tr><td><a href="https://icp.chinaz.com/">https://icp.chinaz.com/</a></td><td>true</td><td>true</td><td>true</td></tr><tr><td><a href="https://site.ip138.com/">https://site.ip138.com/</a></td><td>true</td><td>true</td><td>false</td></tr><tr><td><a href="https://www.beianx.cn/">https://www.beianx.cn/</a></td><td>true</td><td>true</td><td>false</td></tr><tr><td><a href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></td><td>true</td><td>true</td><td>true</td></tr></tbody></table>
 
 ```bash
 # ICP History

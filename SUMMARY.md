@@ -1,6 +1,6 @@
 # Table of contents
 
-* [echo hack-note &> /dev/null](README.md)
+* [Bug Bounty Hunter Guide](README.md)
 
 ## External Recon
 
@@ -29,6 +29,8 @@
 
 ## Inbox
 
+* [Bug Bounty Hunter Checklist](inbox/bug-bounty-hunter-checklist.md)
+* [Draft](inbox/draft.md)
 * [2024-05-11 15:49:53](inbox/2024-05-11-15-49-53/README.md)
   * [flash](inbox/2024-05-11-15-49-53/flash.md)
   * [Domain Gathering](inbox/2024-05-11-15-49-53/domain-gathering.md)
