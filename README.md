@@ -1,10 +1,5 @@
 ---
-cover: .gitbook/assets/bug-bounty-hunter-guide.svg
-coverY: 0
 layout:
-  cover:
-    visible: true
-    size: hero
   title:
     visible: true
   description:
@@ -18,6 +13,8 @@ layout:
 ---
 
 # Bug Bounty Hunter Guide
+
+<figure><img src=".gitbook/assets/bug-bounty-hunter-guide-content.png" alt="Banner: Bug Bounty Hunter Guide"><figcaption></figcaption></figure>
 
 1. No single technology fits all scenarios.
 2. Seize a good opportunity when you find one.
