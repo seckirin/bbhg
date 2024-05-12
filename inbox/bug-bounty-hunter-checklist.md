@@ -2,35 +2,37 @@
 
 ## Information Gathering
 
-Large scale: Company, enterprise or group.
+Large scale: Based on companies or groups.
 
-Medium scale: A single domain.
+Medium scale: Based on a single domain.
 
-Small scale: A single website.
+Small scale: Based on single Website.
 
-### Large scale
+### Based on Company
 
-1. 公司基本信息
-   * [ ] 公司名称
-   * [ ] 公司地址
-   * [ ] 公司联系方式
-2. 公司网络资产
-   * [ ] ASN 或 IP 段
-   * [ ] 备案域名
-   * [ ] 非备案域名
-3. 公司员工信息
-   * [ ] 员工姓名
-   * [ ] 员工职位
-   * [ ] 员工联系方式
-4. 公司业务信息
-   * [ ] 业务类型
-   * [ ] 业务流程
-   * [ ] 业务联系方式
-5. 公司收购信息
-   * [ ] 控股子公司
-   * [ ] 投资人姓名
+1. Basic company information
+   * [ ] Company name
+   * [ ] Company address
+   * [ ] Company contact information
+2. Company network assets
+   * [ ] ASN or IP range
+   * [ ] ICP Registered domains
+   * [ ] ICP Unregistered domains
+3. Company employee information
+   * [ ] Employee names
+   * [ ] Employee positions
+   * [ ] Employee contact information
+4. Company business information
+   * [ ] Type of business
+   * [ ] Business process
+   * [ ] Business contact information
+5. Company acquisition information
+   * [ ] Holding subsidiaries
+   * [ ] Investor names
+6. Verify assets attribution
+   * [ ] Return to the First Item
 
-### Medium scale
+### Based on Domain
 
 * [ ] Subdomain Enumeration
 * [ ] Get DNS records
@@ -39,7 +41,7 @@ Small scale: A single website.
 * [ ] Port Scanning
 * [ ] Service Identification
 
-### Small Scale
+### Based on Website
 
 * [ ] Fingerprint Web Server
 * [ ] Review Metafiles
