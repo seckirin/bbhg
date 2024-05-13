@@ -12,12 +12,12 @@
 
 ### Based on Company
 
-1. [Company Basic Information](../external-recon/based-on-company.md#basic-information)
+1. [Company Basic Information](../external-reconnaissance/based-on-company.md#basic-information)
    * [ ] Company Name
    * [ ] Company Address
    * [ ] Company Contact Information
    * [ ] Company Email Root Domain
-2. [Company Network Assets](../external-recon/based-on-company.md#network-assets)
+2. [Company Network Assets](../external-reconnaissance/based-on-company.md#network-assets)
    * [ ] ASN or CIDR
    * [ ] ICP Registered domains
    * [ ] ICP Unregistered domains
