@@ -4,6 +4,9 @@
 
 ## External Reconnaissance
 
+* [Based on Company](external-reconnaissance/based-on-company/README.md)
+  * [Domain Gathering](external-reconnaissance/based-on-company/domain-gathering.md)
+* [General Technology](external-reconnaissance/general-technology.md)
 * [Public Info Gathering](external-reconnaissance/public-info-gathering/README.md)
   * [Information Leak](external-reconnaissance/public-info-gathering/information-leak.md)
 * [Subdomain Enumeration](external-reconnaissance/subdomain-enumeration/README.md)
@@ -11,8 +14,6 @@
   * [Regular Enum](external-reconnaissance/subdomain-enumeration/regular-enum.md)
   * [In-depth Enum](external-reconnaissance/subdomain-enumeration/in-depth-enum.md)
 * [Subdomain Analysis](external-reconnaissance/subdomain-analysis.md)
-* [Based on Company](external-reconnaissance/based-on-company.md)
-* [General Technology](external-reconnaissance/general-technology.md)
 
 ## Vulnerability Assessment
 

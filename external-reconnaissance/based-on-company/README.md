@@ -42,31 +42,15 @@ asnmap [-org <keyword>] [-asn <asn_number>] [-ip <ip_address>] [-domain <domain>
 
 ### Root Domain
 
-#### ICP License
-
-```bash
-# Company to ICP
-https://www.qcc.com/
-https://aiqicha.baidu.com/
-https://shuidi.cn/
-https://www.tianyancha.com/
-
-# Latest ICP
-https://shangjibao.baidu.com/businessRecommand/dynamicRecommand?type=1&source=aqcicp
-
-# https://github.com/wgpsec/ENScan_GO
-./enscan -n <company_name> \
-    [-invest <49>] [-deep <7>] \did
-    [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
-    [-type {aqc,tyc,all,qimai}]
-```
+See the [Domain Gathering](domain-gathering.md) page.
 
 #### Other Technology
 
-* **HTTP Header:** Gathering Domain via HTTP Header /
+* **HTTP Header:** Gathering Domain via HTTP Header
 * **Certificate:** Gathering Domain via Certificate
 * **Name Server:** Gathering Domain via In-house Name Server
-* **Favicon:** Gathering Domain via Favicon
+* **Favicon:** Gathering Domain via Favicon Hash
+* DNS: Gathering Domain via Reverse DNS
 
 ### Mobile Application
 
@@ -99,6 +83,6 @@ https://www.tianyancha.com/
     [-type {aqc,tyc,all,qimai}]
 ```
 
-## Verify Assets Attribution
+## Asset Ownership Verification
 
 Return to the First Item.

@@ -1,32 +1,28 @@
 # External Recon Checklist
 
-## Information Gathering
-
-> **Large scope:** Based on companies or groups.
->
-> **Medium scope:** Based on a single domain.
->
-> **Small scope:** Based on single Website.
+* **Large scope:** Based on companies or groups.
+* **Medium scope:** Based on a single domain.
+* **Small scope:** Based on single Website.
 
 **The first step:** View the [SRC](src-navigation.md) announcement.
 
 ### Based on Company
 
-1. [Basic Information](../external-reconnaissance/based-on-company.md#basic-information)
+1. [Basic Information](../external-reconnaissance/based-on-company/#basic-information)
    * [ ] Enterprise Name
    * [ ] Registered Address
    * [ ] ICP License Number
    * [ ] Phone Number
    * [ ] Email Domain
-2. [Network Assets](../external-reconnaissance/based-on-company.md#network-assets)
+2. [Network Assets](../external-reconnaissance/based-on-company/#network-assets)
    * [ ] ASN and CIDR
    * [ ] Root Domain
    * [ ] Mobile Application
    * [ ] WeChat Applet
-3. Acquisition Information
+3. [Acquisition Information](../external-reconnaissance/based-on-company/#acquisition-information)
    * [ ] Holding Offspring Company
    * [ ] Holding Ratio
-4. Verify Assets Attribution
+4. Asset Ownership Verification
    * [ ] Return to the First Item
 
 ### Based on Domain
