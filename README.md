@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # Bug Bounty Hunter Guide
 
 ![Banner: Bug Bounty Hunter Guide](.gitbook/assets/bug-bounty-hunter-guide-content.png)
