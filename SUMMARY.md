@@ -4,7 +4,7 @@
 
 ## External Reconnaissance
 
-* [Based on Company](external-reconnaissance/based-on-company/README.md)
+* [Based on Company](external-reconnaissance/based-on-company.md)
   * [Domain Gathering](external-reconnaissance/based-on-company/domain-gathering.md)
 * [General Technology](external-reconnaissance/general-technology.md)
 * [Public Info Gathering](external-reconnaissance/public-info-gathering/README.md)

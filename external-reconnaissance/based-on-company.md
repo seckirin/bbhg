@@ -42,7 +42,7 @@ asnmap [-org <keyword>] [-asn <asn_number>] [-ip <ip_address>] [-domain <domain>
 
 ### Root Domain
 
-See the [Domain Gathering](domain-gathering.md) page.
+See the [Domain Gathering](based-on-company/domain-gathering.md) page.
 
 #### Other Technology
 

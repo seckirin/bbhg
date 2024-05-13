@@ -20,11 +20,10 @@ https://shangjibao.baidu.com/businessRecommand/dynamicRecommand?type=1&source=aq
     [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
 ```
 
-## Reverse DNS
+## Internal Name Server
 
-* ~~通过反向 DNS 的方式收集域名具有很大的不确定性~~
-* 通过反向 DNS 方式收集到的域名务必要再次进行[资产归属验证](./#verify-assets-attribution)
-* 建议使用绝对归属于目标组织的域名作为基础进行 NS 查询
+* The domain gathered through the internal name server method must be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+* It is recommended to use the domain name that clearly belongs to the target organization as the basis for NS record query.
 
 ```bash
 # https://github.com/projectdiscovery/dnsx

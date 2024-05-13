@@ -2,7 +2,7 @@
 
 ## ICP Filing
 
-This content has been merged into: [general-technology.md](../../external-reconnaissance/general-technology.md "mention") and [based-on-company](../../external-reconnaissance/based-on-company/ "mention").
+This content has been merged into: [general-technology.md](../../external-reconnaissance/general-technology.md "mention") and [based-on-company.md](../../external-reconnaissance/based-on-company.md "mention").
 
 ## Whois
 

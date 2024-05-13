@@ -8,21 +8,21 @@
 
 ### Based on Company
 
-1. [Basic Information](../external-reconnaissance/based-on-company/#basic-information)
+1. [Basic Information](../external-reconnaissance/based-on-company.md#basic-information)
    * [ ] Enterprise Name
    * [ ] Registered Address
-   * [ ] ICP License Number
    * [ ] Phone Number
    * [ ] Email Domain
-2. [Network Assets](../external-reconnaissance/based-on-company/#network-assets)
+   * [ ] ICP License Number
+2. [Network Assets](../external-reconnaissance/based-on-company.md#network-assets)
    * [ ] ASN and CIDR
    * [ ] Root Domain
    * [ ] Mobile Application
    * [ ] WeChat Applet
-3. [Acquisition Information](../external-reconnaissance/based-on-company/#acquisition-information)
-   * [ ] Holding Offspring Company
-   * [ ] Holding Ratio
-4. Asset Ownership Verification
+3. [Acquisition Information](../external-reconnaissance/based-on-company.md#acquisition-information)
+   * [ ] Controlling Subsidiaries
+   * [ ] Shareholding Ratio
+4. [Asset Ownership Verification](../external-reconnaissance/based-on-company.md#asset-ownership-verification)
    * [ ] Return to the First Item
 
 ### Based on Domain
