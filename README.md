@@ -1,6 +1,6 @@
 # Bug Bounty Hunter Guide
 
-<figure><img src=".gitbook/assets/bug-bounty-hunter-guide-content.png" alt=""><figcaption></figcaption></figure>
+
 
 1. No single technology fits all scenarios.
 2. All roads lead to Rome, choose the one that suits you best.
