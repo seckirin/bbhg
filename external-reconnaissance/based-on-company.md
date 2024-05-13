@@ -45,21 +45,25 @@ asnmap [-org <keyword>] [-asn <asn_number>] [-ip <ip_address>] [-domain <domain>
 #### ICP License
 
 ```bash
+# Company to ICP
 https://www.qcc.com/
 https://aiqicha.baidu.com/
 https://shuidi.cn/
 https://www.tianyancha.com/
 
+# Latest ICP
+https://shangjibao.baidu.com/businessRecommand/dynamicRecommand?type=1&source=aqcicp
+
 # https://github.com/wgpsec/ENScan_GO
 ./enscan -n <company_name> \
-    [-invest <49>] [-deep <7>] \
+    [-invest <49>] [-deep <7>] \did
     [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
     [-type {aqc,tyc,all,qimai}]
 ```
 
 #### Other Technology
 
-* **HTTP Header:** Gathering Domain via HTTP Header
+* **HTTP Header:** Gathering Domain via HTTP Header /
 * **Certificate:** Gathering Domain via Certificate
 * **Name Server:** Gathering Domain via In-house Name Server
 * **Favicon:** Gathering Domain via Favicon
