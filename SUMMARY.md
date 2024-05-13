@@ -32,10 +32,10 @@
   * [Shiro](vulnerability-assessment/web-framework/shiro.md)
   * [WebLogic](vulnerability-assessment/web-framework/weblogic.md)
 
-## One Page Subject
+## One Page For Subject
 
-* [External Recon Checklist](one-page-subject/external-recon-checklist.md)
-* [SRC Website Navigation](one-page-subject/src-navigation.md)
+* [External Recon Checklist](one-page-for-subject/external-recon-checklist.md)
+* [SRC Website Navigation](one-page-for-subject/src-navigation.md)
 
 ## Others
 
