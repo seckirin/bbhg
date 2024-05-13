@@ -7,7 +7,8 @@
 * Domain to Registrar
   * [https://www.whois.com/whois/](https://www.whois.com/whois/)
   * [https://who.is/](https://who.is/)
-* Registered Merchant
-* Company Analysis
-* IP Analysis
+
+## Company Analysis
+
+## IP Analysis
 
