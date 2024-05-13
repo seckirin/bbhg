@@ -28,21 +28,21 @@
   * [Redis](pentesting/attack-port/redis.md)
   * [InfluxDB](pentesting/attack-port/influxdb.md)
   * [MongoDB](pentesting/attack-port/mongodb.md)
-* [Pentest Web Framework](pentesting/pentest-web-framework/README.md)
-  * [Shiro](pentesting/pentest-web-framework/shiro.md)
-  * [WebLogic](pentesting/pentest-web-framework/weblogic.md)
+* [Pentest Web Framework](one-page-subject/2024-05-11-15-49-53/pentest-web-framework/README.md)
+  * [Shiro](one-page-subject/2024-05-11-15-49-53/pentest-web-framework/shiro.md)
+  * [WebLogic](one-page-subject/2024-05-11-15-49-53/pentest-web-framework/weblogic.md)
 
 ## One Page Subject
 
 * [External Recon Checklist](one-page-subject/external-recon-checklist.md)
-* [SRC Navigation](one-page-subject/src-navigation.md)
+* [SRC Website Navigation](one-page-subject/src-navigation.md)
 
 ## Others
 
-* [Subdomain Takeover Testing](others/subdomain-takeover.md)
-* [Host Collision Enumeration](others/host-collision.md)
-* [Cloud Service Fingerprint](others/pentest-cloud.md)
-* [Domain Gathering Method](others/domain-gathering.md)
-* [Website Probing and Analysis](others/web-application.md)
-* [Network Host Discovery](others/network.md)
-* [Linux Crontab Overview](others/flash.md)
+* [Subdomain Takeover Testing](one-page-subject/2024-05-11-15-49-53/subdomain-takeover.md)
+* [Host Collision Enumeration](one-page-subject/2024-05-11-15-49-53/host-collision.md)
+* [Cloud Service Fingerprint](one-page-subject/2024-05-11-15-49-53/pentest-cloud.md)
+* [Domain Gathering Method](one-page-subject/2024-05-11-15-49-53/domain-gathering.md)
+* [Website Probing and Analysis](one-page-subject/2024-05-11-15-49-53/web-application.md)
+* [Network Host Discovery](one-page-subject/2024-05-11-15-49-53/network.md)
+* [Linux Crontab Overview](one-page-subject/2024-05-11-15-49-53/flash.md)

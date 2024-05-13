@@ -1,4 +1,4 @@
-# Domain Gathering
+# Domain Gathering Method
 
 ## ICP Filing
 
