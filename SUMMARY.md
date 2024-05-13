@@ -12,6 +12,7 @@
   * [In-depth Enum](external-recon/subdomain-enumeration/in-depth-enum.md)
 * [Subdomain Analysis](external-recon/subdomain-analysis.md)
 * [Based on Company](external-recon/based-on-company.md)
+* [General Technology](external-recon/general-technology.md)
 
 ## Pentesting
 
@@ -31,7 +32,7 @@
 ## Inbox
 
 * [External Recon Checklist](inbox/external-recon-checklist.md)
-* [SRC Website Navigation](inbox/src-website-navigation.md)
+* [SRC Navigation](inbox/src-navigation.md)
 * [Draft](inbox/draft.md)
 * [2024-05-11 15:49:53](inbox/2024-05-11-15-49-53/README.md)
   * [flash](inbox/2024-05-11-15-49-53/flash.md)

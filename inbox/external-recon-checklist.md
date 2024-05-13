@@ -2,20 +2,22 @@
 
 ## Information Gathering
 
-Large scale: Based on companies or groups.
+> **Large scope:** Based on companies or groups.
+>
+> **Medium scope:** Based on a single domain.
+>
+> **Small scope:** Based on single Website.
 
-Medium scale: Based on a single domain.
-
-Small scale: Based on single Website.
+**The first step:** View the [SRC](src-navigation.md) announcement.
 
 ### Based on Company
 
-1. [Basic company information](../external-recon/based-on-company.md#basic-information)
-   * [ ] Company name
-   * [ ] Company address
-   * [ ] Company contact information
-   * [ ] Company email root domain
-2. Company network assets
+1. [Company Basic Information](../external-recon/based-on-company.md#basic-information)
+   * [ ] Company Name
+   * [ ] Company Address
+   * [ ] Company Contact Information
+   * [ ] Company Email Root Domain
+2. [Company Network Assets](../external-recon/based-on-company.md#network-assets)
    * [ ] ASN or CIDR
    * [ ] ICP Registered domains
    * [ ] ICP Unregistered domains
