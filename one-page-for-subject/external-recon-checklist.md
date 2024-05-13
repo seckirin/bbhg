@@ -12,29 +12,21 @@
 
 ### Based on Company
 
-1. [Company Basic Information](../external-reconnaissance/based-on-company.md#basic-information)
-   * [ ] Company Name
-   * [ ] Company Address
-   * [ ] Company Contact Information
-   * [ ] Company Email Root Domain
-2. [Company Network Assets](../external-reconnaissance/based-on-company.md#network-assets)
-   * [ ] ASN or CIDR
-   * [ ] ICP Registered domains
-   * [ ] ICP Unregistered domains
+1. [Basic Information](../external-reconnaissance/based-on-company.md#basic-information)
+   * [ ] Enterprise Name
+   * [ ] Registered Address
+   * [ ] ICP License Number
+   * [ ] Phone Number
+   * [ ] Email Domain
+2. [Network Assets](../external-reconnaissance/based-on-company.md#network-assets)
+   * [ ] ASN and CIDR
+   * [ ] Root Domain
    * [ ] Mobile Application
    * [ ] WeChat Applet
-3. Company employee information
-   * [ ] Employee names
-   * [ ] Employee positions
-   * [ ] Employee contact information
-4. Company business information
-   * [ ] Type of business
-   * [ ] Business process
-   * [ ] Business contact information
-5. Company acquisition information
-   * [ ] Holding subsidiaries
-   * [ ] Investor names
-6. Verify assets attribution
+3. Acquisition Information
+   * [ ] Holding Offspring Company
+   * [ ] Holding Ratio
+4. Verify Assets Attribution
    * [ ] Return to the First Item
 
 ### Based on Domain
