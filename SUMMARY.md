@@ -16,7 +16,7 @@
 
 ## Pentesting
 
-* [Attack Port](pentesting/attack-port/README.md)
+* [Pentest Port](pentesting/attack-port/README.md)
   * [SSH](pentesting/attack-port/ssh.md)
   * [LDAP](pentesting/attack-port/ldap.md)
   * [Rsync](pentesting/attack-port/rsync.md)
@@ -28,19 +28,21 @@
   * [Redis](pentesting/attack-port/redis.md)
   * [InfluxDB](pentesting/attack-port/influxdb.md)
   * [MongoDB](pentesting/attack-port/mongodb.md)
+* [Pentest Web Framework](pentesting/pentest-web-framework/README.md)
+  * [Shiro](pentesting/pentest-web-framework/shiro.md)
+  * [WebLogic](pentesting/pentest-web-framework/weblogic.md)
 
 ## One Page Subject
 
 * [External Recon Checklist](one-page-subject/external-recon-checklist.md)
 * [SRC Navigation](one-page-subject/src-navigation.md)
-* [2024-05-11 15:49:53](one-page-subject/2024-05-11-15-49-53/README.md)
-  * [Linux](one-page-subject/2024-05-11-15-49-53/flash.md)
-  * [Domain Gathering](one-page-subject/2024-05-11-15-49-53/domain-gathering.md)
-  * [Web Application](one-page-subject/2024-05-11-15-49-53/web-application.md)
-  * [Network](one-page-subject/2024-05-11-15-49-53/network.md)
-  * [Pentest Web Framework](one-page-subject/2024-05-11-15-49-53/pentest-web-framework/README.md)
-    * [Shiro](one-page-subject/2024-05-11-15-49-53/pentest-web-framework/shiro.md)
-    * [WebLogic](one-page-subject/2024-05-11-15-49-53/pentest-web-framework/weblogic.md)
-  * [Pentest Cloud](one-page-subject/2024-05-11-15-49-53/pentest-cloud.md)
-  * [Host Collision](one-page-subject/2024-05-11-15-49-53/host-collision.md)
-  * [Subdomain Takeover](one-page-subject/2024-05-11-15-49-53/subdomain-takeover.md)
+
+## Others
+
+* [Subdomain Takeover Testing](others/subdomain-takeover.md)
+* [Host Collision Enumeration](others/host-collision.md)
+* [Cloud Service Fingerprint](others/pentest-cloud.md)
+* [Domain Gathering Method](others/domain-gathering.md)
+* [Website Probing and Analysis](others/web-application.md)
+* [Network Host Discovery](others/network.md)
+* [Linux Crontab Overview](others/flash.md)

@@ -1,6 +1,4 @@
-# 网络扫描
-
-## 主机发现
+# Network Host Discovery
 
 ```bash
 # fping

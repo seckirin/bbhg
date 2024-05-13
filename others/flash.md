@@ -1,8 +1,8 @@
-# Linux
+# Linux Crontab Overview
+
+The difference and role of Linux crontab file and directory.
 
 ```markdown
-# Linux 计时任务文件和目录的区别和作用
-
 /etc/cron.d/FILENAME < * * * * * USERNAME COMMAND
 - 全局 crontab，存放所有计时任务
 - 每一个文件都是单独的计划任务
