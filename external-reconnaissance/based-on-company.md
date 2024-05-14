@@ -44,14 +44,6 @@ asnmap [-org <keyword>] [-asn <asn_number>] [-ip <ip_address>] [-domain <domain>
 
 See the [Domain Gathering](based-on-company/domain-gathering.md) page.
 
-#### Other Technology
-
-* **HTTP Header:** Gathering Domain via HTTP Header
-* **Certificate:** Gathering Domain via Certificate
-* **Name Server:** Gathering Domain via In-house Name Server
-* **Favicon:** Gathering Domain via Favicon Hash
-* DNS: Gathering Domain via Reverse DNS
-
 ### Mobile Application
 
 ```bash

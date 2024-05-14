@@ -28,18 +28,3 @@ ifavicon -url https://example.com/favicon.ico
 # Gathering Domain via Favicon Hash
 # # suspense
 ```
-
-## Other Technologies
-
-```bash
-# Gathering Domain via Certificate
-cert.subject.org="target" && is_domain=true
-
-# Gathering Domain via HTTP Header
-host="target.com" && header="Content-Security-Policy-Report-Only"
-host="target.com" && header="Content-Security-Policy"
-host="target.com" && header="Set-Cookie"
-
-# Gathering Domain via In-house Name Server
-https://hackertarget.com/find-shared-dns-servers/
-```
