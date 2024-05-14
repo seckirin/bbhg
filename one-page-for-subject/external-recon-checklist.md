@@ -15,7 +15,7 @@
    * [ ] Email Domain
    * [ ] ICP License Number
 2. [Network Assets](../external-reconnaissance/based-on-company.md#network-assets)
-   * [ ] ASN and CIDR
+   * [ ] ASN / CIDR
    * [ ] Root Domain
    * [ ] Mobile Application
    * [ ] WeChat Applet
