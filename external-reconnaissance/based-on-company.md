@@ -12,25 +12,18 @@ https://www.crunchbase.com/
 
 ## Network Assets
 
-### ASN and CIDR
+### ASN / CIDR
 
 **Network Censorship:** The network environment in China is subject to strict regulation and censorship, which may affect the querying and use of ASNs.
 
 **IP Allocation and Management:** IP addresses in China may be managed by different network service providers, which could complicate ASN queries.
 
 ```bash
-# Keyword to ASN
 https://asnlookup.com/
 https://bgp.he.net/
 https://bgp.tools/
 https://bgpview.io/
-
-# ASN to CIDR
-https://bgpview.io/
-
-# Keyword to CIDR
 https://apps.db.ripe.net/db-web-ui/
-https://bgpview.io/
 
 # https://github.com/dhn/spk
 spk -s <keyword> -silent -json
