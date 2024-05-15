@@ -14,21 +14,21 @@
 
 ## Vuln Assessment
 
-* [Port Server](vuln-assessment/port-server/README.md)
-  * [SSH](vuln-assessment/port-server/ssh.md)
-  * [LDAP](vuln-assessment/port-server/ldap.md)
-  * [Rsync](vuln-assessment/port-server/rsync.md)
-  * [MSSQL](vuln-assessment/port-server/mssql.md)
-  * [MQTT](vuln-assessment/port-server/mqtt.md)
-  * [Docker](vuln-assessment/port-server/docker.md)
-  * [etcd](vuln-assessment/port-server/etcd.md)
-  * [MySQL](vuln-assessment/port-server/mysql.md)
-  * [Redis](vuln-assessment/port-server/redis.md)
-  * [InfluxDB](vuln-assessment/port-server/influxdb.md)
-  * [MongoDB](vuln-assessment/port-server/mongodb.md)
-* [Web Framework](vuln-assessment/web-framework/README.md)
-  * [Shiro](vuln-assessment/web-framework/shiro.md)
-  * [WebLogic](vuln-assessment/web-framework/weblogic.md)
+* [Port Server Assessment](vuln-assessment/port-server-assessment/README.md)
+  * [SSH](vuln-assessment/port-server-assessment/ssh.md)
+  * [LDAP](vuln-assessment/port-server-assessment/ldap.md)
+  * [Rsync](vuln-assessment/port-server-assessment/rsync.md)
+  * [MSSQL](vuln-assessment/port-server-assessment/mssql.md)
+  * [MQTT](vuln-assessment/port-server-assessment/mqtt.md)
+  * [Docker](vuln-assessment/port-server-assessment/docker.md)
+  * [etcd](vuln-assessment/port-server-assessment/etcd.md)
+  * [MySQL](vuln-assessment/port-server-assessment/mysql.md)
+  * [Redis](vuln-assessment/port-server-assessment/redis.md)
+  * [InfluxDB](vuln-assessment/port-server-assessment/influxdb.md)
+  * [MongoDB](vuln-assessment/port-server-assessment/mongodb.md)
+* [Web Framework Assessment](vuln-assessment/web-framework-assessment/README.md)
+  * [Shiro](vuln-assessment/web-framework-assessment/shiro.md)
+  * [WebLogic](vuln-assessment/web-framework-assessment/weblogic.md)
 
 ## One Page For Subject
 

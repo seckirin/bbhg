@@ -146,7 +146,7 @@ for result in "${results[@]}"; do
 done
 
 # Extract results and save to JSON
-# isubdum --source passive --resolved 0
+isubsum --source passive --resolved 0
 ```
 
 ### Alive Verification
@@ -171,7 +171,7 @@ puredns resolve alive.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source alive --resolved 1
+isubsum --source alive --resolved 1
 ```
 
 ## Brute Force
@@ -197,12 +197,12 @@ puredns resolve brute.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source brute --resolved 1
+isubsum --source brute --resolved 1
 ```
 
 ## Alter Combo
 
-* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-subdomain-verification).
+* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-verification).
 * **Note:**
   * Best when the number of subdomains is 500 to 1000
   * Choose one of them. (I usually use alterx)
@@ -244,7 +244,7 @@ puredns resolve alter.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source alter --resolved 1
+isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -286,7 +286,7 @@ puredns resolve alter.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source alter --resolved 1
+isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -328,7 +328,7 @@ puredns resolve alter.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source alter --resolved 1
+isubsum --source alter --resolved 1
 ```
 
 </details>
@@ -370,14 +370,14 @@ puredns resolve alter.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source alter --resolved 1
+isubsum --source alter --resolved 1
 ```
 
 </details>
 
 ## AI Generate
 
-* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-subdomain-verification).
+* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-verification).
 
 ```bash
 # https://github.com/cramppet/regulator
@@ -404,7 +404,7 @@ puredns resolve intelli.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --source intelli --resolved 1
+isubsum --source intelli --resolved 1
 ```
 
 ## Web Scraping
@@ -469,7 +469,44 @@ puredns resolve scrap.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --sources scrap --resolved 1
+isubsum --sources scrap --resolved 1
+```
+
+## DNS Enum
+
+* **Prerequisite:** This method requires the [DNS records](./#get-dns-records) of a list of live subdomains.
+
+```bash
+dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
+    -silent -retry 3 -json \
+    -o dnsx.json \
+    >>dnsx.log
+
+cat dnsx.json | jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[]' 2>/dev/null \
+    | grep "\.${DOMAIN}$" \
+    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
+    >dnsx.txt
+cat dnsx.json | jq -r '.a[]' 2>/dev/null | sort -u \
+    | hakip2host \
+    | cut -d ' ' -f 3 | unfurl -u domains \
+    | sed -e 's/*\.//' -e 's/\.$//' -e '/\./!d' \
+    | grep "\.${DOMAIN}$" \
+    >hakip2host.txt
+
+cat dnsx.txt hakip2host.txt >dnsx_and_hakip2host.txt
+puredns resolve dnsx_and_hakip2host.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch  1500000 \
+    -w puredns.txt \
+    &>puredns.log 2>&1
+
+sort -u puredns.txt -o puredns.txt
+
+# View Data
+cat puredns.txt
 ```
 
 ## Google Analytics
@@ -511,7 +548,7 @@ puredns resolve analy.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --sources analy --resolved 1
+isubsum --sources analy --resolved 1
 ```
 
 ## Recursive
@@ -576,43 +613,6 @@ puredns resolve gotator.txt \
 cat recursive_brute_1.txt recursive_brute_2.txt | sort-u
 ```
 
-## DNS Enum
-
-* **Prerequisite:** This method requires the [DNS records](./#get-dns-records) of a list of live subdomains.
-
-```bash
-dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
-    -silent -retry 3 -json \
-    -o dnsx.json \
-    >>dnsx.log
-
-cat dnsx.json | jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[]' 2>/dev/null \
-    | grep "\.${DOMAIN}$" \
-    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
-    >dnsx.txt
-cat dnsx.json | jq -r '.a[]' 2>/dev/null | sort -u \
-    | hakip2host \
-    | cut -d ' ' -f 3 | unfurl -u domains \
-    | sed -e 's/*\.//' -e 's/\.$//' -e '/\./!d' \
-    | grep "\.${DOMAIN}$" \
-    >hakip2host.txt
-
-cat dnsx.txt hakip2host.txt >dnsx_and_hakip2host.txt
-puredns resolve dnsx_and_hakip2host.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
-    --wildcard-tests 30 \
-    --wildcard-batch  1500000 \
-    -w puredns.txt \
-    &>puredns.log 2>&1
-
-sort -u puredns.txt -o puredns.txt
-
-# View Data
-cat puredns.txt
-```
-
 ## DNS zone transfer
 
 ```bash
@@ -637,7 +637,7 @@ dnsx -d $DOMAIN -r $RESOLVERS -w $SUBDOMAINS -silent -rcode noerror \
 cat dnsx.txt
 ```
 
-## Final Alive Subdomain Verification
+## Final Alive Verification
 
 ```bash
 cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
@@ -652,6 +652,6 @@ puredns resolve subdomains.txt \
     &>/dev/null
 
 # Extract results and save to JSON
-# isubsum --sources final --resolved 1
+isubsum --sources final --resolved 1
 ```
 

@@ -45,7 +45,7 @@ See the [Subdomain Enumeration](subdomain-enumeration.md) page.
 
 ## Website Probing
 
-See the [Alive Website Probing](subdomain-analysis.md) page.
+See the[ Website Probing](subdomain-analysis.md) page.
 
 ## Extract IP Address
 
