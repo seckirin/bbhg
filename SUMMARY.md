@@ -40,7 +40,6 @@
 
 ## Others
 
-* [Domain Gathering Method](one-page-subject/2024-05-11-15-49-53/domain-gathering.md)
 * [Network Host Discovery](one-page-subject/2024-05-11-15-49-53/network.md)
 * [Website Probing and Analysis](one-page-subject/2024-05-11-15-49-53/web-application.md)
 * [Subdomain Takeover Testing](one-page-subject/2024-05-11-15-49-53/subdomain-takeover.md)

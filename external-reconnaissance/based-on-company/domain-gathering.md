@@ -12,6 +12,9 @@ https://www.tianyancha.com/
 # Latest ICP
 https://shangjibao.baidu.com/businessRecommand/dynamicRecommand?type=1&source=aqcicp
 
+# ICP History
+https://icp.chinaz.com/record/
+
 # https://github.com/wgpsec/ENScan_GO
 ./enscan -n <company_name> -type all -field icp
 # Recursive gathering
