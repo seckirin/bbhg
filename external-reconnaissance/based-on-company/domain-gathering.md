@@ -1,6 +1,6 @@
 # Domain Gathering
 
-ICP License
+## ICP License
 
 ```bash
 # Company to ICP
@@ -92,4 +92,53 @@ cert:"<domain.com>" AND NOT domain:<domain.com> AND is_domain:true
 # https://github.com/cemulus/crt
 crt -e -l 999999 -json <domain.com> |
     jq -r '.[].common_name' | unfurl -u apexes
+```
+
+## Favicon Hash
+
+* **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the accessible website needs to have a favicon icon
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+
+```bash
+# Computing the hash value of the URL icon or file
+# https://github.com/yuukisec/ifavicon
+ifavicon -url https://<domain.com>/favicon.ico
+ifavicon -file /path/to/favicon.ico
+
+# https://www.shodan.io/
+http.favicon.hash:<favicon_hash>
+
+# https://fofa.info/
+icon_hash=<favicon_hash>
+# https://github.com/xiecat/fofax
+echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
+```
+
+## Google Analytics
+
+* **Reverse Google Analytics ID Search WebSites:**
+  * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
+    * [https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains](https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains)
+    * [https://hackertarget.com/reverse-analytics-search/](https://hackertarget.com/reverse-analytics-search/)
+    * [https://publicwww.com/websites/%22ua-33427076-%22/](https://publicwww.com/websites/%22ua-33427076-%22/)
+    * [https://analyzeid.com/id/UA-33427076](https://analyzeid.com/id/UA-33427076)
+  * [https://osint.sh/analytics](https://osint.sh/analytics)
+  * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
+  * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
+  * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
+* **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the Website that can be accessed is needed.
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+* **Subdomain Enumeration:** This method is also applicable to [subdomain enumeration](../subdomain-enumeration/regular-enum.md#google-analytics).
+
+```bash
+# https://github.com/projectdiscovery/nuclei
+# https://gist.github.com/yuukisec/f6b4659b5d4c2d825a6d41a8ae3d73b7
+nuclei -t $TOOLS/nuclei-templates/google-analytics-id-detection.yaml -l roots.txt -silent -no-color |
+    cut -d '"' -f2 > google_analytics_id.txt
+
+# https://github.com/dhn/udon
+while read id
+do
+    udon -s $id -json -silent | jq -r '.domain'
+done < google_analytics_id.txt
 ```

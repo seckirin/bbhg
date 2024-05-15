@@ -24,7 +24,4 @@ https://spyonweb.com/
 ```bash
 # Evaluate Favicon Hash
 ifavicon -url https://example.com/favicon.ico
-
-# Gathering Domain via Favicon Hash
-# # suspense
 ```

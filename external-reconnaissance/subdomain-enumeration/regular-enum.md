@@ -414,11 +414,17 @@ python3 summarizer.py --sources scrap --resolved 1
 
 ## Google Analytics
 
-* OSINT.SH (POST) [https://osint.sh/analytics](https://osint.sh/analytics/)
-* HackerTarget [https://api.hackertarget.com/analyticslookup/?q=UA-33427076](https://api.hackertarget.com/analyticslookup/?q=UA-33427076)
-* BuiltWith [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
-* Site Overview [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
-* SpyOnWeb [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
+* **Reverse Google Analytics ID Search WebSites:**
+  * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
+    * [https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains](https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains)
+    * [https://hackertarget.com/reverse-analytics-search/](https://hackertarget.com/reverse-analytics-search/)
+    * [https://publicwww.com/websites/%22ua-33427076-%22/](https://publicwww.com/websites/%22ua-33427076-%22/)
+    * [https://analyzeid.com/id/UA-33427076](https://analyzeid.com/id/UA-33427076)
+  * [https://osint.sh/analytics](https://osint.sh/analytics)
+  * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
+  * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
+  * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
+* **Domain Gathering:** This method is also applicable to [domain gathering](../based-on-company/domain-gathering.md#google-analytics).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
