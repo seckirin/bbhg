@@ -424,7 +424,7 @@ python3 summarizer.py --sources scrap --resolved 1
   * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
-* **Domain Gathering:** This method is also applicable to [domain gathering](../based-on-company/domain-gathering.md#google-analytics).
+* **Domain Gathering:** This method is also applicable to [domain gathering](broken-reference).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei

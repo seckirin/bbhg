@@ -1,6 +1,29 @@
-# Domain Gathering
+# Network Assets Enumeration
 
-## ICP License
+## ASN / CIDR
+
+**Network Censorship:** The network environment in China is subject to strict regulation and censorship, which may affect the querying and use of ASNs.
+
+**IP Allocation and Management:** IP addresses in China may be managed by different network service providers, which could complicate ASN queries.
+
+```bash
+https://asnlookup.com/
+https://bgp.he.net/
+https://bgp.tools/
+https://bgpview.io/
+https://apps.db.ripe.net/db-web-ui/
+
+# https://github.com/dhn/spk
+spk -s <keyword> -silent -json
+
+# https://github.com/projectdiscovery/asnmap
+asnmap [-org <keyword>] [-asn <asn_number>] [-ip <ip_address>] [-domain <domain>] \
+    -json -v6 -verbose | jq -r '.'
+```
+
+## Domain Enumeration
+
+### ICP License
 
 ```bash
 # Company to ICP
@@ -23,7 +46,7 @@ https://icp.chinaz.com/record/
     [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
 ```
 
-## Internal Name Server
+### Internal Name Server
 
 <details>
 
@@ -35,7 +58,7 @@ It is mainly used to improve the DNS resolution efficiency of the internal netwo
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
 * **Suggestion:** Use the domain name that clearly belongs to the target organization as the basis for NS record query.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
 
 ```bash
 # Query the Name Server of domain
@@ -47,7 +70,7 @@ https://api.hackertarget.com/findshareddns/?q=<ns1.domain.com>
 https://hackertarget.com/find-shared-dns-servers/
 ```
 
-## HTTP Header
+### HTTP Header
 
 <details>
 
@@ -66,7 +89,7 @@ It allows web developers to try policies by monitoring (but not enforcing) the i
 </details>
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
 
 ```bash
 # https://fofa.info/
@@ -79,10 +102,10 @@ echo <domain.com> | httpx -csp-probe -silent -json |
     jq -r 'try .csp.domains[]' | unfurl --unique apexes
 ```
 
-## Certification
+### Certification
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
 
 ```bash
 # https://fofa.info/
@@ -97,10 +120,10 @@ crt -e -l 999999 -json <domain.com> |
     jq -r '.[].common_name' | unfurl -u apexes
 ```
 
-## Favicon Hash
+### Favicon Hash
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the accessible website needs to have a favicon icon
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
 
 ```bash
 # Computing the hash value of the URL icon or file
@@ -117,7 +140,7 @@ icon_hash=<favicon_hash>
 echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
 ```
 
-## Google Analytics
+### Google Analytics
 
 * **Reverse Google Analytics ID Search WebSites:**
   * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
@@ -130,8 +153,8 @@ echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the Website that can be accessed is needed.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](../based-on-company.md#asset-ownership-verification).
-* **Subdomain Enumeration:** This method is also applicable to [subdomain enumeration](../subdomain-enumeration/regular-enum.md#google-analytics).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
+* **Subdomain Enumeration:** This method is also applicable to [subdomain enumeration](../domain-based-recon/subdomain-enumeration/regular-enum.md#google-analytics).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
@@ -144,4 +167,20 @@ while read id
 do
     udon -s $id -json -silent | jq -r '.domain'
 done < google_analytics_id.txt
+```
+
+## Mobile Application
+
+```bash
+# https://0.zone/
+(type=安卓APK&&company==<keyword>)
+(type=安卓APK&&company=<company_name>)
+```
+
+## WeChat Applet
+
+```bash
+# https://0.zone/
+(type=微信小程序&&company==<keyword>)
+(type=微信小程序&&company=<company_name>)
 ```

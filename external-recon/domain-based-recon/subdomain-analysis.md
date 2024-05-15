@@ -1,6 +1,6 @@
-# Subdomain Analysis
+# Website Probing
 
-## Website Probe
+## Alive Website Probing
 
 <pre class="language-bash"><code class="lang-bash">cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' >subdomains.txt
 
@@ -58,7 +58,7 @@ if [[ -s ".tmp/web_full_info_uncommon.txt" ]]; then
 fi
 </code></pre>
 
-## Screenshot
+## Website Screenshot
 
 ```bash
 nuclei -l websites_common.txt -headless -id screenshot -V dir='screenshots'

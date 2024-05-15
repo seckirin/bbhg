@@ -1,6 +1,8 @@
-# General Technology
+# Domain-based Recon
 
-## Domain Analysis
+## Ownership Verification
+
+### Domain Analysis
 
 ```bash
 # Query company name through domain
@@ -17,7 +19,7 @@ https://site.ip138.com/bytedance.com/beian.htm
 https://www.beianx.cn/search/bytedance.com
 ```
 
-## ICP License Analysis
+### ICP License Analysis
 
 ```bash
 # Query company name and registration time through ICP license
@@ -26,7 +28,7 @@ https://www.tianyancha.com/search?key=黑ICP备10000001号
 https://www.beianx.cn/search/黑ICP备10000001号
 ```
 
-## IP Analysis
+### IP Analysis
 
 ```bash
 # Query registrant information through ip
@@ -35,8 +37,18 @@ https://who.is/
 https://www.ip138.com/
 ```
 
-## Reverse Whois
+## Subdomain Enumeration
 
-```bash
-https://tools.whoisxmlapi.com/reverse-whois-search
-```
+See the [Subdomain Enumeration](subdomain-enumeration/) page.
+
+## Get DNS records
+
+## Website Probing
+
+See the [Website Probing](subdomain-analysis.md) page.
+
+## Extract IP Address
+
+## Port Scanning
+
+## Service Identification

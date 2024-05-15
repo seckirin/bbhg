@@ -2,36 +2,36 @@
 
 * [Bug Bounty Hunter Guide](README.md)
 
-## External Reconnaissance
+## External Recon
 
-* [Based on Company](external-reconnaissance/based-on-company.md)
-  * [Domain Gathering](external-reconnaissance/based-on-company/domain-gathering.md)
-* [General Technology](external-reconnaissance/general-technology.md)
-* [Public Info Gathering](external-reconnaissance/public-info-gathering/README.md)
-  * [Information Leak](external-reconnaissance/public-info-gathering/information-leak.md)
-* [Subdomain Enumeration](external-reconnaissance/subdomain-enumeration/README.md)
-  * [Preparations](external-reconnaissance/subdomain-enumeration/preparations.md)
-  * [Regular Enum](external-reconnaissance/subdomain-enumeration/regular-enum.md)
-  * [In-depth Enum](external-reconnaissance/subdomain-enumeration/in-depth-enum.md)
-* [Subdomain Analysis](external-reconnaissance/subdomain-analysis.md)
+* [Company-based Recon](external-recon/company-based-recon/README.md)
+  * [Network Assets Enumeration](external-recon/company-based-recon/network-assets-enumeration.md)
+* [Domain-based Recon](external-recon/domain-based-recon/README.md)
+  * [Subdomain Enumeration](external-recon/domain-based-recon/subdomain-enumeration/README.md)
+    * [Preparations](external-recon/domain-based-recon/subdomain-enumeration/preparations.md)
+    * [Regular Enum](external-recon/domain-based-recon/subdomain-enumeration/regular-enum.md)
+    * [In-depth Enum](external-recon/domain-based-recon/subdomain-enumeration/in-depth-enum.md)
+  * [Website Probing](external-recon/domain-based-recon/subdomain-analysis.md)
+* [Public Info Gathering](external-recon/public-info-gathering/README.md)
+  * [Information Leak](external-recon/public-info-gathering/information-leak.md)
 
-## Vulnerability Assessment
+## Vuln Assessment
 
-* [Port Server](vulnerability-assessment/port-server/README.md)
-  * [SSH](vulnerability-assessment/port-server/ssh.md)
-  * [LDAP](vulnerability-assessment/port-server/ldap.md)
-  * [Rsync](vulnerability-assessment/port-server/rsync.md)
-  * [MSSQL](vulnerability-assessment/port-server/mssql.md)
-  * [MQTT](vulnerability-assessment/port-server/mqtt.md)
-  * [Docker](vulnerability-assessment/port-server/docker.md)
-  * [etcd](vulnerability-assessment/port-server/etcd.md)
-  * [MySQL](vulnerability-assessment/port-server/mysql.md)
-  * [Redis](vulnerability-assessment/port-server/redis.md)
-  * [InfluxDB](vulnerability-assessment/port-server/influxdb.md)
-  * [MongoDB](vulnerability-assessment/port-server/mongodb.md)
-* [Web Framework](vulnerability-assessment/web-framework/README.md)
-  * [Shiro](vulnerability-assessment/web-framework/shiro.md)
-  * [WebLogic](vulnerability-assessment/web-framework/weblogic.md)
+* [Port Server](vuln-assessment/port-server/README.md)
+  * [SSH](vuln-assessment/port-server/ssh.md)
+  * [LDAP](vuln-assessment/port-server/ldap.md)
+  * [Rsync](vuln-assessment/port-server/rsync.md)
+  * [MSSQL](vuln-assessment/port-server/mssql.md)
+  * [MQTT](vuln-assessment/port-server/mqtt.md)
+  * [Docker](vuln-assessment/port-server/docker.md)
+  * [etcd](vuln-assessment/port-server/etcd.md)
+  * [MySQL](vuln-assessment/port-server/mysql.md)
+  * [Redis](vuln-assessment/port-server/redis.md)
+  * [InfluxDB](vuln-assessment/port-server/influxdb.md)
+  * [MongoDB](vuln-assessment/port-server/mongodb.md)
+* [Web Framework](vuln-assessment/web-framework/README.md)
+  * [Shiro](vuln-assessment/web-framework/shiro.md)
+  * [WebLogic](vuln-assessment/web-framework/weblogic.md)
 
 ## One Page For Subject
 
