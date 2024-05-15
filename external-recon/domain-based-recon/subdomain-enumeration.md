@@ -1,6 +1,104 @@
-# Regular Enum
+# Subdomain Enumeration
 
-## Passive Enum
+## Preparations
+
+<details>
+
+<summary>Environment Variables</summary>
+
+```bash
+# General
+DOMAIN="vulnweb.com"
+TOOLS="$HOME/hack/tools"
+HTTP_PROXY="http://127.0.0.1:6152"
+ALL_PROXY="socks5://127.0.0.1:6153"
+
+# Resolvers
+RESOLVERS="$HOME/.config/puredns/resolvers.txt"
+RESOLVERS_URL="https://public-dns.info/nameservers.txt"
+RESOLVERS_TRUSTED="$HOME/.config/puredns/resolvers-trusted.txt"
+RESOLVERS_TRUSTED_URL="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
+
+# Wordlists
+SUBDOMAINS="${TOOLS}/wordlists/subdomains.txt"
+SUBDOMAINS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains.txt"
+SUBDOMAINS_HUGE="${TOOLS}/wordlists/subdomains_huge.txt"
+SUBDOMAINS_HUGE_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains_huge.txt"
+PERMUTATIONS="${TOOLS}/wordlists/permutations.txt"
+PERMUTATIONS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/permutations.txt"
+
+# Config File
+AMASS_CONFIG="$HOME/.config/amass/config.ini"
+BBOT_CONFIG="${HOME}/.config/bbot/secrets.yml"
+GITHUB_TOKENS="${TOOLS}/github_tokens.txt"
+GITLAB_TOKENS="${TOOLS}/gitlab_tokens.txt"
+SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
+```
+
+</details>
+
+<details>
+
+<summary>Required Folders</summary>
+
+```bash
+folders=(
+    "${TOOLS}"
+    "${TOOLS}/wordlists"
+    "${TOOLS}/resolvers"
+    "${HOME}/.config/amass/"
+    "${HOME}/.config/subfinder/"
+    "${HOME}/.config/puredns/"
+)
+
+for folder in "${folders[@]}"; do
+    mkdir -p "$folder"
+done
+```
+
+</details>
+
+<details>
+
+<summary>Subdomain Wordlists</summary>
+
+```bash
+wget -q -O - "$SUBDOMAINS_URL" >"$SUBDOMAINS"
+wget -q -O - "$SUBDOMAINS_HUGE_URL" >"$SUBDOMAINS_HUGE"
+wget -q -O - "$PERMUTATIONS_URL" >"$PERMUTATIONS"
+```
+
+</details>
+
+<details>
+
+<summary>DNS Resolvers</summary>
+
+```bash
+# Update the resolver if it’s been a day since the last update
+if [[ ! -f $RESOLVERS ]] || [[ $(find "$RESOLVERS" -mtime +0) ]]; then
+    [[ -f $RESOLVERS ]] && $RESOLVERS
+    iresolver --target $RESOLVERS_URL --threads 2000 --output $RESOLVERS &>/dev/null
+fi
+
+if [[ ! -f $RESOLVERS_TRUSTED ]] || [[ $(find "$RESOLVERS_TRUSTED" -mtime +0) ]]; then
+    [[ -f $RESOLVERS_TRUSTED ]] && rm $RESOLVERS_TRUSTED
+    iresolver --target $RESOLVERS_TRUSTED_URL --threads 2000 --output $RESOLVERS_TRUSTED &>/dev/null
+fi
+```
+
+</details>
+
+<details>
+
+<summary>Other utilities</summary>
+
+* You could refer to [https://pypi.org/project/isubsum/](https://pypi.org/project/isubsum/) to installation [`isubsum`](https://pypi.org/project/isubsum/)
+  * `pipx install isubsum`
+
+</details>
+
+## Passive Source
 
 ```bash
 # https://github.com/owasp-amass/amass/tree/v3.23.3
@@ -11,9 +109,6 @@ bbot -t $DOMAIN -f subdomain-enum -rf passive -em massdns -y -s -om json |
     jq -r 'select(.scope_distance==0) | select(.type=="DNS_NAME") | .data' >bbot.txt
 
 # https://github.com/cemulus/crt
-crt -s -l 999999 -json $DOMAIN |
-    jq -r '.[].subdomain' | sed -e 's/^\*\.//' > crt.txt
-
 crt -s -l 999999 -json -o crt.json $DOMAIN >/dev/null
 [[ -s crt.json ]] && jq -r '.[].subdomain' crt.json | sed -e 's/^\*\.//' >crt.txt && rm crt.json
 
@@ -46,16 +141,15 @@ for result in "${results[@]}"; do
         # Extract results in scope | Unique line to passive.txt
         grep -E "^$DOMAIN$|\.$DOMAIN$" "$result" | anew -q passive.txt
         # Delete the source file
-        # rm $result
+        rm $result
     fi
 done
+
+# Extract results and save to JSON
+# isubdum --source passive --resolved 0
 ```
 
-```bash
-# python3 summarizer.py --source passive --resolved 0
-```
-
-## Active Resolve
+### Alive Verification
 
 ```bash
 puredns resolve passive.txt \
@@ -63,23 +157,21 @@ puredns resolve passive.txt \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write active.txt \
+    --write alive.txt \
     &>/dev/null
 
 # Firmly Resolve
-puredns resolve active.txt \
+puredns resolve alive.txt \
     --rate-limit 150 \
     --rate-limit-trusted 150 \
     --wildcard-tests 30 \
     --wildcard-batch 1500000 \
-    --write active.txt \
+    --write alive.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --source active --resolved 1
-# isubsum --source active --resolved 1
+# Extract results and save to JSON
+# isubsum --source alive --resolved 1
 ```
 
 ## Brute Force
@@ -103,26 +195,21 @@ puredns resolve brute.txt \
     --write brute.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --source brute --resolved 1
+# Extract results and save to JSON
 # isubsum --source brute --resolved 1
 ```
 
 ## Alter Combo
 
-* Best when the number of subdomains is 500 to 1000
-* **Features of different tools**
-  * [altdns](https://github.com/infosec-au/altdns): large, comprehensive
-  * [alterx](https://github.com/projectdiscovery/alterx): stdin, customizable
-  * [gotator](https://github.com/Josue87/gotator): depth, customizable
-  * [ripgen](https://github.com/resyncgg/ripgen): high-performance
-* **Hint:** Choose one of the four. (I usually use alterx)
+* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-subdomain-verification).
+* **Note:**
+  * Best when the number of subdomains is 500 to 1000
+  * Choose one of them. (I usually use alterx)
 
 <details>
 
-<summary>altdns</summary>
+<summary><a href="https://github.com/infosec-au/altdns">altdns</a> #large #comprehensive</summary>
 
 ```bash
 jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
@@ -155,10 +242,8 @@ puredns resolve alter.txt \
     --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --source alter --resolved 1
+# Extract results and save to JSON
 # isubsum --source alter --resolved 1
 ```
 
@@ -166,7 +251,7 @@ python3 summarizer.py --source alter --resolved 1
 
 <details>
 
-<summary>alterx</summary>
+<summary><a href="https://github.com/projectdiscovery/alterx">alterx</a> #stdin #customizable</summary>
 
 ```bash
 jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
@@ -199,10 +284,8 @@ puredns resolve alter.txt \
     --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --source alter --resolved 1
+# Extract results and save to JSON
 # isubsum --source alter --resolved 1
 ```
 
@@ -210,7 +293,7 @@ python3 summarizer.py --source alter --resolved 1
 
 <details>
 
-<summary>gotator</summary>
+<summary><a href="https://github.com/Josue87/gotator">gotator</a> #depth #customizable</summary>
 
 ```bash
 jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
@@ -243,10 +326,8 @@ puredns resolve alter.txt \
     --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --source alter --resolved 1
+# Extract results and save to JSON
 # isubsum --source alter --resolved 1
 ```
 
@@ -254,7 +335,7 @@ python3 summarizer.py --source alter --resolved 1
 
 <details>
 
-<summary>ripgen</summary>
+<summary><a href="https://github.com/resyncgg/ripgen">ripgen</a> #high-performance</summary>
 
 ```bash
 jq -r '.[]|select(.resolved==1)|.subdomain' subdomains.json >subdomains.txt
@@ -287,36 +368,16 @@ puredns resolve alter.txt \
     --write alter.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --source alter --resolved 1
+# Extract results and save to JSON
 # isubsum --source alter --resolved 1
 ```
 
 </details>
 
-<details>
-
-<summary>Comparison Results (jq)</summary>
-
-```bash
-# Only one tool
-# cat subdomains.json | jq '.[] | select(.sources == ["alter_altdns"])'
-# cat subdomains.json | jq '.[] | select(.sources == ["alter_alterx"])'
-# cat subdomains.json | jq '.[] | select(.sources == ["alter_gotator"])'
-# cat subdomains.json | jq '.[] | select(.sources == ["alter_ripgen"])'
-
-# Count the number of a alter combo
-cat subdomains.json | jq '.[] | select(.sources[] == "alter") | .subdomain' | wc -l
-
-# Only Alter results
-cat subdomains.json | jq -r '.[] | select(.sources | all(. | contains("alter")))'
-```
-
-</details>
-
 ## AI Generate
+
+* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-subdomain-verification).
 
 ```bash
 # https://github.com/cramppet/regulator
@@ -341,14 +402,15 @@ puredns resolve intelli.txt \
     --write intelli.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --sources intelli --resolved 1
+# Extract results and save to JSON
 # isubsum --source intelli --resolved 1
 ```
 
 ## Web Scraping
+
+* **Prerequisite:** This method requires a list of [live websites](subdomain-analysis.md#alive-website-probing).
+* **Note:** This method requires a large number of HTTP requests to the target’s live subdomain list.
 
 ```bash
 cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
@@ -405,15 +467,14 @@ puredns resolve scrap.txt \
     --write scrap.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --sources scrap --resolved 1
+# Extract results and save to JSON
 # isubsum --sources scrap --resolved 1
 ```
 
 ## Google Analytics
 
+* **Prerequisite:** This method requires a list of [live websites](subdomain-analysis.md#alive-website-probing).
 * **Reverse Google Analytics ID Search WebSites:**
   * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
     * [https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains](https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains)
@@ -424,7 +485,7 @@ python3 summarizer.py --sources scrap --resolved 1
   * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
-* **Domain Gathering:** This method is also applicable to [domain gathering](broken-reference).
+* **Domain Gathering:** This method is also applicable to [domain enumeration](../company-based-recon/network-assets-enumeration.md#domain-enumeration).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
@@ -448,9 +509,149 @@ puredns resolve analy.txt \
     --write analy.txt \
     --resolvers $RESOLVERS_TRUSTED \
     &>/dev/null
-```
 
-```bash
-python3 summarizer.py --sources analy --resolved 1
+# Extract results and save to JSON
 # isubsum --sources analy --resolved 1
 ```
+
+## Recursive
+
+* **Note:**
+  * A more in-depth and comprehensive subdomain enumeration requires a significant amount of API quotas and disk performance resources.
+  * If you’ve got the resources and need deep subdomain enumeration, go ahead and turn these options on. If not, keep them as your plan B for in-depth enum.
+
+### Recursive Passive
+
+```bash
+# https://github.com/trickest/dsieve
+dsieve -if subdomains.txt -f 3 -top 10 > dsieve.txt
+
+# https://github.com/owasp-amass/amass/tree/v3.23.3
+amass enum -passive -df dsieve.txt -nf subdomains.txt -timeout 30 -o amass.txt
+
+puredns resolve amass.txt \
+    --rate-limit 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w recursive_passive.txt &&
+    rm dsieve.txt
+```
+
+### Recursive Brute
+
+* **Note:** When the number of alive subdomain names lists is 500, the estimated time is 50 minutes
+
+```bash
+# https://github.com/trickest/dsieve
+dsieve -if subdomains.txt -f 3 -top 10 >dsieve.txt
+
+# https://github.com/resyncgg/ripgen
+ripgen -d dsieve.txt -w $PERMUTATIONS >ripgen.txt
+
+puredns resolve ripgen.txt \
+    --rate-limit 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w recursive_brute_1.txt \
+    &> /dev/null &&
+    rm ripgen.txt
+
+# https://github.com/Josue87/gotator
+gotator -sub recursive_brute-1.txt -perm $PERMUTATIONS \
+    -depth 1 -numbers 3 -mindup -adv -md -silent |
+    anew gotator.txt
+
+puredns resolve gotator.txt \
+    --rate-limit 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w recursive_brute_2.txt \
+    &> /dev/null &&
+    rm gotator.txt
+
+# View Data
+cat recursive_brute_1.txt recursive_brute_2.txt | sort-u
+```
+
+## DNS Enum
+
+* **Prerequisite:** This method requires the [DNS records](./#get-dns-records) of a list of live subdomains.
+
+```bash
+dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
+    -silent -retry 3 -json \
+    -o dnsx.json \
+    >>dnsx.log
+
+cat dnsx.json | jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[]' 2>/dev/null \
+    | grep "\.${DOMAIN}$" \
+    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
+    >dnsx.txt
+cat dnsx.json | jq -r '.a[]' 2>/dev/null | sort -u \
+    | hakip2host \
+    | cut -d ' ' -f 3 | unfurl -u domains \
+    | sed -e 's/*\.//' -e 's/\.$//' -e '/\./!d' \
+    | grep "\.${DOMAIN}$" \
+    >hakip2host.txt
+
+cat dnsx.txt hakip2host.txt >dnsx_and_hakip2host.txt
+puredns resolve dnsx_and_hakip2host.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch  1500000 \
+    -w puredns.txt \
+    &>puredns.log 2>&1
+
+sort -u puredns.txt -o puredns.txt
+
+# View Data
+cat puredns.txt
+```
+
+## DNS zone transfer
+
+```bash
+dnsrecon -t axfr -d target.com
+```
+
+## NoError Enum
+
+* If the domain name does not have a wildcard
+
+```bash
+# https://github.com/projectdiscovery/dnsx
+# Identify Wildcard
+echo error.abc.xyz.target.com \
+    | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
+
+# NOERROR Enumeration
+dnsx -d $DOMAIN -r $RESOLVERS -w $SUBDOMAINS -silent -rcode noerror \
+    | cut -d ' ' -f 1 | tee dnsx.txt
+
+# View Data
+cat dnsx.txt
+```
+
+## Final Alive Subdomain Verification
+
+```bash
+cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
+
+puredns resolve subdomains.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write final.txt \
+    --resolvers $RESOLVERS_TRUSTED \
+    &>/dev/null
+
+# Extract results and save to JSON
+# isubsum --sources final --resolved 1
+```
+

@@ -39,13 +39,13 @@ https://www.ip138.com/
 
 ## Subdomain Enumeration
 
-See the [Subdomain Enumeration](subdomain-enumeration/) page.
+See the [Subdomain Enumeration](subdomain-enumeration.md) page.
 
 ## Get DNS records
 
 ## Website Probing
 
-See the [Website Probing](subdomain-analysis.md) page.
+See the [Alive Website Probing](subdomain-analysis.md) page.
 
 ## Extract IP Address
 

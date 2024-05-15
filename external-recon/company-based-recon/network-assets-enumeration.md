@@ -154,7 +154,7 @@ echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the Website that can be accessed is needed.
 * **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
-* **Subdomain Enumeration:** This method is also applicable to [subdomain enumeration](../domain-based-recon/subdomain-enumeration/regular-enum.md#google-analytics).
+* **Subdomain Enumeration:** This method is also applicable to [subdomain enumeration](broken-reference).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
