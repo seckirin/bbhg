@@ -7,7 +7,7 @@
 * [Company-based Recon](external-recon/company-based-recon/README.md)
   * [Network Assets Enumeration](external-recon/company-based-recon/network-assets-enumeration.md)
 * [Domain-based Recon](external-recon/domain-based-recon/README.md)
-  * [Subdomain Enumeration](external-recon/domain-based-recon/subdomain-enumeration.md)
+  * [Subdomain Enum](external-recon/domain-based-recon/subdomain-enumeration.md)
   * [Website Probing](external-recon/domain-based-recon/subdomain-analysis.md)
 * [Public Info Gathering](external-recon/public-info-gathering/README.md)
   * [Information Leak](external-recon/public-info-gathering/information-leak.md)

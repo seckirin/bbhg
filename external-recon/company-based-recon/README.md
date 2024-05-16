@@ -1,6 +1,6 @@
 # Company-based Recon
 
-## Basic Information
+## Company Basic Information
 
 ```bash
 https://aiqicha.baidu.com/
@@ -28,3 +28,7 @@ https://www.tianyancha.com/
     [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
     [-type {aqc,tyc,all,qimai}]
 ```
+
+## Assets Ownership Verification
+
+See the [Domain Basics Information](../domain-based-recon/#ownership-verification) block.

@@ -1,10 +1,13 @@
 # Domain-based Recon
 
-## Ownership Verification
+## Domain Basics Information
 
-### Domain Analysis
+{% hint style="success" %}
+This method is suitable for asset ownership verification.
+{% endhint %}
 
 ```bash
+# Domain Analysis
 # Query company name through domain
 https://beian.miit.gov.cn/
 
@@ -17,38 +20,32 @@ https://www.ip138.com/
 https://icp.chinaz.com/bytedance.com
 https://site.ip138.com/bytedance.com/beian.htm
 https://www.beianx.cn/search/bytedance.com
-```
 
-### ICP License Analysis
-
-```bash
+# ICP License Analysis
 # Query company name and registration time through ICP license
 https://icp.chinaz.com/粤B2-20090059-1
 https://www.tianyancha.com/search?key=黑ICP备10000001号
 https://www.beianx.cn/search/黑ICP备10000001号
-```
 
-### IP Analysis
-
-```bash
+# IP Analysis
 # Query registrant information through ip
 https://www.whois.com/whois/
 https://who.is/
 https://www.ip138.com/
 ```
 
-## Subdomain Enumeration
+## Subdomain Enum
 
-See the [Subdomain Enumeration](subdomain-enumeration.md) page.
+See the [Subdomain Enum](subdomain-enumeration.md) page.
 
-## Get DNS records
-
-## Website Probing
-
-See the[ Website Probing](subdomain-analysis.md) page.
+## Get DNS Record
 
 ## Extract IP Address
 
 ## Port Scanning
+
+## Website Probing
+
+See the[ Website Probing](subdomain-analysis.md) page.
 
 ## Service Identification

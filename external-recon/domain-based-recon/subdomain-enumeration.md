@@ -1,4 +1,4 @@
-# Subdomain Enumeration
+# Subdomain Enum
 
 ## Preparations
 
@@ -98,6 +98,49 @@ fi
 
 </details>
 
+## Brute Force
+
+```bash
+puredns bruteforce $SUBDOMAINS $DOMAIN \
+    --rate-limit 3000 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write brute.txt \
+    &>/dev/null
+sort -u brute.txt -o brute.txt
+
+# Firmly Resolve
+puredns resolve brute.txt \
+    --rate-limit 150 \
+    --rate-limit-trusted 150 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    --write brute.txt \
+    --resolvers $RESOLVERS_TRUSTED \
+    &>/dev/null
+
+# Extract results and save to JSON
+isubsum --source brute --resolved 1
+```
+
+## NoError Enum
+
+```bash
+noerror_enum() {
+    # Identify Wildcard
+    if [[ $(echo "error.abc.xyz.$DOMAIN" | dnsx -r "$RESOLVERS" -rcode noerror,nxdomain -retry 3 -silent | cut -d ' ' -f 2) == "[NXDOMAIN]" ]]; then
+        # Continue if the domain name does not have a wildcard
+        dnsx -d "$DOMAIN" -r "$RESOLVERS" -w "$SUBDOMAINS" -silent -rcode noerror | cut -d ' ' -f 1 | anew -q noerror.txt
+    else
+        echo "Wildcard detected, skipping NoError Enum"
+    fi
+} && noerror_enum
+
+# Extract results and save to JSON
+isubsum --source noerror --resolved 1
+```
+
 ## Passive Source
 
 ```bash
@@ -146,7 +189,7 @@ for result in "${results[@]}"; do
 done
 
 # Extract results and save to JSON
-isubsum --source passive --resolved 0
+# isubsum --source passive --resolved 0
 ```
 
 ### Alive Verification
@@ -174,38 +217,19 @@ puredns resolve alive.txt \
 isubsum --source alive --resolved 1
 ```
 
-## Brute Force
-
-```bash
-puredns bruteforce $SUBDOMAINS $DOMAIN \
-    --rate-limit 3000 \
-    --rate-limit-trusted 150 \
-    --wildcard-tests 30 \
-    --wildcard-batch 1500000 \
-    --write brute.txt \
-    &>/dev/null
-sort -u brute.txt -o brute.txt
-
-# Firmly Resolve
-puredns resolve brute.txt \
-    --rate-limit 150 \
-    --rate-limit-trusted 150 \
-    --wildcard-tests 30 \
-    --wildcard-batch 1500000 \
-    --write brute.txt \
-    --resolvers $RESOLVERS_TRUSTED \
-    &>/dev/null
-
-# Extract results and save to JSON
-isubsum --source brute --resolved 1
-```
-
 ## Alter Combo
 
-* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-verification).
-* **Note:**
-  * Best when the number of subdomains is 500 to 1000
-  * Choose one of them. (I usually use alterx)
+{% hint style="success" %}
+This method requires initial [Alive Subdomain Verification](subdomain-enumeration.md#alive-verification).
+{% endhint %}
+
+{% hint style="info" %}
+Best when the number of subdomains is 500 to 1000.
+{% endhint %}
+
+{% hint style="info" %}
+Choose one of them. (I usually use alterx)
+{% endhint %}
 
 <details>
 
@@ -377,7 +401,9 @@ isubsum --source alter --resolved 1
 
 ## AI Generate
 
-* **Prerequisite:** This method requires a list of [live subdomains](subdomain-enumeration.md#alive-verification).
+{% hint style="success" %}
+This method requires initial [Alive Subdomain Verification](subdomain-enumeration.md#alive-verification).
+{% endhint %}
 
 ```bash
 # https://github.com/cramppet/regulator
@@ -407,10 +433,54 @@ puredns resolve intelli.txt \
 isubsum --source intelli --resolved 1
 ```
 
+## DNS Enum
+
+{% hint style="success" %}
+This method requires [Get DNS Record](./#get-dns-record), If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+{% endhint %}
+
+```bash
+dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
+    -silent -retry 3 -json \
+    -o dnsx.json \
+    >>dnsx.log
+
+cat dnsx.json | jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[]' 2>/dev/null \
+    | grep "\.${DOMAIN}$" \
+    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
+    >dnsx.txt
+cat dnsx.json | jq -r '.a[]' 2>/dev/null | sort -u \
+    | hakip2host \
+    | cut -d ' ' -f 3 | unfurl -u domains \
+    | sed -e 's/*\.//' -e 's/\.$//' -e '/\./!d' \
+    | grep "\.${DOMAIN}$" \
+    >hakip2host.txt
+
+cat dnsx.txt hakip2host.txt >dnsx_and_hakip2host.txt
+puredns resolve dnsx_and_hakip2host.txt \
+    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
+    -l 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch  1500000 \
+    -w puredns.txt \
+    &>puredns.log 2>&1
+
+sort -u puredns.txt -o puredns.txt
+
+# View Data
+cat puredns.txt
+```
+
 ## Web Scraping
 
-* **Prerequisite:** This method requires a list of [live websites](subdomain-analysis.md#alive-website-probing).
-* **Note:** This method requires a large number of HTTP requests to the target’s live subdomain list.
+{% hint style="success" %}
+This method requires [Website probing](subdomain-analysis.md#alive-website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+{% endhint %}
+
+{% hint style="warning" %}
+This method requires a large number of HTTP requests to the target’s live subdomain list.
+{% endhint %}
 
 ```bash
 cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
@@ -472,46 +542,12 @@ puredns resolve scrap.txt \
 isubsum --sources scrap --resolved 1
 ```
 
-## DNS Enum
-
-* **Prerequisite:** This method requires the [DNS records](./#get-dns-records) of a list of live subdomains.
-
-```bash
-dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
-    -silent -retry 3 -json \
-    -o dnsx.json \
-    >>dnsx.log
-
-cat dnsx.json | jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[]' 2>/dev/null \
-    | grep "\.${DOMAIN}$" \
-    | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' \
-    >dnsx.txt
-cat dnsx.json | jq -r '.a[]' 2>/dev/null | sort -u \
-    | hakip2host \
-    | cut -d ' ' -f 3 | unfurl -u domains \
-    | sed -e 's/*\.//' -e 's/\.$//' -e '/\./!d' \
-    | grep "\.${DOMAIN}$" \
-    >hakip2host.txt
-
-cat dnsx.txt hakip2host.txt >dnsx_and_hakip2host.txt
-puredns resolve dnsx_and_hakip2host.txt \
-    -r resolvers.txt --resolvers-trusted resolvers_trusted.txt \
-    -l 0 \
-    --rate-limit-trusted 200 \
-    --wildcard-tests 30 \
-    --wildcard-batch  1500000 \
-    -w puredns.txt \
-    &>puredns.log 2>&1
-
-sort -u puredns.txt -o puredns.txt
-
-# View Data
-cat puredns.txt
-```
-
 ## Google Analytics
 
-* **Prerequisite:** This method requires a list of [live websites](subdomain-analysis.md#alive-website-probing).
+{% hint style="success" %}
+This method requires [Website probing](subdomain-analysis.md#alive-website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+{% endhint %}
+
 * **Reverse Google Analytics ID Search WebSites:**
   * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
     * [https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains](https://search.dnslytics.com/search?q=html.tag:ua-33427076\&d=domains)
@@ -553,9 +589,13 @@ isubsum --sources analy --resolved 1
 
 ## Recursive
 
-* **Note:**
-  * A more in-depth and comprehensive subdomain enumeration requires a significant amount of API quotas and disk performance resources.
-  * If you’ve got the resources and need deep subdomain enumeration, go ahead and turn these options on. If not, keep them as your plan B for in-depth enum.
+{% hint style="success" %}
+A more in-depth and comprehensive subdomain enumeration requires a significant amount of API quotas and disk performance resources.
+{% endhint %}
+
+{% hint style="success" %}
+If you’ve got the resources and need deep subdomain enumeration, go ahead and turn these options on. If not, keep them as your plan B for in-depth enum.
+{% endhint %}
 
 ### Recursive Passive
 
@@ -577,7 +617,9 @@ puredns resolve amass.txt \
 
 ### Recursive Brute
 
-* **Note:** When the number of alive subdomain names lists is 500, the estimated time is 50 minutes
+{% hint style="info" %}
+When the number of alive subdomain names lists is 500, the estimated time is 50 minutes
+{% endhint %}
 
 ```bash
 # https://github.com/trickest/dsieve
@@ -611,30 +653,6 @@ puredns resolve gotator.txt \
 
 # View Data
 cat recursive_brute_1.txt recursive_brute_2.txt | sort-u
-```
-
-## DNS zone transfer
-
-```bash
-dnsrecon -t axfr -d target.com
-```
-
-## NoError Enum
-
-* If the domain name does not have a wildcard
-
-```bash
-# https://github.com/projectdiscovery/dnsx
-# Identify Wildcard
-echo error.abc.xyz.target.com \
-    | dnsx -r resolvers.txt -rcode noerror,nxdomain -retry 3 -silent
-
-# NOERROR Enumeration
-dnsx -d $DOMAIN -r $RESOLVERS -w $SUBDOMAINS -silent -rcode noerror \
-    | cut -d ' ' -f 1 | tee dnsx.txt
-
-# View Data
-cat dnsx.txt
 ```
 
 ## Final Alive Verification

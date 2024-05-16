@@ -22,14 +22,16 @@
 * [ ] [Acquisition Information](../external-recon/company-based-recon/#acquisition-information)
   * Controlling Subsidiaries
   * Shareholding Ratio
+* [ ] Assets Ownership Verification
 
 ### Domain-based Recon
 
-* [ ] Ownership Verification
+* [ ] Domain Basics Information
 * [ ] Subdomain Enumeration
-* [ ] Get DNS records
-* [ ] Website Probing
+* [ ] [Get DNS Record](../external-recon/domain-based-recon/#get-dns-record)
 * [ ] Extract IP Address (Exclude CDN and virtual hosting)
+* [ ] Generate CIDR
+* [ ] Website Probing
 * [ ] Port Scanning
 * [ ] Service Identification
 
