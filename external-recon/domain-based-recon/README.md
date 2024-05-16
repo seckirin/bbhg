@@ -60,12 +60,11 @@ nmap -iL ips.txt -vv -T4 --top-ports 3000 -n --open -oX nmap.xml
 ## Website Probing
 
 ```bash
-tew -x nmap.xml -dnsx dnsx.json --vhost | httpx -json -o websites.json
+tew -x nmap.xml -dnsx dns.json --vhost -o hostport.txt |
+    httpx -random-agent -silent -json -o websites.json &>/dev/null
 
-jq -r '.url' websites.json | sed -e 's/:80$//g' -e 's/:443$//g' | anew -q websites.txt
-
-jq -r 'try. | "\(.url) [\(.status_code)] [\(.title)] [\(.webserver)] \(.tech)"' \
-    websites.json | anew -q websites_plain.txt
+jq -r 'try . | "\(.url) [\(.status_code)] [\(.title)] [\(.content_length) byte]"' websites.json |
+    sed -e 's/:80$//g' -e 's/:443$//g' | anew -q websites.txt
 ```
 
 ### Screenshot
@@ -78,7 +77,6 @@ cat websites.txt | cut -d ' ' -f 1 |
 ## Service Identification
 
 ```bash
-nuclei -l websites.txt \
-    -t ~/nuclei-templates/http/technologies/fingerprinthub-web-fingerprints.yaml \
-    -silent -jsonl
+cat websites.txt | cut -d ' ' -f 1 | 
+    nuclei -id fingerprinthub-web-fingerprints -silent -jsonl
 ```

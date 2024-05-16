@@ -75,13 +75,16 @@ wget -q -O - "$PERMUTATIONS_URL" >"$PERMUTATIONS"
 <summary>DNS Resolvers</summary>
 
 ```bash
-# Update the resolver if it’s been a day since the last update
+# Update the resolver if one day has passed since the last update
 if [[ ! -f $RESOLVERS ]] || [[ $(find "$RESOLVERS" -mtime +0) ]]; then
-    [[ -f $RESOLVERS ]] && $RESOLVERS
+    echo "[INF] It’s been over a day since the last update of the DNS resolver, it will be updated soon."
+    [[ -f $RESOLVERS ]] && rm $RESOLVERS
     iresolver --target $RESOLVERS_URL --threads 2000 --output $RESOLVERS &>/dev/null
 fi
 
-if [[ ! -f $RESOLVERS_TRUSTED ]] || [[ $(find "$RESOLVERS_TRUSTED" -mtime +0) ]]; then
+# Update the trusted resolver if seven days have passed since the last update
+if [[ ! -f $RESOLVERS_TRUSTED ]] || [[ $(find "$RESOLVERS_TRUSTED" -mtime +6) ]]; then
+    echo "[INF] It’s been over seven day since the last update of the trusted DNS resolver, it will be updated soon."
     [[ -f $RESOLVERS_TRUSTED ]] && rm $RESOLVERS_TRUSTED
     iresolver --target $RESOLVERS_TRUSTED_URL --threads 2000 --output $RESOLVERS_TRUSTED &>/dev/null
 fi
@@ -219,17 +222,11 @@ isubsum --source alive --resolved 1
 
 ## Alter Combo
 
-{% hint style="success" %}
-This method requires initial [Alive Subdomain Verification](subdomain-enumeration.md#alive-verification).
-{% endhint %}
+> This method requires initial [Alive Subdomain Verification](subdomain-enumeration.md#alive-verification).
 
-{% hint style="info" %}
-Best when the number of subdomains is 500 to 1000.
-{% endhint %}
+> Choose one of them. (I usually use alterx).
 
-{% hint style="info" %}
-Choose one of them. (I usually use alterx)
-{% endhint %}
+> Best when the number of subdomains is 500 to 1000.
 
 <details>
 
@@ -401,9 +398,7 @@ isubsum --source alter --resolved 1
 
 ## AI Generate
 
-{% hint style="success" %}
-This method requires initial [Alive Subdomain Verification](subdomain-enumeration.md#alive-verification).
-{% endhint %}
+> This method requires initial [Alive Subdomain Verification](subdomain-enumeration.md#alive-verification).
 
 ```bash
 # https://github.com/cramppet/regulator
@@ -435,9 +430,7 @@ isubsum --source intelli --resolved 1
 
 ## DNS Enum
 
-{% hint style="success" %}
-This method requires [Get DNS Record](./#get-dns-record), If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
-{% endhint %}
+> This method requires [Get DNS Record](./#get-dns-record), If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 
 ```bash
 dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
@@ -474,13 +467,9 @@ cat puredns.txt
 
 ## Web Scraping
 
-{% hint style="success" %}
-This method requires [Website probing](broken-reference). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
-{% endhint %}
+> This method requires [Website Probing](./#website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 
-{% hint style="warning" %}
-This method requires a large number of HTTP requests to the target’s live subdomain list.
-{% endhint %}
+> This method requires a large number of HTTP requests to the target’s live subdomain list.
 
 ```bash
 cat subdomains.json | jq -r '.[] | select(.resolved==1) | .subdomain' > subdomains.txt
@@ -544,9 +533,7 @@ isubsum --sources scrap --resolved 1
 
 ## Google Analytics
 
-{% hint style="success" %}
-This method requires [Website probing](broken-reference). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
-{% endhint %}
+> This method requires [Website Probing](./#website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 
 * **Reverse Google Analytics ID Search WebSites:**
   * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
@@ -589,13 +576,9 @@ isubsum --sources analy --resolved 1
 
 ## Recursive
 
-{% hint style="success" %}
-A more in-depth and comprehensive subdomain enumeration requires a significant amount of API quotas and disk performance resources.
-{% endhint %}
-
-{% hint style="success" %}
-If you’ve got the resources and need deep subdomain enumeration, go ahead and turn these options on. If not, keep them as your plan B for in-depth enum.
-{% endhint %}
+> A more in-depth and comprehensive subdomain enumeration requires a significant amount of API quotas and disk performance resources.
+>
+> If you’ve got the resources and need deep subdomain enumeration, go ahead and turn these options on. If not, keep them as your plan B for in-depth enum.
 
 ### Recursive Passive
 
@@ -617,9 +600,7 @@ puredns resolve amass.txt \
 
 ### Recursive Brute
 
-{% hint style="info" %}
-When the number of alive subdomain names lists is 500, the estimated time is 50 minutes
-{% endhint %}
+> When the number of alive subdomain names lists is 500, the estimated time is 50 minutes
 
 ```bash
 # https://github.com/trickest/dsieve
