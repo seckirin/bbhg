@@ -2,9 +2,7 @@
 
 ## Domain Basics Information
 
-{% hint style="success" %}
-This method is suitable for asset ownership verification.
-{% endhint %}
+> This method can be used for asset ownership verification
 
 ```bash
 # Domain Analysis
@@ -40,12 +38,47 @@ See the [Subdomain Enum](subdomain-enumeration.md) page.
 
 ## Get DNS Record
 
+```bash
+cat subdomains.txt | dnsx -recon -silent -json -o dns.json &>/dev/null
+```
+
 ## Extract IP Address
+
+```bash
+# Exclude CDN and internal IP
+jq -r '. | select(.has_internal_ips|not) | try .a[]' dns.json | sort -u | 
+    cdncheck -silent -exclude -o ips.txt &>/dev/null
+```
 
 ## Port Scanning
 
+```bash
+# Exclude virtual hosts and scan nmap Top 3000 port
+nmap -iL ips.txt -vv -T4 --top-ports 3000 -n --open -oX nmap.xml
+```
+
 ## Website Probing
 
-See the[ Website Probing](subdomain-analysis.md) page.
+```bash
+tew -x nmap.xml -dnsx dnsx.json --vhost | httpx -json -o websites.json
+
+jq -r '.url' websites.json | sed -e 's/:80$//g' -e 's/:443$//g' | anew -q websites.txt
+
+jq -r 'try. | "\(.url) [\(.status_code)] [\(.title)] [\(.webserver)] \(.tech)"' \
+    websites.json | anew -q websites_plain.txt
+```
+
+### Screenshot
+
+```bash
+cat websites.txt | cut -d ' ' -f 1 |
+    nuclei -headless -id screenshot -V -dir='screenshots' -silent
+```
 
 ## Service Identification
+
+```bash
+nuclei -l websites.txt \
+    -t ~/nuclei-templates/http/technologies/fingerprinthub-web-fingerprints.yaml \
+    -silent -jsonl
+```

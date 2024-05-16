@@ -475,7 +475,7 @@ cat puredns.txt
 ## Web Scraping
 
 {% hint style="success" %}
-This method requires [Website probing](subdomain-analysis.md#alive-website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+This method requires [Website probing](broken-reference). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 {% endhint %}
 
 {% hint style="warning" %}
@@ -545,7 +545,7 @@ isubsum --sources scrap --resolved 1
 ## Google Analytics
 
 {% hint style="success" %}
-This method requires [Website probing](subdomain-analysis.md#alive-website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+This method requires [Website probing](broken-reference). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 {% endhint %}
 
 * **Reverse Google Analytics ID Search WebSites:**
