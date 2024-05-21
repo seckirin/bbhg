@@ -35,9 +35,9 @@
 
 ## Others
 
-* [Network Host Discovery](one-page-subject/2024-05-11-15-49-53/network.md)
-* [Website Probing and Analysis](one-page-subject/2024-05-11-15-49-53/web-application.md)
-* [Subdomain Takeover Testing](one-page-subject/2024-05-11-15-49-53/subdomain-takeover.md)
-* [Host Collision Enumeration](one-page-subject/2024-05-11-15-49-53/host-collision.md)
-* [Cloud Service Fingerprint](one-page-subject/2024-05-11-15-49-53/pentest-cloud.md)
-* [Linux Crontab Overview](one-page-subject/2024-05-11-15-49-53/flash.md)
+* [Network Host Discovery](others/network.md)
+* [Website Probing and Analysis](others/web-application.md)
+* [Subdomain Takeover Testing](others/subdomain-takeover.md)
+* [Host Collision Enumeration](others/host-collision.md)
+* [Cloud Service Fingerprint](others/pentest-cloud.md)
+* [Linux Crontab Overview](others/flash.md)
