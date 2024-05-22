@@ -27,6 +27,7 @@
 * [Web Framework Assessment](vuln-assessment/web-framework-assessment/README.md)
   * [Shiro](vuln-assessment/web-framework-assessment/shiro.md)
   * [WebLogic](vuln-assessment/web-framework-assessment/weblogic.md)
+* [Cross-Site Scripting](vuln-assessment/cross-site-scripting.md)
 
 ## One Page For Subject
 
@@ -35,9 +36,10 @@
 
 ## Others
 
-* [Network Host Discovery](others/network.md)
-* [Website Probing and Analysis](others/web-application.md)
-* [Subdomain Takeover Testing](others/subdomain-takeover.md)
-* [Host Collision Enumeration](others/host-collision.md)
-* [Cloud Service Fingerprint](others/pentest-cloud.md)
-* [Linux Crontab Overview](others/flash.md)
+* [Network Host Discovery](one-page-subject/2024-05-11-15-49-53/network.md)
+* [Website Probing and Analysis](one-page-subject/2024-05-11-15-49-53/web-application.md)
+* [Subdomain Takeover Testing](one-page-subject/2024-05-11-15-49-53/subdomain-takeover.md)
+* [Host Collision Enumeration](one-page-subject/2024-05-11-15-49-53/host-collision.md)
+* [Cloud Service Fingerprint](one-page-subject/2024-05-11-15-49-53/pentest-cloud.md)
+* [Linux Crontab Overview](one-page-subject/2024-05-11-15-49-53/flash.md)
+* [Exploiting API Kyes](others/exploiting-api-kyes.md)
