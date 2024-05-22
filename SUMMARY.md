@@ -9,6 +9,7 @@
   * [Information Leak](external-recon/company-based-recon/information-leak.md)
 * [Domain-based Recon](external-recon/domain-based-recon/README.md)
   * [Subdomain Enum](external-recon/domain-based-recon/subdomain-enumeration.md)
+* [Map Execution Paths](external-recon/map-execution-paths.md)
 
 ## Vuln Assessment
 
