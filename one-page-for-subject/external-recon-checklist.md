@@ -8,30 +8,30 @@
 
 ### Company-based Recon
 
-* [ ] [Basic Information](../external-recon/company-based-recon/#basic-information)
+* [ ] [Basic Information](../reconnaissance/company-based-recon/#basic-information)
   * Enterprise Name
   * Registered Address
   * Phone Number
   * Email Domain
   * ICP License Number
-* [ ] [Network Assets Enumeration](../external-recon/company-based-recon/network-assets-enumeration.md)
+* [ ] [Network Assets Enumeration](../reconnaissance/company-based-recon/network-assets-enum.md)
   * ASN / CIDR
   * Domain Enumeration
   * Mobile Application
   * WeChat Applet
-* [ ] [Acquisition Information](../external-recon/company-based-recon/#acquisition-information)
+* [ ] [Acquisition Information](../reconnaissance/company-based-recon/#acquisition-information)
   * Controlling Subsidiaries
   * Shareholding Ratio
 
 ### Domain-based Recon
 
-* [ ] [Domain Basics Information](../external-recon/domain-based-recon/#domain-basics-information)
-* [ ] [Subdomain Enumeration](../external-recon/domain-based-recon/subdomain-enumeration.md)
-* [ ] [Get DNS Record](../external-recon/domain-based-recon/#get-dns-record)
-* [ ] [Extract IP Address](../external-recon/domain-based-recon/#extract-ip-address)
-* [ ] [Port Scanning](../external-recon/domain-based-recon/#port-scanning)
-* [ ] [Website Probing](../external-recon/domain-based-recon/#website-probing)
-* [ ] [Service Identification](../external-recon/domain-based-recon/#service-identification)
+* [ ] [Domain Basics Information](../reconnaissance/domain-based-recon/#domain-basics-information)
+* [ ] [Subdomain Enumeration](../reconnaissance/domain-based-recon/subdomain-enumeration.md)
+* [ ] [Get DNS Record](../reconnaissance/domain-based-recon/#get-dns-record)
+* [ ] [Extract IP Address](../reconnaissance/domain-based-recon/#extract-ip-address)
+* [ ] [Port Scanning](../reconnaissance/domain-based-recon/#port-scanning)
+* [ ] [Website Probing](../reconnaissance/domain-based-recon/#website-probing)
+* [ ] [Service Identification](../reconnaissance/domain-based-recon/#service-identification)
 
 ### Website-based Recon
 

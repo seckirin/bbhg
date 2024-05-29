@@ -2,14 +2,14 @@
 
 * [Bug Bounty Hunter Guide](README.md)
 
-## External Recon
+## Reconnaissance
 
-* [Company-based Recon](external-recon/company-based-recon/README.md)
-  * [Network Assets Enumeration](external-recon/company-based-recon/network-assets-enumeration.md)
-  * [Information Leak](external-recon/company-based-recon/information-leak.md)
-* [Domain-based Recon](external-recon/domain-based-recon/README.md)
-  * [Subdomain Enum](external-recon/domain-based-recon/subdomain-enumeration.md)
-* [Map Execution Paths](external-recon/map-execution-paths.md)
+* [General Recon Technology](reconnaissance/general-recon-technology.md)
+* [Company-based Recon](reconnaissance/company-based-recon/README.md)
+  * [Network Assets Enum](reconnaissance/company-based-recon/network-assets-enum.md)
+* [Domain-based Recon](reconnaissance/domain-based-recon/README.md)
+  * [Subdomain Enum](reconnaissance/domain-based-recon/subdomain-enumeration.md)
+* [Website-based Recon](reconnaissance/website-based-recon.md)
 
 ## Vuln Assessment
 

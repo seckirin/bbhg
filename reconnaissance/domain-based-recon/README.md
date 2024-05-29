@@ -2,31 +2,37 @@
 
 ## Domain Basics Information
 
-> This method can be used for asset ownership verification
+This technique also applies to asset ownership verification.
 
-```bash
-# Domain Analysis
-# Query company name through domain
+```markdown
+# 1. Domain Analysis
+
+## 1.1 Query company name through domain
 https://beian.miit.gov.cn/
 
-# Query registrant information through domain
+## 1.2 Query registrant information through domain
 https://www.whois.com/whois/
 https://who.is/
 https://www.ip138.com/
 
-# Query ICP license information through domain
+## 1.3 Query ICP license information through domain
 https://icp.chinaz.com/bytedance.com
 https://site.ip138.com/bytedance.com/beian.htm
 https://www.beianx.cn/search/bytedance.com
 
-# ICP License Analysis
-# Query company name and registration time through ICP license
+## 1.4 Query historical IP resolution records through domain
+https://ipchaxun.com/
+
+# 2. ICP License Analysis
+
+## 2.1 Query company name and registration time through ICP license
 https://icp.chinaz.com/粤B2-20090059-1
 https://www.tianyancha.com/search?key=黑ICP备10000001号
 https://www.beianx.cn/search/黑ICP备10000001号
 
-# IP Analysis
-# Query registrant information through ip
+# 3. IP Analysis
+
+# 3.1 Query registrant information through ip
 https://www.whois.com/whois/
 https://who.is/
 https://www.ip138.com/
@@ -34,7 +40,7 @@ https://www.ip138.com/
 
 ## Subdomain Enum
 
-See the [Subdomain Enum](subdomain-enumeration.md) page.
+For more information, please refer to page [Subdomain Enum](subdomain-enumeration.md).
 
 ## Get DNS Record
 

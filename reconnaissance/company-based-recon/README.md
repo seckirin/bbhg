@@ -12,7 +12,7 @@ https://www.crunchbase.com/
 
 ## Network Assets Enumeration
 
-See the [Network Assets Enumeration](network-assets-enumeration.md) page.
+For more information, please refer to page [Network Assets Enumeration](network-assets-enum.md).
 
 ## Acquisition Information
 
@@ -31,4 +31,4 @@ https://www.tianyancha.com/
 
 ## Assets Ownership Verification
 
-See the [Domain Basics Information](../domain-based-recon/#ownership-verification) block.
+For more information, please refer to paragraph [Domain Basics Information](../domain-based-recon/#ownership-verification).
