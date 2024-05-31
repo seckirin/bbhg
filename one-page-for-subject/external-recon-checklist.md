@@ -8,18 +8,18 @@
 
 ### Company-based Recon
 
-* [ ] [Basic Information](../reconnaissance/company-based-recon/#basic-information)
+* [ ] [Basic Information](../reconnaissance/company-based-reco/#basic-information)
   * Enterprise Name
   * Registered Address
   * Phone Number
   * Email Domain
   * ICP License Number
-* [ ] [Network Assets Enumeration](../reconnaissance/company-based-recon/network-assets-enum.md)
+* [ ] [Network Assets Enumeration](../reconnaissance/company-based-reco/network-assets-enum.md)
   * ASN / CIDR
   * Domain Enumeration
   * Mobile Application
   * WeChat Applet
-* [ ] [Acquisition Information](../reconnaissance/company-based-recon/#acquisition-information)
+* [ ] [Acquisition Information](../reconnaissance/company-based-reco/#acquisition-information)
   * Controlling Subsidiaries
   * Shareholding Ratio
 

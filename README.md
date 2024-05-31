@@ -9,19 +9,3 @@
 5. Unreservedly serving the bug bounty hunter.
 6. Content is solely for security enhancement, not malice.
 7. The author disclaims liability for malicious actions’ aftermath.
-
-## Contents
-
-### Reconnaissance
-
-* General Recon Technology
-* Company-based Recon
-  * Company Basic Information
-  * Network Assets Enumeration
-  * Acquisition Information Gathering
-  * Sensitive Information Gathering
-  * Assets Ownership Verification
-* Domain-based Recon
-* Website-based Recon
-
-### Vulnerability Testing

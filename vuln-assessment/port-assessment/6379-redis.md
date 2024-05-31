@@ -1,4 +1,4 @@
-# Redis
+# 6379 - Redis
 
 <details>
 
@@ -27,7 +27,7 @@ HOST=; PORT=6379; # TARGET HOST INFO
 
 If the target host returns Redis-related information, it indicates that unauthorized access is allowed.
 
-## File Write
+## Write File
 
 {% hint style="info" %}
 Writing files may affect the server normal operation. Prioritize writing the SSH public key.

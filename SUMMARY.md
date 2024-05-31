@@ -1,12 +1,13 @@
 # Table of contents
 
 * [Bug Bounty Hunter Guide](README.md)
+  * [Contents](readme/contents.md)
 
 ## Reconnaissance
 
 * [General Recon Technology](reconnaissance/general-recon-technology.md)
-* [Company-based Recon](reconnaissance/company-based-recon/README.md)
-  * [Network Assets Enum](reconnaissance/company-based-recon/network-assets-enum.md)
+* [Company-based Reco](reconnaissance/company-based-reco/README.md)
+  * [Network Assets Enum](reconnaissance/company-based-reco/network-assets-enum.md)
 * [Domain-based Recon](reconnaissance/domain-based-recon/README.md)
   * [Subdomain Enum](reconnaissance/domain-based-recon/subdomain-enumeration.md)
 * [Website-based Recon](reconnaissance/website-based-recon.md)
