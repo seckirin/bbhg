@@ -16,7 +16,7 @@
 
 * [Port Assessment](vuln-assessment/port-assessment/README.md)
   * [22 - SSH](vuln-assessment/port-assessment/22-ssh.md)
-  * [389 - LDAP](vuln-assessment/port-assessment/389-ldap.md)
+  * [389, 636 - LDAP](vuln-assessment/port-assessment/389-636-ldap.md)
   * [873 - Rsync](vuln-assessment/port-assessment/873-rsync.md)
   * [1433 - MSSQL](vuln-assessment/port-assessment/1433-mssql.md)
   * [1833 - MQTT](vuln-assessment/port-assessment/1833-mqtt.md)
@@ -35,6 +35,7 @@
 
 * [External Recon Checklist](one-page-for-subject/external-recon-checklist.md)
 * [SRC Website Navigation](one-page-for-subject/src-navigation.md)
+* [Out of Band Technology](one-page-for-subject/out-of-band-technology.md)
 
 ## Others
 
@@ -43,5 +44,4 @@
 * [Subdomain Takeover Testing](one-page-subject/2024-05-11-15-49-53/subdomain-takeover.md)
 * [Host Collision Enumeration](one-page-subject/2024-05-11-15-49-53/host-collision.md)
 * [Cloud Service Fingerprint](one-page-subject/2024-05-11-15-49-53/pentest-cloud.md)
-* [Linux Crontab Overview](one-page-subject/2024-05-11-15-49-53/flash.md)
 * [Exploiting API Kyes](others/exploiting-api-kyes.md)

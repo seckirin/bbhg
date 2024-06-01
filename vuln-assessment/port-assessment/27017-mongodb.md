@@ -6,13 +6,15 @@
 
 ```bash
 # https://github.com/yuukisec/iPoCs
-nuclei -t ~/ipocs -id mongodb-unauth -u localhost:27017
+# RHOST=remoteHost; RPORT=27017
+nuclei -t ~/ipocs -id mongodb-unauth -u $RHOST:$RPORT
 
 # Bulk testing
-nuclei -t ~/ipocs -id mongodb-unauth -l hosts.txt -c 100 -bs 100
+# RHOST_LIST=hosts.txt
+nuclei -t ~/ipocs -id mongodb-unauth -l $RHOST_LIST -c 100 -bs 100
 ```
 
-## Exploiting
+## **Exploitation**
 
 ### Information Disclosure
 

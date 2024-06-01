@@ -1,6 +1,6 @@
 # 3306 - MySQL
 
-## Exploiting
+## Exploitation
 
 ### CLI Write File
 
