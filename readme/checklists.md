@@ -1,33 +1,19 @@
-# Checklists
+# Pentest Checklists
 
-[BBGH](../) > [**Checklists**](checklists.md)
+[BBGH](../) > [Contents](contents/) • [**Checklists**](checklists.md)
 
 ## Reconnaissance
 
-在对目标进行侦查之前，我们首先要做的是阅读[安全响应中心 (SRC)](../awesome-bugbounty/security-response-center.md) 通告。
+在对目标进行侦查之前，我们首先要做的是查看[安全响应中心 (SRC)](../awesome-bugbounty/security-response-center.md) 最新通告。
 
-### Company
+### Based on Company
 
-1. 基本信息
-2. 网络资产
-3. 收购信息
+* [ ] **收集企业基本信息**，包括但不限于名称、注册地址、手机号码、邮件域名，以及 ICP 备案等。
+* [ ] **枚举网络资产**，包括但不限于 ASN / CIDR (如果适用)、根域名、移动应用程序，以及微信小程序。
+* [ ] **收集企业收购信息**，主要针对控股子公司，以及在 SRC 通告中出现过的资产及对应的公司。
+* [ ] 从控股子公司中筛选出归属于目标企业的公司，递归执行基于公司的侦查流程。或者，你也可以在合适的时机选定一个企业主体，对归属于主体企业的所有的根域名执行基于域名的侦查流程。
 
-* [ ] [Basic Information](../reconnaissance/company-based/#basic-information)
-  * Enterprise Name
-  * Registered Address
-  * Phone Number
-  * Email Domain
-  * ICP License Number
-* [ ] [Network Assets Enumeration](../reconnaissance/company-based/internet-assets-enumeration.md)
-  * ASN / CIDR
-  * Domain Enumeration
-  * Mobile Application
-  * WeChat Applet
-* [ ] [Acquisition Information](../reconnaissance/company-based/#acquisition-information)
-  * Controlling Subsidiaries
-  * Shareholding Ratio
-
-### 1.2 Domain
+### Based on Domain
 
 * [ ] [Domain Basics Information](../reconnaissance/domain-based/#domain-basics-information)
 * [ ] [Subdomain Enumeration](../reconnaissance/domain-based/subdomain-enumeration.md)
@@ -37,7 +23,7 @@
 * [ ] [Website Probing](../reconnaissance/domain-based/#website-probing)
 * [ ] [Service Identification](../reconnaissance/domain-based/#service-identification)
 
-### 1.3 Website
+### Based on Website
 
 * [ ] Fingerprint Web Server
 * [ ] Review Metafiles
