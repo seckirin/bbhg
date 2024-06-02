@@ -1,6 +1,6 @@
-# Pentest Checklists
+# ✅ Pentest Checklists
 
-[BBGH](../) > [Contents](contents/) • [**Checklists**](checklists.md)
+[Bug Bounty Hunter Guide](../) • [Contents](contents/) • [**Checklists**](checklists.md)
 
 ## Reconnaissance
 
@@ -9,19 +9,22 @@
 ### Based on Company
 
 * [ ] **收集企业基本信息**，包括但不限于名称、注册地址、手机号码、邮件域名，以及 ICP 备案等。
+  *
 * [ ] **枚举网络资产**，包括但不限于 ASN / CIDR (如果适用)、根域名、移动应用程序，以及微信小程序。
+  *
 * [ ] **收集企业收购信息**，主要针对控股子公司，以及在 SRC 通告中出现过的资产及对应的公司。
+  *
 * [ ] 从控股子公司中筛选出归属于目标企业的公司，递归执行基于公司的侦查流程。或者，你也可以在合适的时机选定一个企业主体，对归属于主体企业的所有的根域名执行基于域名的侦查流程。
 
 ### Based on Domain
 
-* [ ] [Domain Basics Information](../reconnaissance/domain-based/#domain-basics-information)
-* [ ] [Subdomain Enumeration](../reconnaissance/domain-based/subdomain-enumeration.md)
-* [ ] [Get DNS Record](../reconnaissance/domain-based/#get-dns-record)
-* [ ] [Extract IP Address](../reconnaissance/domain-based/#extract-ip-address)
-* [ ] [Port Scanning](../reconnaissance/domain-based/#port-scanning)
-* [ ] [Website Probing](../reconnaissance/domain-based/#website-probing)
-* [ ] [Service Identification](../reconnaissance/domain-based/#service-identification)
+* [ ] [Domain Basics Information](../reconnaissance/domain-based.md#domain-basics-information)
+* [ ] [Subdomain Enumeration](../reconnaissance/subdomain-enumeration.md)
+* [ ] [Get DNS Record](../reconnaissance/domain-based.md#get-dns-record)
+* [ ] [Extract IP Address](../reconnaissance/domain-based.md#extract-ip-address)
+* [ ] [Port Scanning](../reconnaissance/domain-based.md#port-scanning)
+* [ ] [Website Probing](../reconnaissance/domain-based.md#website-probing)
+* [ ] [Service Identification](../reconnaissance/domain-based.md#service-identification)
 
 ### Based on Website
 

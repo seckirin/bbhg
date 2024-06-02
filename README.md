@@ -1,6 +1,6 @@
 # Bug Bounty Hunter Guide
 
-[**BBGH**](./) > [Contents](readme/contents/) • [Checklists](readme/checklists.md)
+[**Bug Bounty Hunter Guide**](./) • [Contents](readme/contents/) • [Checklists](readme/checklists.md)
 
 [![](.gitbook/assets/bug-bounty-hunter-guide-content.png)](https://bbhg.yuukiz.com)\
 [![Repo category](https://img.shields.io/badge/repo\_category-practical\_guide-orange)](./) [![GitHub last commit](https://img.shields.io/github/last-commit/y00k1sec/bbhg)](./) [![GitHub License](https://img.shields.io/github/license/y00k1sec/bbhg)](https://github.com/y00k1sec/bbhg/blob/main/LICENSE) [![GitHub Repo stars](https://img.shields.io/github/stars/y00k1sec/bbhg)](https://github.com/y00k1sec/bbhg)
@@ -21,6 +21,6 @@
 
 ## License
 
-BBHG 由 @Yuuki 用 🧡 制作，采用 [MIT 许可发](https://github.com/y00k1sec/bbhg/blob/main/LICENSE)布。
+BBHG 由 @Yuuki 用 🧡 制作，采用 [MIT 许可](https://github.com/y00k1sec/bbhg/blob/main/LICENSE)发布。
 
 <figure><img src=".gitbook/assets/wordcloud.png" alt=""><figcaption></figcaption></figure>

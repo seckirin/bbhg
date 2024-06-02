@@ -1,21 +1,17 @@
-# Table of Contents
+# 📃 Table of Contents
 
-[BBGH](../../) > [**Contents**](./) • [Checklists](../checklists.md)
-
-## 1. [Reconnaissance](reconnaissance.md)
-
-### 1.1 Company Basic Information Collection
-
-### 1.2 Internet Asset Enumeration
+[Bug Bounty Hunter Guide](../../) • [**Contents**](./) • [Checklists](../checklists.md)
 
 * #### 1.2.1 ASN / CIDR Collection
 * #### 1.2.2 Domain Enumeration
 * #### 1.2.3 Mobile Application Collection
 * #### 1.2.4 WeChat Applet Collection
 
-### 1.3 Company Acquired Information Collection
+### 1.4 [Domain Name Analysis](../../reconnaissance/domain-name-analysis.md)
 
-### 1.4 Basic Domain Information Collection
+* #### 1.4.1 Domain Name Analysis
+* #### 1.4.2 ICP License Analysis
+* #### 1.4.3 IP Address Analysis
 
 ### 1.5 Subdomain Enumeration
 
@@ -27,18 +23,12 @@
 * #### 1.5.6 Website Scraping
 * #### 1.5.7 Google Analytics ID
 * #### 1.5.8 Recursive Enumeration
-* #### 1.5.9 Validating Active Subdomain
 
-### 1.6 DNS Record Collection
+### 1.6 Subdomain Handling
 
-### 1.7 IP Address Extraction
-
-### 1.8 Port Scanning
-
-### 1.9 Website Probing
-
-### 1.10 Services Identification
-
-### 1.11 Fingerprint Website
-
-## 2. Vulnerability Assessment
+* #### 1.6.1 Validating Active Subdomain
+* #### 1.6.2 DNS Record Collection
+* #### 1.6.3 IP Address Extraction
+* #### 1.6.4 Port Scanning
+* #### 1.6.5 Website Probing
+* #### 1.6.6 Fingerprint Website

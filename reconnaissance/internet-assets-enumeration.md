@@ -1,6 +1,8 @@
-# Network Assets Enumeration
+# Internet Asset Enumeration
 
-## ASN / CIDR
+[**Contents**](../readme/contents/) **>** [**1.2 Internet Asset Enumeration**](internet-assets-enumeration.md)
+
+## ASN / CIDR Collection
 
 **Network Censorship:** The network environment in China is subject to strict regulation and censorship, which may affect the querying and use of ASNs.
 
@@ -58,7 +60,7 @@ It is mainly used to improve the DNS resolution efficiency of the internal netwo
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
 * **Suggestion:** Use the domain name that clearly belongs to the target organization as the basis for NS record query.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](broken-reference).
 
 ```bash
 # Query the Name Server of domain
@@ -89,7 +91,7 @@ It allows web developers to try policies by monitoring (but not enforcing) the i
 </details>
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](broken-reference).
 
 ```bash
 # https://fofa.info/
@@ -105,7 +107,7 @@ echo <domain.com> | httpx -csp-probe -silent -json |
 ### Certification
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](broken-reference).
 
 ```bash
 # https://fofa.info/
@@ -123,7 +125,7 @@ crt -e -l 999999 -json <domain.com> |
 ### Favicon Hash
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the accessible website needs to have a favicon icon
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](broken-reference).
 
 ```bash
 # Computing the hash value of the URL icon or file
@@ -153,7 +155,7 @@ echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company. And the Website that can be accessed is needed.
-* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](./#asset-ownership-verification).
+* **Asset Ownership Verification:** The domain gathered through this method need to be [verified for asset ownership](broken-reference).
 * **Subdomain Enumeration:** This method is also applicable to [subdomain enumeration](broken-reference).
 
 ```bash
@@ -169,7 +171,7 @@ do
 done < google_analytics_id.txt
 ```
 
-## Mobile Application
+## Mobile Application Collection
 
 ```bash
 # https://0.zone/
@@ -177,7 +179,7 @@ done < google_analytics_id.txt
 (type=安卓APK&&company=<company_name>)
 ```
 
-## WeChat Applet
+## WeChat Applet Collection
 
 ```bash
 # https://0.zone/

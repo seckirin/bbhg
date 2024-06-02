@@ -1,17 +1,18 @@
 # Table of contents
 
 * [Bug Bounty Hunter Guide](README.md)
-  * [Table of Contents](readme/contents/README.md)
+  * [📃 Table of Contents](readme/contents/README.md)
     * [Reconnaissance](readme/contents/reconnaissance.md)
-  * [Pentest Checklists](readme/checklists.md)
+  * [✅ Pentest Checklists](readme/checklists.md)
 
 ## 🗺️ Reconnaissance
 
 * [Company Basic Information](reconnaissance/company-basic-information.md)
-* [Company-based](reconnaissance/company-based/README.md)
-  * [Internet Asset Enumeration](reconnaissance/company-based/internet-assets-enumeration.md)
-* [Domain-based](reconnaissance/domain-based/README.md)
-  * [Subdomain Enumeration](reconnaissance/domain-based/subdomain-enumeration.md)
+* [Internet Asset Enumeration](reconnaissance/internet-assets-enumeration.md)
+* [Company Acquisition](reconnaissance/company-acquisition.md)
+* [Domain Name Analysis](reconnaissance/domain-name-analysis.md)
+* [Subdomain Enumeration](reconnaissance/subdomain-enumeration.md)
+* [Subdomain Handling](reconnaissance/domain-based.md)
 * [Website-based](reconnaissance/website-based.md)
 * [General](reconnaissance/general.md)
 
