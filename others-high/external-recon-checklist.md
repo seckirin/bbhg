@@ -8,30 +8,30 @@
 
 ### Company-based Recon
 
-* [ ] [Basic Information](../reconnaissance/company-reconnaissance/#basic-information)
+* [ ] [Basic Information](../reconnaissance/company/#basic-information)
   * Enterprise Name
   * Registered Address
   * Phone Number
   * Email Domain
   * ICP License Number
-* [ ] [Network Assets Enumeration](../reconnaissance/company-reconnaissance/network-assets-enum.md)
+* [ ] [Network Assets Enumeration](../reconnaissance/company/network-assets-enumeration.md)
   * ASN / CIDR
   * Domain Enumeration
   * Mobile Application
   * WeChat Applet
-* [ ] [Acquisition Information](../reconnaissance/company-reconnaissance/#acquisition-information)
+* [ ] [Acquisition Information](../reconnaissance/company/#acquisition-information)
   * Controlling Subsidiaries
   * Shareholding Ratio
 
 ### Domain-based Recon
 
-* [ ] [Domain Basics Information](../reconnaissance/domain-reconnaissance/#domain-basics-information)
-* [ ] [Subdomain Enumeration](../reconnaissance/domain-reconnaissance/subdomain-enumeration.md)
-* [ ] [Get DNS Record](../reconnaissance/domain-reconnaissance/#get-dns-record)
-* [ ] [Extract IP Address](../reconnaissance/domain-reconnaissance/#extract-ip-address)
-* [ ] [Port Scanning](../reconnaissance/domain-reconnaissance/#port-scanning)
-* [ ] [Website Probing](../reconnaissance/domain-reconnaissance/#website-probing)
-* [ ] [Service Identification](../reconnaissance/domain-reconnaissance/#service-identification)
+* [ ] [Domain Basics Information](../reconnaissance/domain/#domain-basics-information)
+* [ ] [Subdomain Enumeration](../reconnaissance/domain/subdomain-enumeration.md)
+* [ ] [Get DNS Record](../reconnaissance/domain/#get-dns-record)
+* [ ] [Extract IP Address](../reconnaissance/domain/#extract-ip-address)
+* [ ] [Port Scanning](../reconnaissance/domain/#port-scanning)
+* [ ] [Website Probing](../reconnaissance/domain/#website-probing)
+* [ ] [Service Identification](../reconnaissance/domain/#service-identification)
 
 ### Website-based Recon
 

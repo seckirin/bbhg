@@ -5,28 +5,28 @@
 
 ## 🗺️ Reconnaissance
 
-* [General Recon Technology](reconnaissance/general-recon-technology.md)
-* [Company Reconnaissance](reconnaissance/company-reconnaissance/README.md)
-  * [Network Assets Enum](reconnaissance/company-reconnaissance/network-assets-enum.md)
-* [Domain Reconnaissance](reconnaissance/domain-reconnaissance/README.md)
-  * [Subdomain Enum](reconnaissance/domain-reconnaissance/subdomain-enumeration.md)
-* [Website Reconnaissance](reconnaissance/website-reconnaissance.md)
+* [General](reconnaissance/general.md)
+* [Company](reconnaissance/company/README.md)
+  * [Network Assets Enumeration](reconnaissance/company/network-assets-enumeration.md)
+* [Domain](reconnaissance/domain/README.md)
+  * [Subdomain Enumeration](reconnaissance/domain/subdomain-enumeration.md)
+* [Website](reconnaissance/website.md)
 
 ## 🧪 Vulnerability Assessment
 
-* [Port Assessment](vulnerability-assessment/port-assessment/README.md)
-  * [22 - SSH](vulnerability-assessment/port-assessment/22-ssh.md)
-  * [389, 636 - LDAP](vulnerability-assessment/port-assessment/389-636-ldap.md)
-  * [873 - Rsync](vulnerability-assessment/port-assessment/873-rsync.md)
-  * [1433 - MSSQL](vulnerability-assessment/port-assessment/1433-mssql.md)
-  * [1833 - MQTT](vulnerability-assessment/port-assessment/1833-mqtt.md)
-  * [2375 - Docker](vulnerability-assessment/port-assessment/2375-docker.md)
-  * [2379 - etcd](vulnerability-assessment/port-assessment/etcd.md)
-  * [3306 - MySQL](vulnerability-assessment/port-assessment/3306-mysql.md)
-  * [6379 - Redis](vulnerability-assessment/port-assessment/6379-redis.md)
-  * [8086 - InfluxDB](vulnerability-assessment/port-assessment/8086-influxdb.md)
-  * [27017 - MongoDB](vulnerability-assessment/port-assessment/27017-mongodb.md)
-* [Cross-Site Scripting](vulnerability-assessment/cross-site-scripting.md)
+* [Port](vulnerability-assessment/port/README.md)
+  * [22 - SSH](vulnerability-assessment/port/22-ssh.md)
+  * [389, 636 - LDAP](vulnerability-assessment/port/389-636-ldap.md)
+  * [873 - Rsync](vulnerability-assessment/port/873-rsync.md)
+  * [1433 - MSSQL](vulnerability-assessment/port/1433-mssql.md)
+  * [1833 - MQTT](vulnerability-assessment/port/1833-mqtt.md)
+  * [2375 - Docker](vulnerability-assessment/port/2375-docker.md)
+  * [2379 - etcd](vulnerability-assessment/port/etcd.md)
+  * [3306 - MySQL](vulnerability-assessment/port/3306-mysql.md)
+  * [6379 - Redis](vulnerability-assessment/port/6379-redis.md)
+  * [8086 - InfluxDB](vulnerability-assessment/port/8086-influxdb.md)
+  * [27017 - MongoDB](vulnerability-assessment/port/27017-mongodb.md)
+* [XSS (Cross-Site Scripting)](vulnerability-assessment/xss-cross-site-scripting.md)
 
 ## 😎 Awesome BugBounty
 

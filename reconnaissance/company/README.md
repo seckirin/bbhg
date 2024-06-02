@@ -1,4 +1,4 @@
-# Company Reconnaissance
+# Company
 
 ## Company Basic Information
 
@@ -12,7 +12,7 @@ https://www.crunchbase.com/
 
 ## Network Assets Enumeration
 
-For more information, please refer to page [Network Assets Enumeration](network-assets-enum.md).
+For more information, please refer to page [Network Assets Enumeration](network-assets-enumeration.md).
 
 ## Acquisition Information
 
@@ -31,4 +31,4 @@ https://www.tianyancha.com/
 
 ## Assets Ownership Verification
 
-For more information, please refer to paragraph [Domain Basics Information](../domain-reconnaissance/#ownership-verification).
+For more information, please refer to paragraph [Domain Basics Information](../domain/#ownership-verification).
