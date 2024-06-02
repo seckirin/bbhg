@@ -1,8 +1,15 @@
 # Bug Bounty Hunter Guide
 
-[![](.gitbook/assets/bug-bounty-hunter-guide-content.png)](https://bbhg.yuukiz.com)\
-[![Repo category](https://img.shields.io/badge/repo\_category-practical\_guide-orange)](./) [![GitHub last commit](https://img.shields.io/github/last-commit/y00k1sec/bbhg)](./) [![GitHub License](https://img.shields.io/github/license/y00k1sec/bbhg)](https://github.com/y00k1sec/bbhg/blob/main/LICENSE) [![GitHub Repo stars](https://img.shields.io/github/stars/y00k1sec/bbhg)](https://github.com/y00k1sec/bbhg)
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<p align=center>
+  <a href="https://bbhg.yuukiz.com"><img src=".gitbook/assets/bug-bounty-hunter-guide-content.png" alt="" width="600px"></a>
+  <br>
+  <a href=#><img alt="Repo category" src=https://img.shields.io/badge/repo_category-practical_guide-orange></a>
+  <a href=#><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/y00k1sec/bbhg"></a>
+  <a href="https://github.com/y00k1sec/bbhg/blob/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/y00k1sec/bbhg"></a>
+  <a href="https://github.com/y00k1sec/bbhg"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/y00k1sec/bbhg"></a>
+</p>
+
+---
 
 欢迎来到 "漏洞赏金猎人指南 (Bug Bounty Hunter Guide, BBHG)"，一个服务于漏洞赏金猎人的指南。你可以通过 [https://bbhg.yuukiz.com](https://bbhg.yuukiz.com) 在线访问该指南，也可以从 [GitHub 仓库](https://github.com/y00k1sec/bbhg)中查看指南的源码。
 
