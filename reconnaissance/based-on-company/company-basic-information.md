@@ -1,6 +1,6 @@
 # Company Basic Information
 
-[Contents](broken-reference) > [1. Reconnaissance](broken-reference) > [**1.1 Company Basic Information Collection**](company-basic-information.md)
+[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
 
 ```
 https://aiqicha.baidu.com/

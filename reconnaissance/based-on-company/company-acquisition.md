@@ -1,5 +1,7 @@
 # Company Acquisition
 
+[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
+
 ## Online Websites
 
 ```

@@ -6,13 +6,15 @@
 
 ## 🗺️ Reconnaissance
 
-* [Company Basic Information](reconnaissance/company-basic-information.md)
-* [Internet Asset Enumeration](reconnaissance/internet-assets-enumeration.md)
-* [Company Acquisition](reconnaissance/company-acquisition.md)
-* [Domain Name Analysis](reconnaissance/domain-name-analysis.md)
-* [Subdomain Enumeration](reconnaissance/subdomain-enumeration.md)
-* [Subdomain Handling](reconnaissance/domain-based.md)
-* [Website-based](reconnaissance/website-based.md)
+* [Based on Company](reconnaissance/based-on-company/README.md)
+  * [Company Basic Information](reconnaissance/based-on-company/company-basic-information.md)
+  * [Internet Asset Enumeration](reconnaissance/based-on-company/internet-assets-enumeration.md)
+  * [Company Acquisition](reconnaissance/based-on-company/company-acquisition.md)
+* [Based on Domain](reconnaissance/based-on-domain/README.md)
+  * [Domain Name Analysis](reconnaissance/based-on-domain/domain-name-analysis.md)
+  * [Subdomain Enumeration](reconnaissance/based-on-domain/subdomain-enumeration.md)
+  * [Subdomain Handling](reconnaissance/based-on-domain/domain-based.md)
+* [Based on Website](reconnaissance/website-based.md)
 * [General](reconnaissance/general.md)
 
 ## 🧪 Vulnerability Assessment

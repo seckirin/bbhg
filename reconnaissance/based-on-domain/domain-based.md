@@ -1,5 +1,12 @@
 # Subdomain Handling
 
+[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
+
+## Validating Active Subdomain
+
+```
+```
+
 ## DNS Record Collection
 
 ```bash
@@ -38,11 +45,9 @@ cat websites.txt | cut -d ' ' -f 1 |
     nuclei -headless -id screenshot -V -dir='screenshots' -silent
 ```
 
-## Services Identification
+## Fingerprint Website
 
 ```bash
 cat websites.txt | cut -d ' ' -f 1 | 
     nuclei -id fingerprinthub-web-fingerprints -silent -jsonl
 ```
-
-## Fingerprint Website

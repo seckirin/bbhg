@@ -1,6 +1,6 @@
 # Internet Asset Enumeration
 
-[**Contents**](broken-reference) **>** [**1.2 Internet Asset Enumeration**](internet-assets-enumeration.md)
+[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
 
 ## ASN / CIDR Collection
 
@@ -28,7 +28,7 @@ asnmap [-org <keyword>] [-asn <asn_number>] [-ip <ip_address>] [-domain <domain>
 ### ICP License
 
 ```bash
-# Company to ICP
+# Company >> ICP license
 https://www.qcc.com/
 https://aiqicha.baidu.com/
 https://shuidi.cn/
@@ -37,26 +37,17 @@ https://www.tianyancha.com/
 # Latest ICP
 https://shangjibao.baidu.com/businessRecommand/dynamicRecommand?type=1&source=aqcicp
 
-# ICP History
+# ICP history
 https://icp.chinaz.com/record/
 
 # https://github.com/wgpsec/ENScan_GO
-./enscan -n <company_name> -type all -field icp
-# Recursive gathering
+# ./enscan -n <company_name> -type all -field icp
 ./enscan -n <company_name> -type all \
     [-invest <50>] [-deep <7>] \
     [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
 ```
 
-### Internal Name Server
-
-<details>
-
-<summary>The main function of Internal Name Server</summary>
-
-It is mainly used to improve the DNS resolution efficiency of the internal network, provide more reliable resolution services, and implement specific domain name resolution for internal systems.
-
-</details>
+### Internal DNS
 
 * **Prerequisite:** You need to first collect one or more root domains that belong to the target company.
 * **Suggestion:** Use the domain name that clearly belongs to the target organization as the basis for NS record query.
@@ -142,7 +133,7 @@ icon_hash=<favicon_hash>
 echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
 ```
 
-### Google Analytics
+### Google Analytics ID
 
 * **Reverse Google Analytics ID Search WebSites:**
   * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)

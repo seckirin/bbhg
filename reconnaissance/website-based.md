@@ -1,6 +1,4 @@
-# Website-based
-
-[Contents](broken-reference) > [1. Reconnaissance](broken-reference) > [**1.3 Website-based Reconnaissance**](website-based.md)
+# Based on Website
 
 ## Fingerprint Web Application (Framework) <a href="#fingerprint-web-application-framework" id="fingerprint-web-application-framework"></a>
 
