@@ -1,8 +1,17 @@
 # Bug Bounty Hunter Guide
 
-<figure><img src=".gitbook/assets/bug-bounty-hunter-guide-content.png" alt="" width="563"><figcaption></figcaption></figure>
+<h1>
+<p align=center>
+  <a href="https://bbhg.yuukiz.com"><img src=".gitbook/assets/bug-bounty-hunter-guide-content.png" alt="" width="600px"></a>
+  <br>
+  <a href=#><img alt="Repo category" src=https://img.shields.io/badge/repo_category-practical_guide-orange></a>
+  <a href=#><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/y00k1sec/bbhg"></a>
+  <a href="https://github.com/y00k1sec/bbhg/blob/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/y00k1sec/bbhg"></a>
+  <a href="https://github.com/y00k1sec/bbhg"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/y00k1sec/bbhg"></a>
+</p>
+</h1>
 
-欢迎来到 "漏洞赏金猎人指南 (Bug Bounty Hunter Guide, BBHG)"，一个服务于漏洞赏金猎人的指南。你可以通过网站 <[https://bbhg.yuukiz.com](https://bbhg.yuukiz.com)> 在线访问该指南，也可以从 [GitHub 仓库](https://github.com/y00k1sec/bbhg)中查看指南的源码。
+欢迎来到 "漏洞赏金猎人指南 (Bug Bounty Hunter Guide, BBHG)"，一个服务于漏洞赏金猎人的指南。你可以通过 <https://bbhg.yuukiz.com> 在线访问该指南，也可以从 [GitHub 仓库](https://github.com/y00k1sec/bbhg)中查看指南的源码。
 
 该指南旨在提供实用性指导，而非理论性知识，所以在指南中你将会看到大量的命令、网站，以及必要的注意事项。但你不能在这里学习到解释其背后原理的知识。此外，指南的内容本身是经过学习和实践之后整理而成的笔记，部分内容可能存在瑕疵和纰漏请谅解。
 
