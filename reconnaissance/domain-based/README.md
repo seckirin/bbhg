@@ -1,4 +1,6 @@
-# Domain-based Recon
+# Domain-based
+
+[Contents](../../readme/contents/) > [1. Reconnaissance](../../readme/contents/reconnaissance.md) > [**1.2 Domain-based Reconnaissance**](./)
 
 ## Domain Basics Information
 

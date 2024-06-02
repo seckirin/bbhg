@@ -1,16 +1,18 @@
 # Table of contents
 
 * [Bug Bounty Hunter Guide](README.md)
-  * [Contents](readme/contents.md)
+  * [Checklists](readme/checklists.md)
+  * [Contents](readme/contents/README.md)
+    * [Reconnaissance](readme/contents/reconnaissance.md)
 
 ## 🗺️ Reconnaissance
 
+* [Company-based](reconnaissance/company-based/README.md)
+  * [Internet Assets Enumeration](reconnaissance/company-based/internet-assets-enumeration.md)
+* [Domain-based](reconnaissance/domain-based/README.md)
+  * [Subdomain Enumeration](reconnaissance/domain-based/subdomain-enumeration.md)
+* [Website-based](reconnaissance/website-based.md)
 * [General](reconnaissance/general.md)
-* [Company](reconnaissance/company/README.md)
-  * [Network Assets Enumeration](reconnaissance/company/network-assets-enumeration.md)
-* [Domain](reconnaissance/domain/README.md)
-  * [Subdomain Enumeration](reconnaissance/domain/subdomain-enumeration.md)
-* [Website](reconnaissance/website.md)
 
 ## 🧪 Vulnerability Assessment
 
@@ -37,8 +39,8 @@
 
 ## Others (High)
 
-* [External Recon Checklist](others-high/external-recon-checklist.md)
-* [Out of Band Technology](others-high/out-of-band-technology.md)
+* [OOB Payload](others-high/oob-payload.md)
+* [Useful Commands](others-high/useful-commands.md)
 
 ## Others (Medium)
 

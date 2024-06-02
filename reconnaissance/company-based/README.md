@@ -1,4 +1,6 @@
-# Company
+# Company-based
+
+[Contents](../../readme/contents/) > [1. Reconnaissance](../../readme/contents/reconnaissance.md) > [**1.1 Company-based Reconnaissance**](./)
 
 ## Company Basic Information
 
@@ -10,9 +12,9 @@ https://shuidi.cn/
 https://www.crunchbase.com/
 ```
 
-## Network Assets Enumeration
+## Internet Assets Enumeration
 
-For more information, please refer to page [Network Assets Enumeration](network-assets-enumeration.md).
+For more information, please refer to page [Network Assets Enumeration](internet-assets-enumeration.md).
 
 ## Acquisition Information
 
@@ -31,4 +33,4 @@ https://www.tianyancha.com/
 
 ## Assets Ownership Verification
 
-For more information, please refer to paragraph [Domain Basics Information](../domain/#ownership-verification).
+For more information, please refer to paragraph [Domain Basics Information](../domain-based/#ownership-verification).
