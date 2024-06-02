@@ -49,3 +49,19 @@ chronograf --influxdb-url="$URL" \
 BODY=q="DROP USER \"santa\";"
 curl -X POST -H $AUTH -d $BODY $URL/query
 ```
+
+## Resources
+
+### Common commands
+
+```sql
+show databases # 显示所有数据库
+show users # 显示所有用户
+use db_name # 使用数据库
+show measurements # 显示所有测量值
+create user "santa" with password '1qaz@WSX3edc' with all privileges # 创建用户
+create database "db_name" # 创建数据库
+drop database "db_name" # 删除数据库
+drop user santa # 删除用户
+select * from "measurement_name" limit 10 # 查询 measurement_name 表的前十条数据
+```
