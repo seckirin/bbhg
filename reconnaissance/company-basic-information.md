@@ -1,6 +1,6 @@
 # Company Basic Information
 
-[Contents](../readme/contents/) > [1. Reconnaissance](../readme/contents/reconnaissance.md) > [**1.1 Company Basic Information Collection**](company-basic-information.md)
+[Contents](broken-reference) > [1. Reconnaissance](broken-reference) > [**1.1 Company Basic Information Collection**](company-basic-information.md)
 
 ```
 https://aiqicha.baidu.com/

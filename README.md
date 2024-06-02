@@ -1,6 +1,6 @@
 # Bug Bounty Hunter Guide
 
-[**Bug Bounty Hunter Guide**](./) • [Contents](readme/contents/) • [Checklists](readme/checklists.md)
+[**Bug Bounty Hunter Guide**](./) • [Contents](readme/table-of-contents.md) • [Checklists](readme/pentest-checklists.md)
 
 [![](.gitbook/assets/bug-bounty-hunter-guide-content.png)](https://bbhg.yuukiz.com)\
 [![Repo category](https://img.shields.io/badge/repo\_category-practical\_guide-orange)](./) [![GitHub last commit](https://img.shields.io/github/last-commit/y00k1sec/bbhg)](./) [![GitHub License](https://img.shields.io/github/license/y00k1sec/bbhg)](https://github.com/y00k1sec/bbhg/blob/main/LICENSE) [![GitHub Repo stars](https://img.shields.io/github/stars/y00k1sec/bbhg)](https://github.com/y00k1sec/bbhg)
@@ -13,7 +13,7 @@
 
 ## Navigation
 
-如果你希望能够快速地对指南的所有内容有一个大致的认知，请参阅[内容目录 (Table of Contents)](readme/contents/)。对于有一定经验的漏洞赏金猎人，我建议参阅[透测试对表 (Pentest Checklists)](readme/checklists.md)。同时，驱动本站的 GitBook 也提供了一个侧边目录，你也可以使用侧边的目录来查看本指南。
+如果你希望能够快速地对指南的所有内容有一个大致的认知，请参阅[内容目录 (Table of Contents)](broken-reference)。对于有一定经验的漏洞赏金猎人，我建议参阅[透测试对表 (Pentest Checklists)](readme/pentest-checklists.md)。同时，驱动本站的 GitBook 也提供了一个侧边目录，你也可以使用侧边的目录来查看本指南。
 
 ## Disclaimer
 

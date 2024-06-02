@@ -1,6 +1,6 @@
 # Website-based
 
-[Contents](../readme/contents/) > [1. Reconnaissance](../readme/contents/reconnaissance.md) > [**1.3 Website-based Reconnaissance**](website-based.md)
+[Contents](broken-reference) > [1. Reconnaissance](broken-reference) > [**1.3 Website-based Reconnaissance**](website-based.md)
 
 ## Fingerprint Web Application (Framework) <a href="#fingerprint-web-application-framework" id="fingerprint-web-application-framework"></a>
 

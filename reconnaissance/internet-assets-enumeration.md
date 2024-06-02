@@ -1,6 +1,6 @@
 # Internet Asset Enumeration
 
-[**Contents**](../readme/contents/) **>** [**1.2 Internet Asset Enumeration**](internet-assets-enumeration.md)
+[**Contents**](broken-reference) **>** [**1.2 Internet Asset Enumeration**](internet-assets-enumeration.md)
 
 ## ASN / CIDR Collection
 
