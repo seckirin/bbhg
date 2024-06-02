@@ -1,6 +1,8 @@
-# SRC Website Navigation
+---
+description: 'Last updated: 2024-06-02'
+---
 
-> The format is \<URL> + {AKAs}
+# Security Response Center
 
 ## In-House Platform
 

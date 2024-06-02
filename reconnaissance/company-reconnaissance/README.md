@@ -1,4 +1,4 @@
-# Company-based Recon
+# Company Reconnaissance
 
 ## Company Basic Information
 
@@ -31,4 +31,4 @@ https://www.tianyancha.com/
 
 ## Assets Ownership Verification
 
-For more information, please refer to paragraph [Domain Basics Information](../domain-based-recon/#ownership-verification).
+For more information, please refer to paragraph [Domain Basics Information](../domain-reconnaissance/#ownership-verification).

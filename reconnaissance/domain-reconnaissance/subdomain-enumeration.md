@@ -545,7 +545,7 @@ isubsum --sources scrap --resolved 1
   * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
-* **Domain Gathering:** This method is also applicable to [domain enumeration](../company-based-reco/network-assets-enum.md#domain-enumeration).
+* **Domain Gathering:** This method is also applicable to [domain enumeration](../company-reconnaissance/network-assets-enum.md#domain-enumeration).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
