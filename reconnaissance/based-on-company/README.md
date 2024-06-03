@@ -4,19 +4,21 @@
 
 ## 1. [Company Basic Information Collection](company-basic-information.md)
 
+* Email Collection
+
 ## 2. [Internet Asset Enumeration](internet-assets-enumeration.md)
 
-* 2.1 ASN / CIDR Collection
-* 2.2 Domain Enumeration
-  * 2.2.1 ICP License
-  * 2.2.2 Internal DNS
-  * 2.2.3 HTTP Header
-  * 2.2.4 Certification
-  * 2.2.5 Favicon Hash
-  * 2.2.6 Google Analytics ID
-* 2.3 Mobile Application Collection
-* 2.4 WeChat Applet Collection
-* 2.3 Mobile Application Collection
-* 2.4 WeChat Applet Collection
+* ASN / CIDR Collection
+* Domain Enumeration
+  * ICP License
+  * Internal DNS
+  * HTTP Header
+  * Certification
+  * Favicon Hash
+  * Google Analytics ID
+* Mobile Application Collection
+* WeChat Applet Collection
+* Mobile Application Collection
+* WeChat Applet Collection
 
 ## 3. [Company Acquired Information Collection](company-acquisition.md)

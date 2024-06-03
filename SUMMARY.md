@@ -2,7 +2,7 @@
 
 * [Bug Bounty Hunter Guide](README.md)
   * [📃 Table of Contents](readme/table-of-contents.md)
-  * [✅ Pentest Checklists](readme/pentest-checklists.md)
+  * [✔️ Pentest Checklists](readme/pentest-checklists.md)
 
 ## 🗺️ Reconnaissance
 

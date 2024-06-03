@@ -1,26 +1,31 @@
 ---
-description: 'Last updated: 2024-06-02'
+description: 'Last updated: 2024-06-03'
 ---
 
 # Security Response Center
 
 ## In-House Platform
 
-* [https://security.iqiyi.com/](https://security.iqiyi.com/) 爱奇艺, 71SRC
-* [https://security.bilibili.com/](https://security.bilibili.com/) 哔哩哔哩, BILISRC
-* [https://sec.meizu.com/](https://sec.meizu.com/) 魅族, MZSRC
-* [https://security.pingan.com/](https://security.pingan.com/) 平安, PSRC
-* [https://security.sangfor.com.cn/](https://security.sangfor.com.cn/) 深信服, Sangfor, SSRC
-* [https://security.tencent.com/](https://security.tencent.com/) 腾讯, Tencent, TSRC
-* [https://src.bytedance.com/](https://src.bytedance.com/) 字节跳动, ByteDance
-  * [🚀 字节跳动安全响应中心安全报告处置规则 V6.0](https://q2a1fk6o03.feishu.cn/docx/WPOHdeVdLoJgPfx25VmcfVJxnde)
-* [https://bsrc.baidu.com/](https://bsrc.baidu.com/) 百度, Baidu, BSRC
-* [https://security.alibaba.com/](https://security.alibaba.com/) 阿里巴巴, Alibaba, ASRC
-* [https://security.jd.com/](https://security.jd.com/) 京东, JSRC
+* iQIYI Security Response Center. 爱奇艺. [https://security.iqiyi.com/](https://security.iqiyi.com/)
+  * [爱奇艺安全应急响应中心漏洞处理流程与评分标准 (2023)](https://security.iqiyi.com/#noticedetail/183)
+* BILIBILI Security Response Center. 哔哩哔哩. [https://security.bilibili.com/](https://security.bilibili.com/)
+  * [BILISRC 漏洞处理和评分标准 V1.5](https://security.bilibili.com/announcement/19/)
+* Meizu Security Response Center. 魅族. [https://sec.meizu.com/](https://sec.meizu.com/)
+* PINGAN Security Response Center. 平安保险. [https://security.pingan.com/](https://security.pingan.com/)
+* Sangfor Security Response Center. 深信服. [https://security.sangfor.com.cn/](https://security.sangfor.com.cn/)
+* Tencent Security Response Center. 腾讯. [https://security.tencent.com/](https://security.tencent.com/)
+  * [《TSRC 漏洞处理和评分标准》](https://security.tencent.com/uploadimg\_dir/other/TSRC.pdf?v=3.2)
+  * [《TSRC 安全测试规范》](https://security.tencent.com/announcement/msg/266)
+  * [《SRC 行业安全测试规范》](https://security.tencent.com/announcement/msg/180)
+* ByteDance Security Response Center. 字节跳动. [https://src.bytedance.com/](https://src.bytedance.com/)
+  * [《字节跳动安全响应中心安全报告处置规则 V6.0》](https://q2a1fk6o03.feishu.cn/docx/WPOHdeVdLoJgPfx25VmcfVJxnde)
+* Baidu Security Response Center. 百度. [https://bsrc.baidu.com/](https://bsrc.baidu.com/)
+* Alibaba Security Response Center. 阿里巴巴. [https://security.alibaba.com/](https://security.alibaba.com/)
+* JD Security Response Center. 京东. [https://security.jd.com/](https://security.jd.com/)
 
 ## Third-Party Platform
 
-* [https://www.butian.net/Reward/plan/2](https://www.butian.net/Reward/plan/2) 补天
-* [https://www.vulbox.com/projects/list](https://www.vulbox.com/projects/list) 漏洞盒子
-* [https://hackerone.com/opportunities/](https://hackerone.com/opportunities/) HackerOne
-* [https://bugcrowd.com/engagements](https://bugcrowd.com/engagements) BugCrowd
+* 补天. 奇安信. [https://www.butian.net/Reward/plan/2](https://www.butian.net/Reward/plan/2)
+* 漏洞盒子. 斗象. [https://www.vulbox.com/projects/list](https://www.vulbox.com/projects/list)
+* HackerOne. [https://hackerone.com/opportunities/](https://hackerone.com/opportunities/)
+* Bugcrowd. [https://bugcrowd.com/engagements](https://bugcrowd.com/engagements)

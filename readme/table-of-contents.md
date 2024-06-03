@@ -6,19 +6,15 @@
 
 ### 1. [Based on Company](../reconnaissance/based-on-company/)
 
-#### 1.1 [Company Basic Information Collection](../reconnaissance/based-on-company/company-basic-information.md)
-
-#### 1.2 [Internet Asset Enumeration](../reconnaissance/based-on-company/internet-assets-enumeration.md)
-
-#### 1.3 [Company Acquired Information Collection](../reconnaissance/based-on-company/company-acquisition.md)
+* #### [Company Basic Information Collection](../reconnaissance/based-on-company/company-basic-information.md)
+* #### [Internet Asset Enumeration](../reconnaissance/based-on-company/internet-assets-enumeration.md)
+* #### [Company Acquired Information Collection](../reconnaissance/based-on-company/company-acquisition.md)
 
 ### 2. [Based on Domain](../reconnaissance/based-on-domain/)
 
-#### 2.1 [Domain Name Analysis](../reconnaissance/based-on-domain/domain-name-analysis.md)
-
-#### 2.2 [Subdomain Enumeration](../reconnaissance/based-on-domain/subdomain-enumeration.md)
-
-#### 2.3 [Subdomain Handling](../reconnaissance/based-on-domain/domain-based.md)
+* #### [Domain Name Analysis](../reconnaissance/based-on-domain/domain-name-analysis.md)
+* #### [Subdomain Enumeration](../reconnaissance/based-on-domain/subdomain-enumeration.md)
+* #### [Subdomain Handling](../reconnaissance/based-on-domain/domain-based.md)
 
 ### 3. Based on Website
 
