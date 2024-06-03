@@ -165,6 +165,10 @@ done < google_analytics_id.txt
 ## Mobile Application Collection
 
 ```bash
+# Websites
+https://www.qimai.cn/
+https://www.diandian.com/
+
 # https://0.zone/
 (type=安卓APK&&company==<keyword>)
 (type=安卓APK&&company=<company_name>)
