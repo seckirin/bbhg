@@ -19,6 +19,7 @@ description: 'Last updated: 2024-06-03'
   * [《SRC 行业安全测试规范》](https://security.tencent.com/announcement/msg/180)
 * ByteDance Security Response Center. 字节跳动. [https://src.bytedance.com/](https://src.bytedance.com/)
   * [《字节跳动安全响应中心安全报告处置规则 V6.0》](https://q2a1fk6o03.feishu.cn/docx/WPOHdeVdLoJgPfx25VmcfVJxnde)
+  * [《ByteSRC 暂不收取的业务范围》](https://q2a1fk6o03.feishu.cn/docx/A0LWdFJnook5FfxFV8FceiKDn2c)
 * Baidu Security Response Center. 百度. [https://bsrc.baidu.com/](https://bsrc.baidu.com/)
 * Alibaba Security Response Center. 阿里巴巴. [https://security.alibaba.com/](https://security.alibaba.com/)
 * JD Security Response Center. 京东. [https://security.jd.com/](https://security.jd.com/)
