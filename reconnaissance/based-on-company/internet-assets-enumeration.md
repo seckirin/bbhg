@@ -1,6 +1,6 @@
 # Internet Asset Enumeration
 
-[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
+[Contents](../../readme/table-of-contents.md) > [Based on Company](./) > [**Internet Asset Enumeration**](internet-assets-enumeration.md)
 
 ## ASN / CIDR Collection
 

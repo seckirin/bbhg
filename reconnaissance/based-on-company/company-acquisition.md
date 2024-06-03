@@ -1,6 +1,6 @@
 # Company Acquisition
 
-[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
+[Contents](../../readme/table-of-contents.md) > [Based on Company](./) > [**Company Acquired Information Collection**](company-acquisition.md)
 
 ## Online Websites
 

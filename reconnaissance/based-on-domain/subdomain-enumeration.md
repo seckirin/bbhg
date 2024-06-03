@@ -1,6 +1,6 @@
 # Subdomain Enumeration
 
-[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
+[Contents](../../readme/table-of-contents.md) > [Based on Domain](./) > [**Subdomain Enumeration**](subdomain-enumeration.md)
 
 ## Preparations
 

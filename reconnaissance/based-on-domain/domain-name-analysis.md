@@ -1,6 +1,6 @@
 # Domain Name Analysis
 
-[Bug Bounty Hunter Guide](../../) • [Contents](../../readme/table-of-contents.md) • [Checklists](../../readme/pentest-checklists.md)
+[Contents](../../readme/table-of-contents.md) > [Based on Domain](./) > [**Domain Name Analysis**](domain-name-analysis.md)
 
 ```sh
 # Multi-purpose website
