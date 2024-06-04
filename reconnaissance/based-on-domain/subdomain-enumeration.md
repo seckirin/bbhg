@@ -6,35 +6,35 @@
 
 <details>
 
-<summary>Environment Variables</summary>
+<summary>Environment / Config</summary>
 
 ```bash
-# General
+# Miscellaneous
 DOMAIN="vulnweb.com"
 TOOLS="$HOME/hack/tools"
-HTTP_PROXY="http://127.0.0.1:6152"
-ALL_PROXY="socks5://127.0.0.1:6153"
+HTTP_PROXY="http://127.0.0.1:7890"
+ALL_PROXY="socks5://127.0.0.1:7891"
 
 # Resolvers
-RESOLVERS="$HOME/.config/puredns/resolvers.txt"
-RESOLVERS_URL="https://public-dns.info/nameservers.txt"
-RESOLVERS_TRUSTED="$HOME/.config/puredns/resolvers-trusted.txt"
-RESOLVERS_TRUSTED_URL="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt"
+RESOLVERS=~/hacking/wordlists/subdomain/resolvers.txt
+RESOLVERS_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt
+RESOLVERS_TRUSTED=~/hacking/wordlists/subdomain/resolvers-trusted.txt
+RESOLVERS_TRUSTED_URL=https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt
 
 # Wordlists
-SUBDOMAINS="${TOOLS}/wordlists/subdomains.txt"
-SUBDOMAINS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains.txt"
-SUBDOMAINS_HUGE="${TOOLS}/wordlists/subdomains_huge.txt"
-SUBDOMAINS_HUGE_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/subdomains_huge.txt"
-PERMUTATIONS="${TOOLS}/wordlists/permutations.txt"
-PERMUTATIONS_URL="https://raw.githubusercontent.com/yuukisec/ReconLists/main/subdomains/permutations.txt"
+SUBDOMAINS=~/hacking/wordlists/subdomain/subdomains.txt
+SUBDOMAINS_URL=https://raw.githubusercontent.com/y00k1sec/hacking-wordlists/main/subdomain/subdomains.txt
+SUBDOMAINS_HUGE=~/hacking/wordlists/subdomain/subdomains-huge.txt
+SUBDOMAINS_HUGE_URL=https://raw.githubusercontent.com/y00k1sec/hacking-wordlists/main/subdomain/subdomains-huge.txt
+PERMUTATIONS=~/hacking/wordlists/subdomain/permutations.txt
+PERMUTATIONS_URL=https://raw.githubusercontent.com/y00k1sec/hacking-wordlists/main/subdomain/permutations.txt
 
 # Config File
-AMASS_CONFIG="$HOME/.config/amass/config.ini"
-BBOT_CONFIG="${HOME}/.config/bbot/secrets.yml"
-GITHUB_TOKENS="${TOOLS}/github_tokens.txt"
-GITLAB_TOKENS="${TOOLS}/gitlab_tokens.txt"
-SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
+AMASS_CONFIG=~/.config/amass/config.ini
+BBOT_CONFIG="~/.config/bbot/secrets.yml
+GITHUB_TOKENS=~/hacking/configs/github-tokens.txt
+GITLAB_TOKENS=~/hacking/configs/gitlab-tokens.txt
+SUBFINDER_CONFIG=~/.config/subfinder/provider-config.yaml
 ```
 
 </details>
@@ -45,12 +45,9 @@ SUBFINDER_CONFIG="${HOME}/.config/subfinder/provider-config.yaml"
 
 ```bash
 folders=(
-    "${TOOLS}"
-    "${TOOLS}/wordlists"
-    "${TOOLS}/resolvers"
-    "${HOME}/.config/amass/"
-    "${HOME}/.config/subfinder/"
-    "${HOME}/.config/puredns/"
+    "~/hacking/tools"
+    "~/hacking/configs"
+    "~/hacking/wordlists"
 )
 
 for folder in "${folders[@]}"; do
