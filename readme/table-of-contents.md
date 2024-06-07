@@ -1,35 +1,65 @@
-# 📃 Table of Contents
+# Table of Contents
 
-[Bug Bounty Hunter Guide](../) • [**Contents**](table-of-contents.md) • [Checklists](pentest-checklists.md)
+[Bug Bounty Hunter Guide](https://app.gitbook.com/o/EOc6S49gNX0wky8nj5si/s/dIwZJMkFd4Zza9vjuuJ7/) • [**Contents**](table-of-contents.md) • [Checklists](pentest-checklists.md)
 
-## Part I. Reconnaissance
+## 📁 Reconnaissance
 
-### 1. [Based on Company](../reconnaissance/based-on-company/)
+### ▽ Company recon [△](table-of-contents.md#reconnaissance)
 
-* #### [Company Basic Information Collection](../reconnaissance/based-on-company/company-basic-information.md)
-* #### [Internet Asset Enumeration](../reconnaissance/based-on-company/internet-assets-enumeration.md)
-* #### [Company Acquired Information Collection](../reconnaissance/based-on-company/company-acquisition.md)
+* [📄](../reconnaissance/business-info-gathering.md) Business information
+  * ¹ Main business
+  * ¹ External investment
+* ▽ Internet assets enum
+  * 📄 ASN / CIDR
+    * ¹ Domain-based
+    * ¹ Subdomain-based
+  * 📄 Root domains
+    * ¹ ICP license
+    * ¹ Internal DNS
+    * ¹ HTPT header
+    * ¹ Certification
+    * ¹ Favicon hash
+    * ¹ Google Analytics ID
+  * 📄 Mobile applications
+    * ¹ Android / iOS
+    * ¹ WeChat Applet
+* 📄 OSINT
+  * ¹  Email address
 
-### 2. [Based on Domain](../reconnaissance/based-on-domain/)
+### ▽ Domain recon [△](table-of-contents.md#reconnaissance)
 
-* #### [Domain Name Analysis](../reconnaissance/based-on-domain/domain-name-analysis.md)
-* #### [Subdomain Enumeration](../reconnaissance/based-on-domain/subdomain-enumeration.md)
-* #### [Subdomain Handling](../reconnaissance/based-on-domain/domain-based.md)
+* ¹ Registrant
+* ¹ ICP license
+* ¹ IP Address
+* 📄 Subdomain  enum
+  * ¹ Preparations
+  * ¹ Passive sources
+  * ¹ Brute force
+  * ¹ NoError
+  * ¹  Permutation
+  * ¹  Permutation
+  * ¹  AI Regex
+  * ¹  Web scraping
+  * ¹  Google Analytics ID
+  * ¹ Recursive Enum
+    * ² Passive
+    * ² Brute
+  * ¹ Aggregation
 
-### 3. Based on Website
+### ▽ Website recon [△](table-of-contents.md#reconnaissance)
 
 > _Content is on the way_
 
-## Part II. Vulnerability Assessment
+## Vulnerability Assessment [△](table-of-contents.md#reconnaissance)
 
 > _Content is on the way_
 
-## Appendix I. Awesome BugBounty
+## Awesome BugBounty [△](table-of-contents.md#reconnaissance)
 
-### 1. [Security Response Center](../awesome-bugbounty/security-response-center.md)
+### [📄](../awesome/src.md) Security Response Center
 
-### 2. [Vulnerable Applications](../awesome-bugbounty/vulnerable-applications.md)
+### [📄](../awesome/vulnerable-applications.md) Vulnerable Applications
 
-### 3. [Bug Bounty Tools](../awesome-bugbounty/bug-bounty-tools.md)
+### [📄](../awesome/bug-bounty-tools.md) Bug Bounty Tools
 
-### 4. [Awesome Awesomeness](../awesome-bugbounty/awesome-awesomeness.md)
+### [📄](../awesome/awesome-awesomeness.md) Awesome Awesomeness

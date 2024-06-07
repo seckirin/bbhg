@@ -1,6 +1,6 @@
 # Company Acquisition
 
-[Contents](../../readme/table-of-contents.md) > [Based on Company](./) > [**Company Acquired Information Collection**](company-acquisition.md)
+[Contents](../readme/table-of-contents.md) > [Based on Company](broken-reference) > [**Company Acquired Information Collection**](company-acquisition.md)
 
 ## Online Websites
 

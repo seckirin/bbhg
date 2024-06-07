@@ -1,21 +1,25 @@
 # Table of contents
 
 * [Bug Bounty Hunter Guide](README.md)
-  * [📃 Table of Contents](readme/table-of-contents.md)
-  * [✔️ Pentest Checklists](readme/pentest-checklists.md)
+  * [Table of Contents](readme/table-of-contents.md)
+  * [Pentest Checklists](readme/pentest-checklists.md)
 
 ## 🗺️ Reconnaissance
 
-* [Based on Company](reconnaissance/based-on-company/README.md)
-  * [Company Basic Information](reconnaissance/based-on-company/company-basic-information.md)
-  * [Internet Asset Enumeration](reconnaissance/based-on-company/internet-assets-enumeration.md)
-  * [Company Acquisition](reconnaissance/based-on-company/company-acquisition.md)
-* [Based on Domain](reconnaissance/based-on-domain/README.md)
-  * [Domain Name Analysis](reconnaissance/based-on-domain/domain-name-analysis.md)
-  * [Subdomain Enumeration](reconnaissance/based-on-domain/subdomain-enumeration.md)
-  * [Subdomain Handling](reconnaissance/based-on-domain/domain-based.md)
+* [Business Info Gathering](reconnaissance/business-info-gathering.md)
+* [▽ Internet Asset Enum](reconnaissance/internet-asset-enum/README.md)
+  * [ASN / CIDR Enum](reconnaissance/internet-asset-enum/asn-cidr-enum.md)
+  * [Root Domain Enum](reconnaissance/internet-asset-enum/root-domain-enum.md)
+  * [Mobile App Gathering](reconnaissance/internet-asset-enum/mobile-app-gathering.md)
+* [Internet Asset Enum bak](reconnaissance/internet-asset-enum-bak.md)
+* [OSINT](reconnaissance/general.md)
+* [Subdomain enum](reconnaissance/subdomain-enum.md)
+* [Website probing](reconnaissance/website-probing.md)
+* [Company Acquisition](reconnaissance/company-acquisition.md)
+* [Domain Name Analysis](reconnaissance/domain-name-analysis.md)
+* [Subdomain Enumeration](reconnaissance/subdomain-enumeration.md)
+* [Subdomain Handling](reconnaissance/domain-based.md)
 * [Based on Website](reconnaissance/website-based.md)
-* [General](reconnaissance/general.md)
 
 ## 🧪 Vulnerability Assessment
 
@@ -33,12 +37,12 @@
   * [27017 - MongoDB](vulnerability-assessment/port/27017-mongodb.md)
 * [XSS (Cross-Site Scripting)](vulnerability-assessment/xss-cross-site-scripting.md)
 
-## 😎 Awesome BugBounty
+## 😎 Awesome
 
-* [Security Response Center](awesome-bugbounty/security-response-center.md)
-* [Vulnerable Applications](awesome-bugbounty/vulnerable-applications.md)
-* [Bug Bounty Tools](awesome-bugbounty/bug-bounty-tools.md)
-* [Awesome Awesomeness](awesome-bugbounty/awesome-awesomeness.md)
+* [Security Response Center](awesome/src.md)
+* [Vulnerable Applications](awesome/vulnerable-applications.md)
+* [Bug Bounty Tools](awesome/bug-bounty-tools.md)
+* [Awesome Awesomeness](awesome/awesome-awesomeness.md)
 
 ## Others (High)
 

@@ -1,14 +1,12 @@
-# Internet Asset Enumeration
+# Internet Asset Enum bak
 
-[Contents](../../readme/table-of-contents.md) > [Based on Company](./) > [**Internet Asset Enumeration**](internet-assets-enumeration.md)
+[Contents](../readme/table-of-contents.md) > [Based on Company](broken-reference) > [**Internet Asset Enumeration**](internet-asset-enum-bak.md)
 
 ## ASN / CIDR Collection
 
 **Network Censorship:** The network environment in China is subject to strict regulation and censorship, which may affect the querying and use of ASNs.
 
 **IP Allocation and Management:** IP addresses in China may be managed by different network service providers, which could complicate ASN queries.
-
-
 
 ```bash
 https://asnlookup.com/
@@ -48,7 +46,7 @@ https://icp.chinaz.com/record/
 # ./enscan -n <company_name> -type all -field icp
 ./enscan -n <company_name> -type all \
     [-invest <50>] [-deep <7>] \
-    [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
+    [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}]
 ```
 
 ### Internal DNS
@@ -166,7 +164,9 @@ do
 done < google_analytics_id.txt
 ```
 
-## Mobile Application Collection
+## Mobile applications
+
+### Android / iOS
 
 ```bash
 # Websites
@@ -178,7 +178,7 @@ https://www.diandian.com/
 (type=安卓APK&&company=<company_name>)
 ```
 
-## WeChat Applet Collection
+### WeChat Applet
 
 ```bash
 # https://0.zone/

@@ -1,6 +1,6 @@
 # Domain Name Analysis
 
-[Contents](../../readme/table-of-contents.md) > [Based on Domain](./) > [**Domain Name Analysis**](domain-name-analysis.md)
+[Contents](../readme/table-of-contents.md) > [Based on Domain](broken-reference) > [**Domain Name Analysis**](domain-name-analysis.md)
 
 ```sh
 # Multi-purpose website

@@ -1,6 +1,6 @@
 # Subdomain Enumeration
 
-[Contents](../../readme/table-of-contents.md) > [Based on Domain](./) > [**Subdomain Enumeration**](subdomain-enumeration.md)
+[Contents](../readme/table-of-contents.md) > [Based on Domain](broken-reference) > [**Subdomain Enumeration**](subdomain-enumeration.md)
 
 ## Preparations
 
@@ -31,7 +31,7 @@ PERMUTATIONS_URL=https://raw.githubusercontent.com/y00k1sec/hacking-wordlists/ma
 
 # Config File
 AMASS_CONFIG=~/.config/amass/config.ini
-BBOT_CONFIG="~/.config/bbot/secrets.yml
+BBOT_CONFIG=~/.config/bbot/secrets.yml
 GITHUB_TOKENS=~/hacking/configs/github-tokens.txt
 GITLAB_TOKENS=~/hacking/configs/gitlab-tokens.txt
 SUBFINDER_CONFIG=~/.config/subfinder/provider-config.yaml
@@ -544,7 +544,7 @@ isubsum --sources scrap --resolved 1
   * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
-* **Domain Gathering:** This method is also applicable to [domain enumeration](../based-on-company/internet-assets-enumeration.md#domain-enumeration).
+* **Domain Gathering:** This method is also applicable to [domain enumeration](internet-asset-enum-bak.md#domain-enumeration).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
