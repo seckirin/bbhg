@@ -1,20 +1,14 @@
-# Internet Asset Enum bak
+# Internet Asset Discovery
 
-[Contents](../readme/table-of-contents.md) > [Based on Company](broken-reference) > [**Internet Asset Enumeration**](internet-asset-enum-bak.md)
+[Contents](../readme/table-of-contents.md) > [Based on Company](broken-reference) > [**Internet Asset Enumeration**](internet-asset-discovery.md)
 
 ## ASN / CIDR Collection
 
-**Network Censorship:** The network environment in China is subject to strict regulation and censorship, which may affect the querying and use of ASNs.
-
-**IP Allocation and Management:** IP addresses in China may be managed by different network service providers, which could complicate ASN queries.
-
 ```bash
-https://asnlookup.com/
 https://bgp.he.net/
 https://bgp.tools/
 https://bgpview.io/
-https://apps.db.ripe.net/db-web-ui/
-
+https://asnlookup.com/
 https://ipwhois.cnnic.net.cn/
 
 # https://github.com/dhn/spk
@@ -154,8 +148,8 @@ echo icon_hash=<favicon_hash> | fofax -ff domain -silent -fs 999999
 ```bash
 # https://github.com/projectdiscovery/nuclei
 # https://gist.github.com/yuukisec/f6b4659b5d4c2d825a6d41a8ae3d73b7
-nuclei -t $TOOLS/nuclei-templates/google-analytics-id-detection.yaml -l roots.txt -silent -no-color |
-    cut -d '"' -f2 > google_analytics_id.txt
+nuclei -t $TOOLS/nuclei-templates/google-analytics-id-detection.yaml \
+    -l roots.txt -silent -no-color | cut -d '"' -f2 > google_analytics_id.txt
 
 # https://github.com/dhn/udon
 while read id

@@ -1,2 +1,0 @@
-# ▽ Internet Asset Enum
-

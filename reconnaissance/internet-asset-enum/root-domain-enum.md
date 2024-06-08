@@ -1,2 +1,0 @@
-# Root Domain Enum
-

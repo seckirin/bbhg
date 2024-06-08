@@ -1,6 +1,6 @@
-# Subdomain Handling
+# Subdomain Handling ?>> Subdomain Enumeration > Website Probing
 
-[Contents](../readme/table-of-contents.md) > [Based on Domain](broken-reference) > [**Subdomain Handling**](domain-based.md)
+[Contents](../../readme/table-of-contents.md) > [Based on Domain](broken-reference) > [**Subdomain Handling**](domain-based.md)
 
 ## Validating Active Subdomain
 

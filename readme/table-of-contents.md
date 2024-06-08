@@ -1,6 +1,6 @@
 # Table of Contents
 
-[Bug Bounty Hunter Guide](https://app.gitbook.com/o/EOc6S49gNX0wky8nj5si/s/dIwZJMkFd4Zza9vjuuJ7/) • [**Contents**](table-of-contents.md) • [Checklists](pentest-checklists.md)
+[Bug Bounty Hunter Guide](https://app.gitbook.com/o/EOc6S49gNX0wky8nj5si/s/dIwZJMkFd4Zza9vjuuJ7/) • [**Contents**](table-of-contents.md) • [Checklists](bug-bounty-checklists.md)
 
 ## 📁 Reconnaissance
 
@@ -56,10 +56,10 @@
 
 ## Awesome BugBounty [△](table-of-contents.md#reconnaissance)
 
-### [📄](../awesome/src.md) Security Response Center
+### [📄](../awesome-bugbounty/security-response-center.md) Security Response Center
 
-### [📄](../awesome/vulnerable-applications.md) Vulnerable Applications
+### [📄](../awesome-bugbounty/vulnerable-applications.md) Vulnerable Applications
 
-### [📄](../awesome/bug-bounty-tools.md) Bug Bounty Tools
+### [📄](../awesome-bugbounty/bug-bounty-tools.md) Bug Bounty Tools
 
-### [📄](../awesome/awesome-awesomeness.md) Awesome Awesomeness
+### [📄](../awesome-bugbounty/awesome-awesomeness.md) Awesome Awesomeness

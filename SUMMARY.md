@@ -2,24 +2,23 @@
 
 * [Bug Bounty Hunter Guide](README.md)
   * [Table of Contents](readme/table-of-contents.md)
-  * [Pentest Checklists](readme/pentest-checklists.md)
+  * [Bug Bounty Checklists](readme/bug-bounty-checklists.md)
 
 ## 🗺️ Reconnaissance
 
 * [Business Info Gathering](reconnaissance/business-info-gathering.md)
-* [▽ Internet Asset Enum](reconnaissance/internet-asset-enum/README.md)
-  * [ASN / CIDR Enum](reconnaissance/internet-asset-enum/asn-cidr-enum.md)
-  * [Root Domain Enum](reconnaissance/internet-asset-enum/root-domain-enum.md)
-  * [Mobile App Gathering](reconnaissance/internet-asset-enum/mobile-app-gathering.md)
-* [Internet Asset Enum bak](reconnaissance/internet-asset-enum-bak.md)
-* [OSINT](reconnaissance/general.md)
-* [Subdomain enum](reconnaissance/subdomain-enum.md)
-* [Website probing](reconnaissance/website-probing.md)
-* [Company Acquisition](reconnaissance/company-acquisition.md)
-* [Domain Name Analysis](reconnaissance/domain-name-analysis.md)
-* [Subdomain Enumeration](reconnaissance/subdomain-enumeration.md)
-* [Subdomain Handling](reconnaissance/domain-based.md)
-* [Based on Website](reconnaissance/website-based.md)
+* [Root Domain Enum](reconnaissance/root-domain-enum.md)
+* [Internet Asset Discovery](reconnaissance/internet-asset-discovery.md)
+* [ASN / CIDR Enum](reconnaissance/asn-cidr-enum.md)
+* [Subdomain Enum](reconnaissance/subdomain-enumeration.md)
+* [Website Probing](reconnaissance/website-probing.md)
+* [Pending Pages](reconnaissance/pending-pages/README.md)
+  * [Vulnerability Assessment > Web > Information Gathering](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/README.md)
+    * [Domain Analysis](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/domain-analysis.md)
+    * [Public Information Collection](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/general.md)
+    * [Fingerprint Web Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/fingerprint-web-application.md)
+    * [Mapping the Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/mapping-the-application.md)
+  * [Subdomain Handling ?>> Subdomain Enumeration > Website Probing](reconnaissance/pending-pages/domain-based.md)
 
 ## 🧪 Vulnerability Assessment
 
@@ -37,12 +36,12 @@
   * [27017 - MongoDB](vulnerability-assessment/port/27017-mongodb.md)
 * [XSS (Cross-Site Scripting)](vulnerability-assessment/xss-cross-site-scripting.md)
 
-## 😎 Awesome
+## 😎 Awesome BugBounty
 
-* [Security Response Center](awesome/src.md)
-* [Vulnerable Applications](awesome/vulnerable-applications.md)
-* [Bug Bounty Tools](awesome/bug-bounty-tools.md)
-* [Awesome Awesomeness](awesome/awesome-awesomeness.md)
+* [Security Response Center](awesome-bugbounty/security-response-center.md)
+* [Vulnerable Applications](awesome-bugbounty/vulnerable-applications.md)
+* [Bug Bounty Tools](awesome-bugbounty/bug-bounty-tools.md)
+* [Awesome Awesomeness](awesome-bugbounty/awesome-awesomeness.md)
 
 ## Others (High)
 

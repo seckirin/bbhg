@@ -1,10 +1,10 @@
 # Business Info Gathering
 
-## Businesses
+## Identify Main Business
 
 <details>
 
-<summary><code>biz_recon</code></summary>
+<summary>The <code>biz_recon</code> function of shell script.</summary>
 
 ```sh
 biz_recon() {
@@ -42,7 +42,6 @@ biz_recon() {
     "https://icp.chinaz.com/%search"
     "https://www.beianx.cn/search/%search"
     "https://icplishi.com/%search/"
-    "https://github.com/yuedanlabs/icp-query-extension" # Please access manually
   )
   
   misc_urls=(
@@ -103,28 +102,18 @@ biz_recon() {
 
 </details>
 
-### Mystery
-
 ```sh
+# Ambiguous
 biz_recon wiki <keyword>
 biz_recon misc <keyword>
-```
 
-### Website
-
-```sh
+# Website / Domain
 biz_recon website <domain_name>
-```
 
-### Application
-
-```sh
+# Application
 biz_recon app <application_name>
-```
 
-### Company
-
-```bash
+# Company
 biz_recon company <company_name>
 ```
 
@@ -135,9 +124,18 @@ biz_recon company <company_name>
      -type {all, aqc, tyc} -field icp,copyright,app
 ```
 
-## Investment
+## Investment or Subsidiary
 
 ```bash
-./ensacn-v1.0.0-drawin-arm64 -n <company_name> \
-     -type all -invest 50 -deep {3, 7}
+# Websites
+https://www.qcc.com/
+https://aiqicha.baidu.com/
+https://shuidi.cn/
+https://www.tianyancha.com/
+
+# https://github.com/wgpsec/ENScan_GO
+./enscan-<version> -n <company_name> \
+    [-invest {49, 50}] [-deep {3, 7}] \
+    [-type {aqc,tyc,all,qimai}] \
+    [-field {icp,weibo,wechat,app,job,wx_app,copyright,subpplier}] \
 ```
