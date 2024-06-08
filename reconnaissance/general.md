@@ -1,4 +1,4 @@
-# OSINT
+# Public Information Collection
 
 ## Email Collection
 

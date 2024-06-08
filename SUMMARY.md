@@ -2,23 +2,23 @@
 
 * [Bug Bounty Hunter Guide](README.md)
   * [Table of Contents](readme/table-of-contents.md)
-  * [Bug Bounty Checklists](readme/bug-bounty-checklists.md)
+  * [Bug Bounty Checklists](readme/pentest-checklists.md)
 
 ## 🗺️ Reconnaissance
 
 * [Business Info Gathering](reconnaissance/business-info-gathering.md)
 * [Root Domain Enum](reconnaissance/root-domain-enum.md)
-* [Internet Asset Discovery](reconnaissance/internet-asset-discovery.md)
+* [Internet Asset Discovery](reconnaissance/internet-asset-enum-bak.md)
 * [ASN / CIDR Enum](reconnaissance/asn-cidr-enum.md)
 * [Subdomain Enum](reconnaissance/subdomain-enumeration.md)
 * [Website Probing](reconnaissance/website-probing.md)
 * [Pending Pages](reconnaissance/pending-pages/README.md)
   * [Vulnerability Assessment > Web > Information Gathering](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/README.md)
-    * [Domain Analysis](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/domain-analysis.md)
-    * [Public Information Collection](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/general.md)
-    * [Fingerprint Web Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/fingerprint-web-application.md)
+    * [Domain Analysis](reconnaissance/domain-name-analysis.md)
+    * [Public Information Collection](reconnaissance/general.md)
+    * [Fingerprint Web Application](reconnaissance/website-based.md)
     * [Mapping the Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/mapping-the-application.md)
-  * [Subdomain Handling ?>> Subdomain Enumeration > Website Probing](reconnaissance/pending-pages/domain-based.md)
+  * [Subdomain Handling ?>> Subdomain Enumeration > Website Probing](reconnaissance/domain-based.md)
 
 ## 🧪 Vulnerability Assessment
 
@@ -38,10 +38,10 @@
 
 ## 😎 Awesome BugBounty
 
-* [Security Response Center](awesome-bugbounty/security-response-center.md)
-* [Vulnerable Applications](awesome-bugbounty/vulnerable-applications.md)
-* [Bug Bounty Tools](awesome-bugbounty/bug-bounty-tools.md)
-* [Awesome Awesomeness](awesome-bugbounty/awesome-awesomeness.md)
+* [Security Response Center](awesome/src.md)
+* [Vulnerable Applications](awesome/vulnerable-applications.md)
+* [Bug Bounty Tools](awesome/bug-bounty-tools.md)
+* [Awesome Awesomeness](awesome/awesome-awesomeness.md)
 
 ## Others (High)
 

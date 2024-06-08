@@ -429,7 +429,7 @@ isubsum --source intelli --resolved 1
 
 ## DNS Enum
 
-> This method requires [Get DNS Record](pending-pages/domain-based.md#get-dns-record), If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+> This method requires [Get DNS Record](domain-based.md#get-dns-record), If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 
 ```bash
 dnsx -r resolvers_trusted.txt -a -aaaa -cname -ns -ptr -mx -soa \
@@ -466,7 +466,7 @@ cat puredns.txt
 
 ## Web Scraping
 
-> This method requires [Website Probing](pending-pages/domain-based.md#website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+> This method requires [Website Probing](domain-based.md#website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 
 > This method requires a large number of HTTP requests to the target’s live subdomain list.
 
@@ -532,7 +532,7 @@ isubsum --sources scrap --resolved 1
 
 ## Google Analytics
 
-> This method requires [Website Probing](pending-pages/domain-based.md#website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
+> This method requires [Website Probing](domain-based.md#website-probing). If deep subdomain enumeration is not required, proceed directly to the [final alive verification](subdomain-enumeration.md#final-alive-verification).
 
 * **Reverse Google Analytics ID Search WebSites:**
   * [https://intelx.io/tools?tab=analytics](https://intelx.io/tools?tab=analytics)
@@ -544,7 +544,7 @@ isubsum --sources scrap --resolved 1
   * [https://builtwith.com/relationships/tag/UA-33427076](https://builtwith.com/relationships/tag/UA-33427076)
   * [http://site-overview.com/website-report-search/analytics-account-id/33427076](http://site-overview.com/website-report-search/analytics-account-id/33427076)
   * [https://spyonweb.com/UA-33427076](https://spyonweb.com/UA-33427076)
-* **Domain Gathering:** This method is also applicable to [domain enumeration](internet-asset-discovery.md#domain-enumeration).
+* **Domain Gathering:** This method is also applicable to [domain enumeration](internet-asset-enum-bak.md#domain-enumeration).
 
 ```bash
 # https://github.com/projectdiscovery/nuclei
