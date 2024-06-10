@@ -6,16 +6,16 @@
 
 ## 🗺️ Reconnaissance
 
-* [Business Info Gathering](reconnaissance/business-info-gathering.md)
-* [Root Domain Enum](reconnaissance/root-domain-enum.md)
-* [Internet Asset Discovery](reconnaissance/internet-asset-enum-bak.md)
-* [ASN / CIDR Enum](reconnaissance/asn-cidr-enum.md)
+* [Versatile Resources](reconnaissance/versatile-resources.md)
+* [Organization](reconnaissance/organization.md)
+* [Main Domain](reconnaissance/main-domain.md)
+* [Subdomain](reconnaissance/subdomain.md)
+* [Port and Service](reconnaissance/port-and-service.md)
 * [Subdomain Enum](reconnaissance/subdomain-enumeration.md)
-* [Website Probing](reconnaissance/website-probing.md)
 * [Pending Pages](reconnaissance/pending-pages/README.md)
   * [Vulnerability Assessment > Web > Information Gathering](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/README.md)
     * [Domain Analysis](reconnaissance/domain-name-analysis.md)
-    * [Public Information Collection](reconnaissance/general.md)
+    * [Public Information Gathering](reconnaissance/general.md)
     * [Fingerprint Web Application](reconnaissance/website-based.md)
     * [Mapping the Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/mapping-the-application.md)
   * [Subdomain Handling ?>> Subdomain Enumeration > Website Probing](reconnaissance/domain-based.md)
@@ -38,10 +38,14 @@
 
 ## 😎 Awesome BugBounty
 
-* [Security Response Center](awesome/src.md)
+* [SRC (Security Response Center)](awesome-bugbounty/src-security-response-center.md)
 * [Vulnerable Applications](awesome/vulnerable-applications.md)
 * [Bug Bounty Tools](awesome/bug-bounty-tools.md)
 * [Awesome Awesomeness](awesome/awesome-awesomeness.md)
+
+## 💡 Experience
+
+* [Out of Scope](experience/out-of-scope.md)
 
 ## Others (High)
 

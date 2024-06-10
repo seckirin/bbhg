@@ -2,13 +2,27 @@
 
 [Bug Bounty Hunter Guide](https://app.gitbook.com/o/EOc6S49gNX0wky8nj5si/s/dIwZJMkFd4Zza9vjuuJ7/) • [**Contents**](table-of-contents.md) • [Checklists](pentest-checklists.md)
 
-## 📁 Reconnaissance
+## Reconnaissance
+
+* Organization (组织)
+  * Businesses and Product (业务及产品)
+    * Encyclopedia
+    * Company
+    * Mobile Application
+    * Desktop Application
+    * Domain
+    * Miscellaneous
+  * Corporate Structure (企业结构)
+* Main Domain (主域名)
+  * Gathering (收集)
+    * Based on Company (基于公司)
+    * Based on Domain (基于域名)
+    * &#x20;Based on Website (基于网站)
+  * Analysis (分析)
+* Subdomain (子域名)
 
 ### ▽ Company recon [△](table-of-contents.md#reconnaissance)
 
-* [📄](../reconnaissance/business-info-gathering.md) Business information
-  * ¹ Main business
-  * ¹ External investment
 * ▽ Internet assets enum
   * 📄 ASN / CIDR
     * ¹ Domain-based
@@ -56,7 +70,7 @@
 
 ## Awesome BugBounty [△](table-of-contents.md#reconnaissance)
 
-### [📄](../awesome/src.md) Security Response Center
+### [📄](../awesome-bugbounty/src-security-response-center.md) Security Response Center
 
 ### [📄](../awesome/vulnerable-applications.md) Vulnerable Applications
 
