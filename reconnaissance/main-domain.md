@@ -14,6 +14,8 @@
 ### Based on Company
 
 ```bash
+# ICP License
+
 # Company Name >> ICP Licensed domains
 https://www.beianx.cn/search/
 https://0.zone/
@@ -24,29 +26,32 @@ https://www.tianyancha.com/
 https://icp.chinaz.com/
 https://beian.miit.gov.cn/
 
-# https://github.com/wgpsec/ENScan_GO
-./enscan-<version> -n <company_name> -type all -field icp
-./enscan-<version> -f <company.txt> -type all -field icp
-
 # 最新 ICP 数据
 https://shangjibao.baidu.com
 
 # 历史 ICP 记录
 https://icp.chinaz.com/record
-```
 
-```bash
 # https://github.com/y00k1sec/hacking-gadgets/blob/main/icpquery.py
 echo <company> | icpquery | jq -r 'try .params.list[].domain'
 cat companies.txt | icpquery | jq -r 'try .params.list[].domain' | anew domains.txt
+
+cat companies.txt | icpquery | jq -c '[.params.list[]] | sort_by(.updateRecordTime) | sort_by(.unitName) | .[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]' | anew icpwebsite.txt
+cat icpwebsite.txt | jq -r '.[0]' | anew domains.txt
+
+# https://github.com/wgpsec/ENScan_GO
+./enscan-<version> -n <company_name> -type all -field icp
+./enscan-<version> -f <company.txt> -type all -field icp
 ```
 
-### Based on Domain (Through Internal NameServer)
+### Based on Domain
 
 ```bash
+# Internal NameServer
+
 # 创建结束会话后自动删除的临时文件，用于存储发现的名称服务器及关联主域名
 tmp_nameservers=$(mktemp); trap "rm -rf $tmp_nameservers" EXIT
-tmp_related_roots=$(mktemp); trap "rm -rf $tmp_related_roots" EXIT
+tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
 # 查询现有主域名所使用的名称服务器
 cat domains.txt | dnsx -ns -resp -silent -json | jq -r '.ns[]' | sort -u | tee $tmp_nameservers
@@ -54,42 +59,42 @@ vim $tmp_nameservers # 剔除无趣的关联主域名
 
 # 查询名称服务器相关联的其他主域名
 while IFS= read -r nameserver; do
-    curl -s "https://api.hackertarget.com/findshareddns/?q=$nameserver" | unfurl -u domains | anew $tmp_related_roots
+    curl -s "https://api.hackertarget.com/findshareddns/?q=$nameserver" | unfurl -u domains | anew $tmp_related_domains
 done < $tmp_nameservers
 
-vim $tmp_related_roots # 剔除无趣的关联主域名
+vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
-### Based on Website (Scraping)
+### Based on Website
 
 ```bash
 # SSL/TLS Certificate
 
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
-tmp_related_roots=$(mktemp); trap "rm -rf $tmp_related_roots" EXIT
+tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
-cat websites.txt | httpx -tls-probe -tls-grab -silent -json | jq -r 'try .tls.subject_cn, .tls.subject_an[]' | unfurl -u apexes | anew $tmp_related_roots
-vim $tmp_related_roots # 剔除无趣的关联主域名
+cat websites.txt | httpx -tls-probe -tls-grab -silent -json | jq -r 'try .tls.subject_cn, .tls.subject_an[]' | unfurl -u apexes | anew $tmp_related_domains
+vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
 ```bash
 # CSP (Content Security Policies)
 
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
-tmp_related_roots=$(mktemp); trap "rm -rf $tmp_related_roots" EXIT
+tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
-cat websites.txt | httpx -csp-probe -silent -json | jq -r 'try .csp.domains[]' | unfurl -u apexes | anew $tmp_related_roots
-vim $tmp_related_roots # 剔除无趣的关联主域名
+cat websites.txt | httpx -csp-probe -silent -json | jq -r 'try .csp.domains[]' | unfurl -u apexes | anew $tmp_related_domains
+vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
 ```bash
 # Favicon Hash
 
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
-tmp_related_roots=$(mktemp); trap "rm -rf $tmp_related_roots" EXIT
+tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
-cat websites.txt | httpx -favicon -silent -json | jq -r 'select(.favicon!=null) | "icon_hash=\"" + .favicon + "\""' | fofax -silent -fs 10000 -ff domain | anew $tmp_related_roots
-vim $tmp_related_roots # 剔除无趣的关联主域名
+cat websites.txt | httpx -favicon -silent -json | jq -r 'select(.favicon!=null) | "icon_hash=\"" + .favicon + "\""' | fofax -silent -fs 10000 -ff domain | anew $tmp_related_domains
+vim $tmp_related_domains # 剔除无趣的关联主域名
 
 # https://github.com/yuukisec/ifavicon
 ifavicon -url https://<domain.com>/favicon.ico
@@ -100,10 +105,10 @@ ifavicon -file /path/to/favicon.ico
 # Set-Cookie Headers
 
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
-tmp_related_roots=$(mktemp); trap "rm -rf $tmp_related_roots" EXIT
+tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
-cat websites.txt | httpx -include-response-header -json -silent | jq -r '.header.set_cookie' | tr ";, " "\n" | grep domain= | cut -d'=' -f2 | unfurl -u apexes | anew $tmp_related_roots
-vim $tmp_related_roots # 剔除无趣的关联主域名
+cat websites.txt | httpx -include-response-header -json -silent | jq -r '.header.set_cookie' | tr ";, " "\n" | grep domain= | cut -d'=' -f2 | unfurl -u apexes | anew $tmp_related_domains
+vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
 ```sh
@@ -136,7 +141,7 @@ cat santa.txt | unfurl -u apexes | tee domains.txt
 # while IFS= read -r domain; do
 #    domainrecon.sh domain "$domain" | jq -r '.params.list[]'
 # done < domains.txt
-cat domains.txt | icpquery | jq -r '.params.list[] | "[\(.updateRecordTime)] [\(.domain)] [\(.unitName)] [\(.serviceLicence)]"'
+cat domains.txt | icpquery | jq -c 'try .params.list[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]'
 
 # 手动在网页上查询域名的备案、公司及注册时间等信息
 # https://github.com/y00k1sec/hacking-gadgets/blob/main/bizrecon.sh

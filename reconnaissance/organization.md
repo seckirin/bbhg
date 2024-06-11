@@ -10,29 +10,33 @@ https://baike.baidu.com/
 https://wiki.mbalib.com/
 https://www.baike.com/
 
-# Company
-https://aiqicha.baidu.com
-https://www.tianyancha.com
-https://www.qcc.com
+# Company & Business
 https://shuidi.cn
-https://www.qichamao.com
+https://www.qcc.com
+https://www.tianyancha.com
+https://aiqicha.baidu.com
+https://sou.xiaolanben.com
 https://www.qixin.com
-https://www.crunchbase.com
+https://www.qichamao.com
+# https://www.crunchbase.com
 
 # Application (Mobile)
-https://app.diandian.com
-https://www.taptap.cn
-https://sou.xiaolanben.com
-https://www.qimai.cn
-
+https://app.diandian.com/search/all-24-US
+https://app.diandian.com/search/all-75-CN
+https://www.qimai.cn/search/android/market/6/search/Android
+https://www.qimai.cn/search/index/country/cn/version/ios14/search/iOS/advise/iOS
+https://www.taptap.cn/search/GAME
 # Application (Desktop)
 https://www.google.com/search?q=site:apps.apple.com+("Mac+App+Store+上的"|"on+the+Mac+App+Store")
 https://www.google.com/search?q=site:apps.microsoft.com
 
-# Domain
+# Domain & Website
+https://www.qcc.com/web_net
+https://aiqicha.baidu.com/icpsearch
+https://beian.tianyancha.com
+https://icplishi.com
 https://icp.chinaz.com
 https://www.beianx.cn/search
-https://icplishi.com
 
 # Miscellaneous
 https://www.baidu.com/s?wd=%search
@@ -58,6 +62,8 @@ bizrecon domain <domain_name>
 bizrecon app <application_name>
 bizrecon company <company_name>
 bizrecon all <anything>
+
+# bizrecon <option> <search_term> | pbcopy
 ```
 
 ## Corporate Structure

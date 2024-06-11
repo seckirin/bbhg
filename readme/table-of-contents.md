@@ -70,7 +70,7 @@
 
 ## Awesome BugBounty [△](table-of-contents.md#reconnaissance)
 
-### [📄](../awesome-bugbounty/src-security-response-center.md) Security Response Center
+### [📄](../awesome-bugbounty/security-response-center.md) Security Response Center
 
 ### [📄](../awesome/vulnerable-applications.md) Vulnerable Applications
 
