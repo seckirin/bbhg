@@ -49,3 +49,9 @@ python3 ip_via_subdomain.py | fofax -ff ip -fs 10000 | anew ipaddresses.txt
 ```bash
 python3 ip_via_cert.py | fofax -ff ip -fs 10000 | anew ipaddresses.txt
 ```
+
+输出 new.txt 有但是 old.txt 没有的内容
+
+```bash
+grep -Fxvf old.txt new.txt
+```

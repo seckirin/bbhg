@@ -36,8 +36,8 @@ https://icp.chinaz.com/record
 echo <company> | icpquery | jq -r 'try .params.list[].domain'
 cat companies.txt | icpquery | jq -r 'try .params.list[].domain' | anew domains.txt
 
-cat companies.txt | icpquery | jq -c '[.params.list[]] | sort_by(.updateRecordTime) | sort_by(.unitName) | .[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]' | anew icpwebsite.txt
-cat icpwebsite.txt | jq -r '.[0]' | anew domains.txt
+cat companies.txt | icpquery | jq -c '[.params.list[]] | sort_by(.updateRecordTime) | sort_by(.unitName) | .[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]' | anew icpdomains.txt
+cat icpdomains.txt | jq -r '.[0]' | anew domains.txt
 
 # https://github.com/wgpsec/ENScan_GO
 ./enscan-<version> -n <company_name> -type all -field icp
@@ -54,10 +54,11 @@ tmp_nameservers=$(mktemp); trap "rm -rf $tmp_nameservers" EXIT
 tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
 # 查询现有主域名所使用的名称服务器
-cat domains.txt | dnsx -ns -resp -silent -json | jq -r '.ns[]' | sort -u | tee $tmp_nameservers
+cat domains.txt | dnsx -ns -resp -silent -json | jq -r '.ns[]' | anew $tmp_nameservers
 vim $tmp_nameservers # 剔除无趣的关联主域名
 
 # 查询名称服务器相关联的其他主域名
+# proyx on
 while IFS= read -r nameserver; do
     curl -s "https://api.hackertarget.com/findshareddns/?q=$nameserver" | unfurl -u domains | anew $tmp_related_domains
 done < $tmp_nameservers
@@ -133,15 +134,15 @@ done < google_analytics_id.txt
 ## Analysis
 
 ```bash
-# 提取 santa.txt 文件中的主域名到 domains.txt
-cat santa.txt | unfurl -u apexes | tee domains.txt
+# 提取 santa.txt 文件中的主域名到 tmp_domains.txt
+cat santa.txt | unfurl -u apexes | tee tmp_domains.txt
 
-# 批量查询 domains.txt 文件中主域名的备案信息
+# 批量查询 tmp_domains.txt 文件中主域名的备案信息
 # https://github.com/y00k1sec/hacking-gadgets/blob/main/domainrecon.sh
 # while IFS= read -r domain; do
 #    domainrecon.sh domain "$domain" | jq -r '.params.list[]'
-# done < domains.txt
-cat domains.txt | icpquery | jq -c 'try .params.list[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]'
+# done < tmp_domains.txt
+cat tmp_domains.txt | icpquery | jq -c '[.params.list[]] | sort_by(.updateRecordTime) | sort_by(.unitName) | .[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]'
 
 # 手动在网页上查询域名的备案、公司及注册时间等信息
 # https://github.com/y00k1sec/hacking-gadgets/blob/main/bizrecon.sh
