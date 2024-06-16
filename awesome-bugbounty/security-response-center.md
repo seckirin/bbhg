@@ -1,10 +1,10 @@
 ---
-description: 'Last updated: 2024-06-08'
+description: 'Last updated: 2024-06-17'
 ---
 
-# SRC (Security Response Center)
+# Security Response Center
 
-* Alibaba Security Response Center. 阿里巴巴. [https://security.alibaba.com/](https://security.alibaba.com/)
+* ~~Alibaba Security Response Center. 阿里巴巴.~~ [~~https://security.alibaba.com/~~](https://security.alibaba.com/)
 * Baidu Security Response Center. 百度. [https://bsrc.baidu.com/](https://bsrc.baidu.com/)
 * BILIBILI Security Response Center. 哔哩哔哩. [https://security.bilibili.com/](https://security.bilibili.com/)
   * [《BILISRC 漏洞处理和评分标准 V1.5》](https://security.bilibili.com/announcement/19/)
@@ -23,6 +23,8 @@ description: 'Last updated: 2024-06-08'
   * [《TSRC 漏洞处理和评分标准》](https://security.tencent.com/uploadimg\_dir/other/TSRC.pdf?v=3.2)
   * [《TSRC 安全测试规范》](https://security.tencent.com/announcement/msg/266)
   * [《SRC 行业安全测试规范》](https://security.tencent.com/announcement/msg/180)
+* XIANZHI 先知漏洞平台 (原 ARC). [https://yundun.console.aliyun.com/?p=xznew](https://yundun.console.aliyun.com/?p=xznew)
+  * [阿里云安全先知众测平台](https://xianzhi-next.aliyun.com/)
 
 ## Third-Party Platform
 
