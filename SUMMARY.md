@@ -7,7 +7,7 @@
 ## 🗺️ Reconnaissance
 
 * [Versatile Resources](reconnaissance/versatile-resources.md)
-* [Organization](reconnaissance/organization.md)
+* [Company & Organization](reconnaissance/company-and-organization.md)
 * [Main Domain](reconnaissance/main-domain.md)
 * [Subdomain](reconnaissance/subdomain.md)
 * [Port and Service](reconnaissance/port-and-service.md)

@@ -18,7 +18,7 @@ run_puredns_resolve() {
 }
 
 extract_in_scope_domain() {
-    sed '/^.\{2048\}./d' | unfurl -u domains | sed -e 's/^\*\.//' | grep -E ^$domain$\|\.$domain$
+    sed '/^.\{2048\}./d' | unfurl -u domains | sed -e 's/^\*\.//' | grep -E "^$domain$\|\.$domain$"
 }
 
 # https://github.com/y00k1sec/hacking-gadgets/blob/main/subrecon.env
@@ -78,17 +78,17 @@ puredns bruteforce "$SUBDOMAINS_FULL" -d "$domain" -r "$RESOLVERS" --resolvers-t
 curl -s "https://crt.sh/?q=${domain}&output=json" | jq -r '.[] | .common_name, .name_value' | extract_in_scope_domain | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt
 
 # https://github.com/blacklanternsecurity/bbot
-bbot -t $domain -f subdomain-enum -rf passive -em massdns -y --config $BBOT_CONFIG --silent -om json | jq -r 'select(.scope_distance==0) | select(.type=="DNS_NAME") | .data' | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt
+bbot -t "$domain" -f subdomain-enum -rf passive -em massdns -y --config "$BBOT_CONFIG" --silent -om json | jq -r 'select(.scope_distance==0) | select(.type=="DNS_NAME") | .data' | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt
 
 # https://github.com/projectdiscovery/subfinder
-run_subfinder_fast() { subfinder -d $domain -s fofa -es github -provider-config $SUBFINDER_CONFIG -silent -duc | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt }
-run_subfinder_norm() { subfinder -d $domain -all -es github -provider-config $SUBFINDER_CONFIG -silent -duc | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt }
+run_subfinder_fast() { subfinder -d "$domain" -s fofa -es github -provider-config "$SUBFINDER_CONFIG" -silent -duc | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt }
+run_subfinder_norm() { subfinder -d "$domain" -all -es github -provider-config "$SUBFINDER_CONFIG" -silent -duc | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt }
 
 run_subfinder_fast
 run_subfinder_norm
 
 # https://github.com/owasp-amass/amass/tree/v3.23.3
-amass enum -passive -d $domain -timeout 10 -config $AMASS_CONFIG -silent | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt
+amass enum -passive -d "$domain" -timeout 10 -config "$AMASS_CONFIG" -silent | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt
 ```
 
 ### 3) Altering
@@ -177,7 +177,7 @@ run_noerror_enum <fast|norm|deep>
 
 tmp_websites=$(mktemp); trap 'rm -rf "$tmp_websites"' EXIT
 
-httpx -silent <subdomains_resolved.txt | anew -q $tmp_websites
+httpx -silent <subdomains_resolved.txt | anew -q "$tmp_websites"
 ```
 
 ```bash
@@ -215,34 +215,32 @@ tmp_google_analytics_id=$(mktemp); trap 'rm -rf "$tmp_google_analytics_id"' EXIT
 # https://github.com/y00k1sec/iPoCs
 # https://github.com/dhn/udon
 
-cat "$tmp_websites" | nuclei -t ~/ipocs -id google-analytics-id-detection -silent | cut -d '"' -f 2 | anew -q $tmp_google_analytics_id
-while read id
-do
-    udon -s $id -silent | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
-done < $tmp_google_analytics_id
+nuclei -t ~/ipocs -id google-analytics-id-detection -silent <"$tmp_websites" | cut -d '"' -f 2 | anew -q "$tmp_google_analytics_id"
+while read -r id; do
+    udon -s "$id" -silent | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
+done <"$tmp_google_analytics_id"
 
 # https://github.com/Josue87/AnalyticsRelationships
 
-while read website
-do
+while read -r website; do
     analyticsrelationships -u "$website" -ch | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
-done < $tmp_websites
+done <"$tmp_websites"
 ```
 
-### 8) DNS Enum
+### 7) DNS Enum
 
 ```bash
-tmp_dnsrecord=$(mktemp); trap 'rm -rf "$tmp_dns"' EXIT
+tmp_dnsrecord=$(mktemp); trap 'rm -rf "$tmp_dnsrecord"' EXIT
 
 # https://github.com/projectdiscovery/dnsx
 
-cat subdomains_resolved.txt | dnsx -recon -json -silent > $tmp_dnsrecord
+cat subdomains_resolved.txt | dnsx -recon -json -silent >"$tmp_dnsrecord"
 
-cat $tmp_dnsrecord | jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[].name, try .soa[].ns, try .soa[].mailbox' | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
+jq -r 'try .a[], try .aaaa[], try .cname[], try .ns[], try .ptr[], try .mx[], try .soa[].name, try .soa[].ns, try .soa[].mailbox' <"$tmp_dnsrecord" | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
 
 # https://github.com/hakluke/hakip2host
 
-cat $tmp_dnsrecord | jq -r 'try .a[]' | sort -u | hakip2host | cut -d ' ' -f 3 | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
+jq -r 'try .a[]' <"tmp_dnsrecord" | sort -u | hakip2host | cut -d ' ' -f 3 | extract_in_scope_domain | run_shuffledns_resolve | anew subdomains_resolved.txt
 ```
 
 ## Processing
