@@ -38,9 +38,9 @@
 
 ## 😎 Awesome BugBounty
 
-* [Security Response Center](awesome-bugbounty/security-response-center.md)
-* [Vulnerable Applications](awesome/vulnerable-applications.md)
-* [Bug Bounty Tools](awesome/bug-bounty-tools.md)
+* [SRC (Security Response Center)](awesome-bugbounty/src.md)
+* [Hacking Playground](awesome-bugbounty/play.md)
+* [Reconnaissance Tools](awesome/bug-bounty-tools.md)
 * [Awesome Awesomeness](awesome/awesome-awesomeness.md)
 
 ## 💡 Experience

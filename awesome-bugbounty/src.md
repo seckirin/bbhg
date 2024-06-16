@@ -2,7 +2,7 @@
 description: 'Last updated: 2024-06-17'
 ---
 
-# Security Response Center
+# SRC (Security Response Center)
 
 ## Self hosted
 
@@ -25,7 +25,7 @@ description: 'Last updated: 2024-06-17'
 * Z. 字节跳动安全响应中心. [https://src.bytedance.com/](https://src.bytedance.com/)
   * [通告列表](https://src.bytedance.com/announcement)
   * [基本规则 @2024-05-31](https://q2a1fk6o03.feishu.cn/docx/WPOHdeVdLoJgPfx25VmcfVJxnde)
-  * [范围之外 @Latest](https://q2a1fk6o03.feishu.cn/docx/A0LWdFJnook5FfxFV8FceiKDn2c)
+  * [排除范围  (不定期更新)](https://q2a1fk6o03.feishu.cn/docx/A0LWdFJnook5FfxFV8FceiKDn2c)
 
 ## Third-Party Platform
 

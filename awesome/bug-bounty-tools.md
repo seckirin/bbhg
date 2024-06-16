@@ -2,9 +2,7 @@
 description: 'Last validated: 2024-06-02'
 ---
 
-# Bug Bounty Tools
-
-## Reconnaissance
+# Reconnaissance Tools
 
 * [hakrawler](https://github.com/hakluke/hakrawler). 使用爬虫技术抓取 Web 应用程序的端点.
 * [rengine](https://github.com/yogeshojha/rengine). 自动化侦查框架, 简化你的侦查流程.
