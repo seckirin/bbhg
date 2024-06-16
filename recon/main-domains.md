@@ -1,13 +1,4 @@
-# Main Domain
-
-<details>
-
-<summary>Question &#x26; Answer</summary>
-
-1. **为什么是主域 (Main Domain) 而不是根域 (Root Domain)？**根域 (Root Domain) 又称顶级域 (Top-Level Domain)，例如 .com，.net，.org 等，为了避免混淆，这里对主域 (Main Domain) 的定义是**业务运行的主域名**，而不是顶级域。
-2. **我应该选择哪种技术？**在初期阶段，使用**基于公司**的收集技术，通过公司名称和 SRC 最新通告确定业务主域名；在收集了一定的域名后，使用基于域名的收集技术，收集更多的域名资产，在完成了一次基本的信息收集流程之后（域名收集、子域名收集，以及站点探测），如果有需求，再使用**基于网站**的收集技术，以此来拓充资产数量。
-
-</details>
+# Main domains
 
 ## Gathering
 
