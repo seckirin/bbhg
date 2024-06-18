@@ -2,12 +2,17 @@
 
 ## Gathering
 
-### Based on Company
+### 1) Based company name
+
+#### ICP License
 
 ```bash
-# ICP License
+# https://github.com/y00k1sec/hacking-gadgets/blob/main/icpquery.py
+cat companies.txt | icpquery | tee domains_icp.json
+cat domains_icp.json | jq -s 'map(.params.list[]) | group_by(.unitName) | map({unitName: .[0].unitName, domain: map(.domain)})'
 
-# Company Name >> ICP Licensed domains
+
+# Company name to ICP licensed domains websites
 https://www.beianx.cn/search/
 https://0.zone/
 https://www.qcc.com/
@@ -17,29 +22,22 @@ https://www.tianyancha.com/
 https://icp.chinaz.com/
 https://beian.miit.gov.cn/
 
-# 最新 ICP 数据
+# Latest ICP
 https://shangjibao.baidu.com
 
-# 历史 ICP 记录
+# ICP history
 https://icp.chinaz.com/record
-
-# https://github.com/y00k1sec/hacking-gadgets/blob/main/icpquery.py
-echo <company> | icpquery | jq -r 'try .params.list[].domain'
-cat companies.txt | icpquery | jq -r 'try .params.list[].domain' | anew domains.txt
-
-cat companies.txt | icpquery | jq -c '[.params.list[]] | sort_by(.updateRecordTime) | sort_by(.unitName) | .[] | [.domain, .natureName, .unitName, .mainLicence, .serviceLicence, .updateRecordTime]' | anew icpdomains.txt
-cat icpdomains.txt | jq -r '.[0]' | anew domains.txt
 
 # https://github.com/wgpsec/ENScan_GO
 ./enscan-<version> -n <company_name> -type all -field icp
 ./enscan-<version> -f <company.txt> -type all -field icp
 ```
 
-### Based on Domain
+### 2) Based on existing domain
+
+#### Internal NameServer
 
 ```bash
-# Internal NameServer
-
 # 创建结束会话后自动删除的临时文件，用于存储发现的名称服务器及关联主域名
 tmp_nameservers=$(mktemp); trap "rm -rf $tmp_nameservers" EXIT
 tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
@@ -57,11 +55,11 @@ done < $tmp_nameservers
 vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
-### Based on Website
+### 3) Based on existing website
+
+#### SSL/TLS Certificate
 
 ```bash
-# SSL/TLS Certificate
-
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
 tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
@@ -69,9 +67,9 @@ cat websites.txt | httpx -tls-probe -tls-grab -silent -json | jq -r 'try .tls.su
 vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
-```bash
-# CSP (Content Security Policies)
+#### CSP (Content Security Policies)
 
+```bash
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
 tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
@@ -79,9 +77,9 @@ cat websites.txt | httpx -csp-probe -silent -json | jq -r 'try .csp.domains[]' |
 vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
-```bash
-# Favicon Hash
+#### Favicon Hash
 
+```bash
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
 tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
@@ -93,9 +91,9 @@ ifavicon -url https://<domain.com>/favicon.ico
 ifavicon -file /path/to/favicon.ico
 ```
 
-```bash
-# Set-Cookie Headers
+#### Set-Cookie Headers
 
+```bash
 # 创建结束会话后自动删除的临时文件，用于存储发现的关联主域名
 tmp_related_domains=$(mktemp); trap "rm -rf $tmp_related_domains" EXIT
 
@@ -103,9 +101,9 @@ cat websites.txt | httpx -include-response-header -json -silent | jq -r '.header
 vim $tmp_related_domains # 剔除无趣的关联主域名
 ```
 
-```sh
-# Google Analytics ID
+#### Google Analytics ID
 
+```sh
 # Regex: UA-[0-9]+(-[0-9]+)
 
 # https://gist.github.com/y00k1sec/f6b4659b5d4c2d825a6d41a8ae3d73b7
@@ -118,8 +116,10 @@ do
 done < google_analytics_id.txt
 ```
 
+#### Location Headers
+
 ```bash
-# Location Headers (In the future)
+# In the future
 ```
 
 ## Analysis

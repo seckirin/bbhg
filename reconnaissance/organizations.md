@@ -1,6 +1,6 @@
-# Organization
+# Organizations
 
-## Business and Product
+## Analyze business and products
 
 ```sh
 # Encyclopedia
@@ -18,7 +18,7 @@ https://aiqicha.baidu.com
 https://sou.xiaolanben.com
 https://www.qixin.com
 https://www.qichamao.com
-# https://www.crunchbase.com
+https://www.crunchbase.com
 
 # Application (Mobile)
 https://app.diandian.com/search/all-24-US
@@ -66,7 +66,7 @@ bizrecon all <anything>
 # bizrecon <option> <search_term> | pbcopy
 ```
 
-## Corporate Structure
+## Mapping corporate structure
 
 Acquisition, Holding, Subsidiary, Shareholder etc.
 

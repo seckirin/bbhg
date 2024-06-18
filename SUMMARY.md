@@ -4,21 +4,21 @@
   * [Table of Contents](readme/table-of-contents.md)
   * [Bug Bounty Checklists](readme/pentest-checklists.md)
 
-## 🗺️ Recon
+## 🗺️ Reconnaissance
 
-* [Versatile resources](recon/versatile-resources.md)
-* [Organizations](recon/organizations.md)
-* [Main domains](recon/main-domains.md)
-* [Subdomains](recon/subdomains.md)
-* [Port and Services](recon/port-and-services.md)
-* [Subdomain Enum](recon/subdomain-enumeration.md)
-* [Pending Pages](recon/pending-pages/README.md)
-  * [Vulnerability Assessment > Web > Information Gathering](recon/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/README.md)
-    * [Domain Analysis](recon/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/domain-analysis.md)
-    * [Public Information Gathering](recon/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/general.md)
-    * [Fingerprint Web Application](recon/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/fingerprint-web-application.md)
-    * [Mapping the Application](recon/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/mapping-the-application.md)
-  * [Subdomain Handling ?>> Subdomain Enumeration > Website Probing](recon/pending-pages/domain-based.md)
+* [Multipurpose resources](reconnaissance/multipurpose-resources.md)
+* [Organizations](reconnaissance/organizations.md)
+* [Main domains](reconnaissance/main-domains.md)
+* [Subdomains](reconnaissance/subdomains.md)
+* [Port and services](reconnaissance/port-and-services.md)
+* [Subdomain Enum](reconnaissance/subdomain-enumeration.md)
+* [Pending Pages](reconnaissance/pending-pages/README.md)
+  * [Vulnerability Assessment > Web > Information Gathering](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/README.md)
+    * [Domain Analysis](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/domain-analysis.md)
+    * [Public Information Gathering](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/general.md)
+    * [Fingerprint Web Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/fingerprint-web-application.md)
+    * [Mapping the Application](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/mapping-the-application.md)
+  * [Subdomain Handling ?>> Subdomain Enumeration > Website Probing](reconnaissance/pending-pages/domain-based.md)
 
 ## 🧪 Assessment
 
@@ -34,9 +34,9 @@
   * [6379 - Redis](assessment/port/6379-redis.md)
   * [8086 - InfluxDB](assessment/port/8086-influxdb.md)
   * [27017 - MongoDB](assessment/port/27017-mongodb.md)
-* [XSS (Cross-Site Scripting)](assessment/xss-cross-site-scripting.md)
+* [XSS](assessment/xss.md)
 
-## 😎 Awesome
+## 😎 Awesome Bugbounty <a href="#awesome" id="awesome"></a>
 
 * [SRC](awesome/src.md)
 * [Tool](awesome/bug-bounty-tools.md)
