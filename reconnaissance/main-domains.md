@@ -11,8 +11,11 @@
 cat companies.txt | icpquery | tee domains_icp.json
 cat domains_icp.json | jq -s 'map(.params.list[]) | group_by(.unitName) | map({unitName: .[0].unitName, domain: map(.domain)})'
 
+# https://github.com/wgpsec/ENScan_GO
+./enscan-<version> -n <company_name> -type all -field icp
+./enscan-<version> -f <company.txt> -type all -field icp
 
-# Company name to ICP licensed domains websites
+# Company name to ICP licensed domains
 https://www.beianx.cn/search/
 https://0.zone/
 https://www.qcc.com/
@@ -27,10 +30,6 @@ https://shangjibao.baidu.com
 
 # ICP history
 https://icp.chinaz.com/record
-
-# https://github.com/wgpsec/ENScan_GO
-./enscan-<version> -n <company_name> -type all -field icp
-./enscan-<version> -f <company.txt> -type all -field icp
 ```
 
 ### 2) Based on existing domain
