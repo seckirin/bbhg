@@ -11,7 +11,6 @@
 * [Main domains](reconnaissance/main-domains.md)
 * [Subdomains](reconnaissance/subdomains.md)
 * [Port and services](reconnaissance/port-and-services.md)
-* [Subdomain Enum](reconnaissance/subdomain-enumeration.md)
 * [Pending Pages](reconnaissance/pending-pages/README.md)
   * [Vulnerability Assessment > Web > Information Gathering](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/README.md)
     * [Domain Analysis](reconnaissance/pending-pages/vulnerability-assessment-greater-than-web-greater-than-information-gathering/domain-analysis.md)

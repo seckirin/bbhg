@@ -31,7 +31,7 @@ extract_in_scope_domain() {
 
 ## Enumeration
 
-### 1) Bruteforce
+### 1. Bruteforce
 
 ```bash
 # https://github.com/projectdiscovery/shuffledns
@@ -51,7 +51,7 @@ puredns bruteforce "$SUBDOMAINS_HUGE" -d "$domain" -r "$RESOLVERS" --resolvers-t
 puredns bruteforce "$SUBDOMAINS_FULL" -d "$domain" -r "$RESOLVERS" --resolvers-trusted "$RESOLVERS_TRUSTED" --quiet | anew -q subdomins_resolved.txt
 ```
 
-### 2) Passive
+### 2. Passive
 
 ```bash
 # https://crt.sh
@@ -68,7 +68,7 @@ subfinder -d "$domain" -all -es github -provider-config "$SUBFINDER_CONFIG" -sil
 amass enum -passive -d "$domain" -timeout 10 -config "$AMASS_CONFIG" -silent | anew subdomains_unresolved.txt | run_shuffledns_resolve | anew subdomains_resolved.txt
 ```
 
-### 3) Altering
+### 3. Altering
 
 ```bash
 # https://github.com/projectdiscovery/alterx
@@ -87,7 +87,7 @@ gotator -sub subdomains_resolved.txt -perm $PERMUTATIONS -depth 1 -numbers 3 -mi
 ripgen -d subdomains_resolved.txt -w $PERMUTATIONS | head -c 1G | anew -q ripgen.txt
 ```
 
-### 4) AI Regex
+### 4. AI Regex
 
 ```bash
 # https://github.com/cramppet/regulator
@@ -103,7 +103,7 @@ scan_path=$(pwd)
 run_shuffledns_resolve <"$ai_regex" | anew subdomains_resolved.txt
 ```
 
-### 5) NoError
+### 5. NoError
 
 ```bash
 run_noerror_enum() {
@@ -134,7 +134,7 @@ run_noerror_enum() {
 run_noerror_enum <fast|norm|deep>
 ```
 
-### 6) Scraping
+### 6. Scraping
 
 #### Website probing
 
@@ -187,7 +187,7 @@ while read -r website; do
 done <"$tmp_websites"
 ```
 
-### 7) DNS Enum
+### 7. DNS Enum
 
 ```bash
 tmp_dnsrecord=$(mktemp); trap 'rm -rf "$tmp_dnsrecord"' EXIT
@@ -201,3 +201,59 @@ jq -r 'try .a[]' <"tmp_dnsrecord" | sort -u | hakip2host | cut -d ' ' -f 3 | ext
 ```
 
 ## Processing
+
+## Recursive
+
+### 1. Recursive Passive
+
+```bash
+# https://github.com/trickest/dsieve
+dsieve -if subdomains.txt -f 3 -top 10 > dsieve.txt
+
+# https://github.com/owasp-amass/amass/tree/v3.23.3
+amass enum -passive -df dsieve.txt -nf subdomains.txt -timeout 30 -o amass.txt
+
+puredns resolve amass.txt \
+    --rate-limit 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w recursive_passive.txt &&
+    rm dsieve.txt
+```
+
+### 2. Recursive Brute
+
+```bash
+# https://github.com/trickest/dsieve
+dsieve -if subdomains.txt -f 3 -top 10 >dsieve.txt
+
+# https://github.com/resyncgg/ripgen
+ripgen -d dsieve.txt -w $PERMUTATIONS >ripgen.txt
+
+puredns resolve ripgen.txt \
+    --rate-limit 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w recursive_brute_1.txt \
+    &> /dev/null &&
+    rm ripgen.txt
+
+# https://github.com/Josue87/gotator
+gotator -sub recursive_brute-1.txt -perm $PERMUTATIONS \
+    -depth 1 -numbers 3 -mindup -adv -md -silent |
+    anew gotator.txt
+
+puredns resolve gotator.txt \
+    --rate-limit 0 \
+    --rate-limit-trusted 200 \
+    --wildcard-tests 30 \
+    --wildcard-batch 1500000 \
+    -w recursive_brute_2.txt \
+    &> /dev/null &&
+    rm gotator.txt
+
+# View Data
+cat recursive_brute_1.txt recursive_brute_2.txt | sort-u
+```

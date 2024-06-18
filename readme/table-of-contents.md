@@ -15,6 +15,7 @@
   * Preparations
   * Enumeration
   * Processing
+  * Recursive
 * [Port and services](../assessment/port/)
 
 ## II. Assessment
